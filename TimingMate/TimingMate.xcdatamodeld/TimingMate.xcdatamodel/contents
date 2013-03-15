@@ -1,4 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model name="Test1.xcdatamodel" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1" systemVersion="11A491" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
-    <elements/>
+<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="2061" systemVersion="12D78" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="TMRecord" syncable="YES"/>
+    <entity name="TMSeries" syncable="YES">
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="tasks" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TMTask" inverseName="series" inverseEntity="TMTask" syncable="YES"/>
+    </entity>
+    <entity name="TMTask" representedClassName="TMTask" syncable="YES">
+        <attribute name="expectedCompletionTime" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="isFinished" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="series" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="TMSeries" inverseName="tasks" inverseEntity="TMSeries" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="TMTask" positionX="160" positionY="192" width="128" height="105"/>
+        <element name="TMSeries" positionX="160" positionY="192" width="128" height="75"/>
+        <element name="TMRecord" positionX="160" positionY="192" width="128" height="45"/>
+    </elements>
 </model>

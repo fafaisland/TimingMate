@@ -9,6 +9,8 @@
 #import "TMTaskListViewController.h"
 
 #import "TMGlobals.h"
+#import "TMTask.h"
+#import "TMTaskStore.h"
 
 @implementation TMTaskListViewController
 
@@ -16,6 +18,8 @@
 {
     self = [super initWithStyle:UITableViewStylePlain];
     if (self) {
+        [[TMTaskStore sharedStore] createTask];
+
         [self.navigationItem setTitle:TMAppName];
         
         UIBarButtonItem *listButton = [[UIBarButtonItem alloc]
@@ -31,6 +35,30 @@
         [self.navigationItem setRightBarButtonItem:addButton];
     }
     return self;
+}
+
+#pragma mark - Table methods
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return [[TMTaskStore sharedStore] allTasks].count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView
+         cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"UITableViewCell"];
+    
+    if (!cell) {
+        cell = [[UITableViewCell alloc]
+                             initWithStyle:UITableViewCellStyleDefault
+                             reuseIdentifier:@"UITableViewCell"];
+    }
+    
+    TMTask *t = [[[TMTaskStore sharedStore] allTasks] objectAtIndex:indexPath.row];
+    cell.textLabel.text = t.title;
+    
+    return cell;
 }
 
 @end

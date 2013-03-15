@@ -18,6 +18,8 @@
 		0425BE7A16F3A9D30023EF2C /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0425BE7916F3A9D30023EF2C /* Default@2x.png */; };
 		0425BE7C16F3A9D30023EF2C /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0425BE7B16F3A9D30023EF2C /* Default-568h@2x.png */; };
 		0425BE7F16F3A9D30023EF2C /* TimingMate.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0425BE7D16F3A9D30023EF2C /* TimingMate.xcdatamodeld */; };
+		968460EC16F3CE7C00EF2221 /* TMTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 968460EB16F3CE7C00EF2221 /* TMTask.m */; };
+		968460EF16F3CFA700EF2221 /* TMTaskStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 968460EE16F3CFA700EF2221 /* TMTaskStore.m */; };
 		96D4039216F3B46400214323 /* TMTaskListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D4039116F3B46400214323 /* TMTaskListViewController.m */; };
 		96D4039516F3B64800214323 /* TMGlobals.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D4039416F3B64800214323 /* TMGlobals.m */; };
 /* End PBXBuildFile section */
@@ -38,6 +40,10 @@
 		0425BE7916F3A9D30023EF2C /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		0425BE7B16F3A9D30023EF2C /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		0425BE7E16F3A9D30023EF2C /* TimingMate.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TimingMate.xcdatamodel; sourceTree = "<group>"; };
+		968460EA16F3CE7C00EF2221 /* TMTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMTask.h; sourceTree = "<group>"; };
+		968460EB16F3CE7C00EF2221 /* TMTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMTask.m; sourceTree = "<group>"; };
+		968460ED16F3CFA700EF2221 /* TMTaskStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMTaskStore.h; sourceTree = "<group>"; };
+		968460EE16F3CFA700EF2221 /* TMTaskStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMTaskStore.m; sourceTree = "<group>"; };
 		96D4039016F3B46400214323 /* TMTaskListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMTaskListViewController.h; sourceTree = "<group>"; };
 		96D4039116F3B46400214323 /* TMTaskListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMTaskListViewController.m; sourceTree = "<group>"; };
 		96D4039316F3B64800214323 /* TMGlobals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMGlobals.h; sourceTree = "<group>"; };
@@ -96,6 +102,10 @@
 				0425BE7516F3A9D30023EF2C /* TMAppDelegate.m */,
 				96D4039016F3B46400214323 /* TMTaskListViewController.h */,
 				96D4039116F3B46400214323 /* TMTaskListViewController.m */,
+				968460EA16F3CE7C00EF2221 /* TMTask.h */,
+				968460EB16F3CE7C00EF2221 /* TMTask.m */,
+				968460ED16F3CFA700EF2221 /* TMTaskStore.h */,
+				968460EE16F3CFA700EF2221 /* TMTaskStore.m */,
 				0425BE7D16F3A9D30023EF2C /* TimingMate.xcdatamodeld */,
 				0425BE6C16F3A9D30023EF2C /* Supporting Files */,
 			);
@@ -187,6 +197,8 @@
 				0425BE7F16F3A9D30023EF2C /* TimingMate.xcdatamodeld in Sources */,
 				96D4039216F3B46400214323 /* TMTaskListViewController.m in Sources */,
 				96D4039516F3B64800214323 /* TMGlobals.m in Sources */,
+				968460EC16F3CE7C00EF2221 /* TMTask.m in Sources */,
+				968460EF16F3CFA700EF2221 /* TMTaskStore.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
