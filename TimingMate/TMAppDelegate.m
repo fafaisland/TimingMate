@@ -8,6 +8,8 @@
 
 #import "TMAppDelegate.h"
 
+#import "TMTaskListViewController.h"
+
 @implementation TMAppDelegate
 
 @synthesize managedObjectContext = _managedObjectContext;
@@ -18,6 +20,12 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
+    
+    TMTaskListViewController *taskListController = [[TMTaskListViewController alloc] init];
+    UINavigationController *navController = [[UINavigationController alloc]
+                                             initWithRootViewController:taskListController];
+    [self.window setRootViewController:navController];
+    
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     return YES;
