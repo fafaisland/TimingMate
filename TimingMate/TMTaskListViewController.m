@@ -8,7 +8,7 @@
 
 #import "TMTaskListViewController.h"
 
-#import "TMGlobals.h"
+#import "TMEditTaskViewController.h"
 #import "TMTask.h"
 #import "TMTaskStore.h"
 
@@ -20,45 +20,76 @@
     if (self) {
         [[TMTaskStore sharedStore] createTask];
 
-        [self.navigationItem setTitle:TMAppName];
+        [self.navigationItem setTitle:@"All"];
         
         UIBarButtonItem *listButton = [[UIBarButtonItem alloc]
                                        initWithTitle:@"Lists"
                                        style:UIBarButtonItemStylePlain
                                        target:self
                                        action:@selector(showListSelectionView:)];
-        [self.navigationItem setLeftBarButtonItem:listButton];
+        self.navigationItem.leftBarButtonItem = listButton;
         
         UIBarButtonItem *addButton = [[UIBarButtonItem alloc]
                                       initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
                                       target:self action:@selector(addNewTask:)];
-        [self.navigationItem setRightBarButtonItem:addButton];
+        self.navigationItem.rightBarButtonItem = addButton;
     }
     return self;
 }
 
-#pragma mark - Table methods
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+- (void)viewWillAppear:(BOOL)animated
 {
-    return [[TMTaskStore sharedStore] allTasks].count;
+    [super viewWillAppear:animated];
+    [self.tableView reloadData];
 }
+
+#pragma mark - Button handlers
+
+- (void)addNewTask:(id)sender
+{
+    TMTask *t = [[TMTaskStore sharedStore] createTask];
+    
+    TMEditTaskViewController *etvc = [[TMEditTaskViewController alloc]
+                                      initWithTask:t
+                                      asNewTask:YES];
+    
+    [self.navigationController pushViewController:etvc animated:YES];
+}
+
+#pragma mark - Table methods
 
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"UITableViewCell"];
+    static NSString *CellIdentifier = @"Cell";
+
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
     if (!cell) {
         cell = [[UITableViewCell alloc]
                              initWithStyle:UITableViewCellStyleDefault
-                             reuseIdentifier:@"UITableViewCell"];
+                             reuseIdentifier:CellIdentifier];
     }
     
     TMTask *t = [[[TMTaskStore sharedStore] allTasks] objectAtIndex:indexPath.row];
     cell.textLabel.text = t.title;
     
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    TMTask *t = [[[TMTaskStore sharedStore] allTasks] objectAtIndex:indexPath.row];
+    TMEditTaskViewController *etvc = [[TMEditTaskViewController alloc]
+                                      initWithTask:t
+                                      asNewTask:NO];
+    
+    [self.navigationController pushViewController:etvc animated:YES];
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return [[TMTaskStore sharedStore] allTasks].count;
 }
 
 @end
