@@ -9,6 +9,7 @@
 #import "TMAppDelegate.h"
 
 #import "TMTaskListViewController.h"
+#import "TMTaskStore.h"
 
 @implementation TMAppDelegate
 
@@ -18,6 +19,9 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [TMTaskStore sharedStore].context = self.managedObjectContext;
+    [[TMTaskStore sharedStore] loadAllTasks];
+
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     

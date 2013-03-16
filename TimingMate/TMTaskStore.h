@@ -15,11 +15,13 @@
     NSMutableArray *allTasks;
     NSMutableArray *allSeries;
     NSManagedObjectContext *context;
-    NSManagedObjectModel *model;
 }
+
+@property (nonatomic, strong) NSManagedObjectContext *context;
 
 + (TMTaskStore *)sharedStore;
 
+- (void)loadAllTasks;
 - (NSArray *)allTasks;
 - (TMTask *)createTask;
 

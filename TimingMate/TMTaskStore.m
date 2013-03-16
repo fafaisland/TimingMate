@@ -12,33 +12,12 @@
 
 @implementation TMTaskStore
 
+@synthesize context;
+
 - (id)init
 {
     self = [super init];
     if (self) {
-        model = [NSManagedObjectModel mergedModelFromBundles:nil];
-        
-        NSPersistentStoreCoordinator *psc = [[NSPersistentStoreCoordinator alloc]
-                                             initWithManagedObjectModel:model];
-        
-        NSURL *storeURL = [NSURL fileURLWithPath:[self taskArchivePath]];
-        NSError *error = nil;
-        
-        if (![psc addPersistentStoreWithType:NSSQLiteStoreType
-                               configuration:nil
-                                         URL:storeURL
-                                     options:nil
-                                       error:&error]) {
-            [NSException raise:@"Open failed"
-                        format:@"Reason: %@", [error localizedDescription]];
-        }
-        
-        context = [[NSManagedObjectContext alloc] init];
-        [context setPersistentStoreCoordinator:psc];
-        
-        [context setUndoManager:nil];
-        
-        [self loadAllTasks];
     }
     
     return self;
@@ -71,7 +50,8 @@
 {
     if (!allTasks) {
         NSFetchRequest *request = [[NSFetchRequest alloc] init];
-        NSEntityDescription *e = [[model entitiesByName] objectForKey:@"TMTask"];
+        NSEntityDescription *e = [NSEntityDescription entityForName:@"TMTask"
+                                             inManagedObjectContext:context];
         [request setEntity:e];
         NSSortDescriptor *sd = [NSSortDescriptor sortDescriptorWithKey:@"title"
                                                              ascending:YES];
