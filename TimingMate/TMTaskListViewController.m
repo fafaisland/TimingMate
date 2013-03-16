@@ -18,8 +18,6 @@
 {
     self = [super initWithStyle:UITableViewStylePlain];
     if (self) {
-        [[TMTaskStore sharedStore] createTask];
-
         [self.navigationItem setTitle:@"All"];
         
         UIBarButtonItem *listButton = [[UIBarButtonItem alloc]

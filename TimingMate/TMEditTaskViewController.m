@@ -9,6 +9,7 @@
 #import "TMEditTaskViewController.h"
 
 #import "TMTask.h"
+#import "TMTaskStore.h"
 
 @implementation TMEditTaskViewController
 
@@ -81,11 +82,12 @@
 
 - (void)save:(id)sender
 {
-    
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)cancel:(id)sender
 {
+    [[TMTaskStore sharedStore] removeTask:task];
     [self.navigationController popViewControllerAnimated:YES];
 }
 

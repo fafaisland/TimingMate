@@ -39,6 +39,12 @@
     return t;
 }
 
+- (void)removeTask:(TMTask *)t
+{
+    [context deleteObject:t];
+    [allTasks removeObjectIdenticalTo:t];
+}
+
 - (NSString *)taskArchivePath
 {
     NSString *documentDirectory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
@@ -67,6 +73,16 @@
         
         allTasks = [[NSMutableArray alloc] initWithArray:result];
     }
+}
+
+- (BOOL)saveChanges
+{
+    NSError *error = nil;
+    BOOL successful = [context save:&error];
+    if (!successful) {
+        
+    }
+    return successful;
 }
 
 #pragma mark - Static methods
