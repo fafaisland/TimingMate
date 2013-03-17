@@ -6,14 +6,15 @@
         <relationship name="tasks" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TMTask" inverseName="series" inverseEntity="TMTask" syncable="YES"/>
     </entity>
     <entity name="TMTask" representedClassName="TMTask" syncable="YES">
+        <attribute name="creationTime" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="expectedCompletionTime" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="isFinished" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="series" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="TMSeries" inverseName="tasks" inverseEntity="TMSeries" syncable="YES"/>
     </entity>
     <elements>
-        <element name="TMTask" positionX="160" positionY="192" width="128" height="105"/>
-        <element name="TMSeries" positionX="160" positionY="192" width="128" height="75"/>
         <element name="TMRecord" positionX="160" positionY="192" width="128" height="45"/>
+        <element name="TMSeries" positionX="160" positionY="192" width="128" height="75"/>
+        <element name="TMTask" positionX="160" positionY="192" width="128" height="120"/>
     </elements>
 </model>

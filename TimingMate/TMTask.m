@@ -2,7 +2,7 @@
 //  TMTask.m
 //  TimingMate
 //
-//  Created by Long Wei on 3/15/13.
+//  Created by Long Wei on 3/17/13.
 //  Copyright (c) 2013 TimingMate. All rights reserved.
 //
 
@@ -11,23 +11,11 @@
 
 @implementation TMTask
 
-@dynamic title;
 @dynamic expectedCompletionTime;
 @dynamic isFinished;
+@dynamic title;
+@dynamic creationTime;
 @dynamic series;
-
-- (id)init
-{
-    self = [super init];
-    if (self) {
-        [self setValue:@"Task" forKey:@"title"];
-        self.expectedCompletionTime = 0.0;
-        self.isFinished = NO;
-        self.series = nil;
-    }
-
-    return self;
-}
 
 - (void)setDefaultData
 {
@@ -35,6 +23,7 @@
     self.expectedCompletionTime = 0.0;
     self.isFinished = NO;
     self.series = nil;
+    self.creationTime = [NSDate date];
 }
 
 @end

@@ -34,9 +34,12 @@
                                               inManagedObjectContext:context];
     [t setDefaultData];
     
-    [allTasks addObject:t];
-    
     return t;
+}
+
+- (void)addTask:(TMTask *)t
+{
+    [allTasks insertObject:t atIndex:0];
 }
 
 - (void)removeTask:(TMTask *)t

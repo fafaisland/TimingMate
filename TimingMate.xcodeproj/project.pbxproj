@@ -18,9 +18,11 @@
 		0425BE7A16F3A9D30023EF2C /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0425BE7916F3A9D30023EF2C /* Default@2x.png */; };
 		0425BE7C16F3A9D30023EF2C /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0425BE7B16F3A9D30023EF2C /* Default-568h@2x.png */; };
 		0425BE7F16F3A9D30023EF2C /* TimingMate.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0425BE7D16F3A9D30023EF2C /* TimingMate.xcdatamodeld */; };
+		966FCC5F16F5FF3900F4A024 /* TMTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 966FCC5E16F5FF3900F4A024 /* TMTask.m */; };
+		966FCC6316F60B0100F4A024 /* TMTimerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 966FCC6116F60B0100F4A024 /* TMTimerViewController.m */; };
+		966FCC6416F60B0100F4A024 /* TMTimerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 966FCC6216F60B0100F4A024 /* TMTimerViewController.xib */; };
 		9677DE9A16F4CF1900F5F57B /* TMEditTaskViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9677DE9816F4CF1900F5F57B /* TMEditTaskViewController.m */; };
 		9677DE9B16F4CF1900F5F57B /* TMEditTaskViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9677DE9916F4CF1900F5F57B /* TMEditTaskViewController.xib */; };
-		968460EC16F3CE7C00EF2221 /* TMTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 968460EB16F3CE7C00EF2221 /* TMTask.m */; };
 		968460EF16F3CFA700EF2221 /* TMTaskStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 968460EE16F3CFA700EF2221 /* TMTaskStore.m */; };
 		96D4039216F3B46400214323 /* TMTaskListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D4039116F3B46400214323 /* TMTaskListViewController.m */; };
 		96D4039516F3B64800214323 /* TMGlobals.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D4039416F3B64800214323 /* TMGlobals.m */; };
@@ -42,11 +44,14 @@
 		0425BE7916F3A9D30023EF2C /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		0425BE7B16F3A9D30023EF2C /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		0425BE7E16F3A9D30023EF2C /* TimingMate.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TimingMate.xcdatamodel; sourceTree = "<group>"; };
+		966FCC5D16F5FF3900F4A024 /* TMTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMTask.h; sourceTree = "<group>"; };
+		966FCC5E16F5FF3900F4A024 /* TMTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMTask.m; sourceTree = "<group>"; };
+		966FCC6016F60B0100F4A024 /* TMTimerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMTimerViewController.h; sourceTree = "<group>"; };
+		966FCC6116F60B0100F4A024 /* TMTimerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMTimerViewController.m; sourceTree = "<group>"; };
+		966FCC6216F60B0100F4A024 /* TMTimerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TMTimerViewController.xib; sourceTree = "<group>"; };
 		9677DE9716F4CF1900F5F57B /* TMEditTaskViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMEditTaskViewController.h; sourceTree = "<group>"; };
 		9677DE9816F4CF1900F5F57B /* TMEditTaskViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMEditTaskViewController.m; sourceTree = "<group>"; };
 		9677DE9916F4CF1900F5F57B /* TMEditTaskViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TMEditTaskViewController.xib; sourceTree = "<group>"; };
-		968460EA16F3CE7C00EF2221 /* TMTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMTask.h; sourceTree = "<group>"; };
-		968460EB16F3CE7C00EF2221 /* TMTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMTask.m; sourceTree = "<group>"; };
 		968460ED16F3CFA700EF2221 /* TMTaskStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMTaskStore.h; sourceTree = "<group>"; };
 		968460EE16F3CFA700EF2221 /* TMTaskStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMTaskStore.m; sourceTree = "<group>"; };
 		96D4039016F3B46400214323 /* TMTaskListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMTaskListViewController.h; sourceTree = "<group>"; };
@@ -110,8 +115,11 @@
 				9677DE9916F4CF1900F5F57B /* TMEditTaskViewController.xib */,
 				96D4039016F3B46400214323 /* TMTaskListViewController.h */,
 				96D4039116F3B46400214323 /* TMTaskListViewController.m */,
-				968460EA16F3CE7C00EF2221 /* TMTask.h */,
-				968460EB16F3CE7C00EF2221 /* TMTask.m */,
+				966FCC6016F60B0100F4A024 /* TMTimerViewController.h */,
+				966FCC6116F60B0100F4A024 /* TMTimerViewController.m */,
+				966FCC6216F60B0100F4A024 /* TMTimerViewController.xib */,
+				966FCC5D16F5FF3900F4A024 /* TMTask.h */,
+				966FCC5E16F5FF3900F4A024 /* TMTask.m */,
 				968460ED16F3CFA700EF2221 /* TMTaskStore.h */,
 				968460EE16F3CFA700EF2221 /* TMTaskStore.m */,
 				0425BE7D16F3A9D30023EF2C /* TimingMate.xcdatamodeld */,
@@ -191,6 +199,7 @@
 				0425BE7A16F3A9D30023EF2C /* Default@2x.png in Resources */,
 				0425BE7C16F3A9D30023EF2C /* Default-568h@2x.png in Resources */,
 				9677DE9B16F4CF1900F5F57B /* TMEditTaskViewController.xib in Resources */,
+				966FCC6416F60B0100F4A024 /* TMTimerViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -206,9 +215,10 @@
 				0425BE7F16F3A9D30023EF2C /* TimingMate.xcdatamodeld in Sources */,
 				96D4039216F3B46400214323 /* TMTaskListViewController.m in Sources */,
 				96D4039516F3B64800214323 /* TMGlobals.m in Sources */,
-				968460EC16F3CE7C00EF2221 /* TMTask.m in Sources */,
 				968460EF16F3CFA700EF2221 /* TMTaskStore.m in Sources */,
 				9677DE9A16F4CF1900F5F57B /* TMEditTaskViewController.m in Sources */,
+				966FCC5F16F5FF3900F4A024 /* TMTask.m in Sources */,
+				966FCC6316F60B0100F4A024 /* TMTimerViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

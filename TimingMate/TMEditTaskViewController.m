@@ -13,7 +13,7 @@
 
 @implementation TMEditTaskViewController
 
-@synthesize task;
+@synthesize task, dismissBlock;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -56,10 +56,18 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    static NSDateFormatter *dateFormatter = nil;
+    if (dateFormatter == nil) {
+        dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setTimeStyle:NSDateFormatterMediumStyle];
+        [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
+    }
+
     [super viewWillAppear:animated];
     
     titleField.text = task.title;
     expectedCompletionTimeField.text = [NSString stringWithFormat:@"%f", task.expectedCompletionTime];
+    creationTimeLabel.text = [dateFormatter stringFromDate:task.creationTime];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -82,13 +90,12 @@
 
 - (void)save:(id)sender
 {
-    [self.navigationController popViewControllerAnimated:YES];
+    [[self presentingViewController] dismissViewControllerAnimated:YES completion:dismissBlock];
 }
 
 - (void)cancel:(id)sender
 {
-    [[TMTaskStore sharedStore] removeTask:task];
-    [self.navigationController popViewControllerAnimated:YES];
+    [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

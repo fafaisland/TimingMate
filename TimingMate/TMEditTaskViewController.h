@@ -14,10 +14,12 @@
 {
     __weak IBOutlet UITextField *titleField;
     __weak IBOutlet UITextField *expectedCompletionTimeField;
+    __weak IBOutlet UILabel *creationTimeLabel;
 }
 
 - (id)initWithTask:(TMTask *)aTask asNewTask:(BOOL)isNew;
 
 @property (nonatomic, strong) TMTask *task;
+@property (nonatomic, copy) void (^dismissBlock)(void);
 
 @end

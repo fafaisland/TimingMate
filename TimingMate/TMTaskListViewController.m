@@ -11,6 +11,7 @@
 #import "TMEditTaskViewController.h"
 #import "TMTask.h"
 #import "TMTaskStore.h"
+#import "TMTimerViewController.h"
 
 @implementation TMTaskListViewController
 
@@ -50,8 +51,14 @@
     TMEditTaskViewController *etvc = [[TMEditTaskViewController alloc]
                                       initWithTask:t
                                       asNewTask:YES];
-    
-    [self.navigationController pushViewController:etvc animated:YES];
+    [etvc setDismissBlock:^{
+        [[TMTaskStore sharedStore] addTask:t];
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+        [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
+                              withRowAnimation:UITableViewRowAnimationFade];
+    }];
+    UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:etvc];
+    [self presentViewController:nc animated:YES completion:nil];
 }
 
 #pragma mark - Table methods
@@ -78,11 +85,8 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     TMTask *t = [[[TMTaskStore sharedStore] allTasks] objectAtIndex:indexPath.row];
-    TMEditTaskViewController *etvc = [[TMEditTaskViewController alloc]
-                                      initWithTask:t
-                                      asNewTask:NO];
-    
-    [self.navigationController pushViewController:etvc animated:YES];
+    TMTimerViewController *tvc = [[TMTimerViewController alloc] initWithTask:t];
+    [self.navigationController pushViewController:tvc animated:YES];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
