@@ -68,9 +68,24 @@
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
         [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
                               withRowAnimation:UITableViewRowAnimationFade];
+        [self.tableView scrollToRowAtIndexPath:indexPath
+                              atScrollPosition:UITableViewScrollPositionTop
+                                      animated:YES];
     }];
     UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:etvc];
     [self presentViewController:nc animated:YES completion:nil];
+    
+    /*CGRect f = self.navigationController.view.frame;
+     [CATransaction begin];
+     CATransition *tr = [CATransition animation];
+     tr.duration = 0.25;
+     tr.type = kCATransitionMoveIn;
+     tr.subtype = kCATransitionFromLeft;
+     [nc.view.layer addAnimation:tr forKey:nil];
+     nc.view.frame = CGRectMake(f.origin.x, f.origin.y,
+     f.size.width, f.size.height);
+     [self.navigationController.view addSubview:nc.view];
+     [CATransaction commit];*/
 }
 
 #pragma mark - Table methods
