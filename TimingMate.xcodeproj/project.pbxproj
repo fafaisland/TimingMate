@@ -26,6 +26,8 @@
 		968460EF16F3CFA700EF2221 /* TMTaskStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 968460EE16F3CFA700EF2221 /* TMTaskStore.m */; };
 		96D4039216F3B46400214323 /* TMTaskListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D4039116F3B46400214323 /* TMTaskListViewController.m */; };
 		96D4039516F3B64800214323 /* TMGlobals.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D4039416F3B64800214323 /* TMGlobals.m */; };
+		96F3075316F7A20700B0E2EF /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96F3075216F7A20700B0E2EF /* QuartzCore.framework */; };
+		96F3075616F7ACC400B0E2EF /* TMListsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96F3075516F7ACC400B0E2EF /* TMListsViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,6 +60,9 @@
 		96D4039116F3B46400214323 /* TMTaskListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMTaskListViewController.m; sourceTree = "<group>"; };
 		96D4039316F3B64800214323 /* TMGlobals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMGlobals.h; sourceTree = "<group>"; };
 		96D4039416F3B64800214323 /* TMGlobals.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMGlobals.m; sourceTree = "<group>"; };
+		96F3075216F7A20700B0E2EF /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		96F3075416F7ACC400B0E2EF /* TMListsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMListsViewController.h; sourceTree = "<group>"; };
+		96F3075516F7ACC400B0E2EF /* TMListsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMListsViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,6 +70,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				96F3075316F7A20700B0E2EF /* QuartzCore.framework in Frameworks */,
 				0425BE6416F3A9D30023EF2C /* UIKit.framework in Frameworks */,
 				0425BE6616F3A9D30023EF2C /* Foundation.framework in Frameworks */,
 				0425BE6816F3A9D30023EF2C /* CoreGraphics.framework in Frameworks */,
@@ -95,6 +101,7 @@
 		0425BE6216F3A9D30023EF2C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				96F3075216F7A20700B0E2EF /* QuartzCore.framework */,
 				0425BE6316F3A9D30023EF2C /* UIKit.framework */,
 				0425BE6516F3A9D30023EF2C /* Foundation.framework */,
 				0425BE6716F3A9D30023EF2C /* CoreGraphics.framework */,
@@ -113,6 +120,8 @@
 				9677DE9716F4CF1900F5F57B /* TMEditTaskViewController.h */,
 				9677DE9816F4CF1900F5F57B /* TMEditTaskViewController.m */,
 				9677DE9916F4CF1900F5F57B /* TMEditTaskViewController.xib */,
+				96F3075416F7ACC400B0E2EF /* TMListsViewController.h */,
+				96F3075516F7ACC400B0E2EF /* TMListsViewController.m */,
 				96D4039016F3B46400214323 /* TMTaskListViewController.h */,
 				96D4039116F3B46400214323 /* TMTaskListViewController.m */,
 				966FCC6016F60B0100F4A024 /* TMTimerViewController.h */,
@@ -219,6 +228,7 @@
 				9677DE9A16F4CF1900F5F57B /* TMEditTaskViewController.m in Sources */,
 				966FCC5F16F5FF3900F4A024 /* TMTask.m in Sources */,
 				966FCC6316F60B0100F4A024 /* TMTimerViewController.m in Sources */,
+				96F3075616F7ACC400B0E2EF /* TMListsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

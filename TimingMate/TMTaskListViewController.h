@@ -10,4 +10,6 @@
 
 @interface TMTaskListViewController : UITableViewController
 
+- (id)initWithTitle:(NSString *)title;
+
 @end

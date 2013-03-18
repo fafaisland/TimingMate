@@ -19,8 +19,6 @@
 {
     self = [super initWithStyle:UITableViewStylePlain];
     if (self) {
-        [self.navigationItem setTitle:@"All"];
-        
         UIBarButtonItem *listButton = [[UIBarButtonItem alloc]
                                        initWithTitle:@"Lists"
                                        style:UIBarButtonItemStylePlain
@@ -36,6 +34,15 @@
     return self;
 }
 
+- (id)initWithTitle:(NSString *)title
+{
+    self = [self init];
+    if (self) {
+        self.navigationItem.title = title;
+    }
+    return self;
+}
+
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
@@ -43,6 +50,11 @@
 }
 
 #pragma mark - Button handlers
+
+- (void)showListSelectionView:(id)sender
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
 
 - (void)addNewTask:(id)sender
 {
