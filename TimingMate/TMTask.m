@@ -12,12 +12,13 @@
 @implementation TMTask
 
 @dynamic expectedCompletionTime;
+@dynamic isEngaging;
 @dynamic isFinished;
 @dynamic title;
 @dynamic creationTime;
 @dynamic series;
 
-- (void)setDefaultData
+- (void)awakeFromInsert
 {
     self.title = @"Task";
     self.expectedCompletionTime = 0.0;

@@ -64,13 +64,7 @@
                                       initWithTask:t
                                       asNewTask:YES];
     [etvc setDismissBlock:^{
-        [[TMTaskStore sharedStore] addTask:t];
-        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-        [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
-                              withRowAnimation:UITableViewRowAnimationFade];
-        [self.tableView scrollToRowAtIndexPath:indexPath
-                              atScrollPosition:UITableViewScrollPositionTop
-                                      animated:YES];
+        [self addTask:t];
     }];
     UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:etvc];
     [self presentViewController:nc animated:YES completion:nil];
@@ -119,6 +113,19 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return [[TMTaskStore sharedStore] allTasks].count;
+}
+
+#pragma mark - Helper methods
+
+- (void)addTask:(TMTask *)task
+{
+    [[TMTaskStore sharedStore] addTask:task];
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+    [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
+                          withRowAnimation:UITableViewRowAnimationFade];
+    [self.tableView scrollToRowAtIndexPath:indexPath
+                          atScrollPosition:UITableViewScrollPositionTop
+                                  animated:YES];
 }
 
 @end

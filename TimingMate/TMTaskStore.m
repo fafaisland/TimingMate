@@ -8,6 +8,7 @@
 
 #import "TMTaskStore.h"
 
+#import "TMSeries.h"
 #import "TMTask.h"
 
 @implementation TMTaskStore
@@ -18,6 +19,8 @@
 {
     self = [super init];
     if (self) {
+        TMTaskEntityName = NSStringFromClass([TMTask class]);
+        TMSeriesEntityName = NSStringFromClass([TMSeries class]);
     }
     
     return self;
@@ -28,12 +31,30 @@
     return allTasks;
 }
 
+- (NSArray *)allSeries
+{
+    if (!allSeries) {
+        NSFetchRequest *request = [[NSFetchRequest alloc] init];
+        request.entity = [NSEntityDescription
+                          entityForName:TMSeriesEntityName
+                          inManagedObjectContext:context];
+        NSError *error;
+        NSArray *result = [context executeFetchRequest:request
+                                                 error:&error];
+        if (!result) {
+            [NSException raise:@"Fetch failed"
+                        format:@"Reason: %@", [error localizedDescription]];
+        }
+        allSeries = result.mutableCopy;
+    }
+    
+    return allSeries;
+}
+
 - (TMTask *)createTask
 {
-    TMTask *t = [NSEntityDescription insertNewObjectForEntityForName:@"TMTask"
+    TMTask *t = [NSEntityDescription insertNewObjectForEntityForName:TMTaskEntityName
                                               inManagedObjectContext:context];
-    [t setDefaultData];
-    
     return t;
 }
 
@@ -59,9 +80,8 @@
 {
     if (!allTasks) {
         NSFetchRequest *request = [[NSFetchRequest alloc] init];
-        NSEntityDescription *e = [NSEntityDescription entityForName:@"TMTask"
+        request.entity = [NSEntityDescription entityForName:TMTaskEntityName
                                              inManagedObjectContext:context];
-        [request setEntity:e];
         NSSortDescriptor *sd = [NSSortDescriptor sortDescriptorWithKey:@"title"
                                                              ascending:YES];
         [request setSortDescriptors:[NSArray arrayWithObject:sd]];
@@ -76,6 +96,13 @@
         
         allTasks = [[NSMutableArray alloc] initWithArray:result];
     }
+}
+
+- (void)createAndAddSeries
+{
+    TMSeries *t = [NSEntityDescription insertNewObjectForEntityForName:TMSeriesEntityName
+                                              inManagedObjectContext:context];
+    [allSeries addObject:t];
 }
 
 - (BOOL)saveChanges

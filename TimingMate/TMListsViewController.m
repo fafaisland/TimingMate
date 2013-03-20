@@ -9,12 +9,16 @@
 #import "TMListsViewController.h"
 
 #import "TMGlobals.h"
+#import "TMSeries.h"
 #import "TMTaskListViewController.h"
+#import "TMTaskStore.h"
 
 NSString * const TMAllListName = @"All";
-NSInteger const TMAllListIndex = 0;
 NSString * const TMEngagingListName = @"Engaging";
-NSInteger const TMEngagingListIndex = 1;
+
+enum { TMAllListIndex = 0,
+       TMEngagingListIndex = 1,
+       TMDefaultListEnd = 2 };
 
 @implementation TMListsViewController
 
@@ -53,7 +57,8 @@ NSInteger const TMEngagingListIndex = 1;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 2;
+    NSUInteger seriesCount = [[TMTaskStore sharedStore] allSeries].count;
+    return TMDefaultListEnd + seriesCount;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -119,6 +124,22 @@ NSInteger const TMEngagingListIndex = 1;
     [self pushListNamed:[self listNameFromRow:indexPath.row] animated:YES];
 }
 
+#pragma mark - Button handlers
+
+- (void)addNewSeries:(id)sender
+{
+    [[TMTaskStore sharedStore] createAndAddSeries];
+    
+    NSIndexPath *indexPath = [NSIndexPath
+                    indexPathForRow:[[TMTaskStore sharedStore] allSeries].count-1+TMDefaultListEnd
+                    inSection:0];
+    [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
+                          withRowAnimation:UITableViewRowAnimationFade];
+    [self.tableView scrollToRowAtIndexPath:indexPath
+                          atScrollPosition:UITableViewScrollPositionTop
+                                  animated:YES];
+}
+
 #pragma mark - Helper methods
 
 - (NSString *)listNameFromRow:(NSInteger)row
@@ -127,6 +148,10 @@ NSInteger const TMEngagingListIndex = 1;
         return TMAllListName;
     } else if (row == TMEngagingListIndex) {
         return TMEngagingListName;
+    } else {
+        TMSeries *series = [[[TMTaskStore sharedStore] allSeries]
+                            objectAtIndex:(row - TMDefaultListEnd)];
+        return series.title;
     }
     return nil;
 }

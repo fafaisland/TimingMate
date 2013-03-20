@@ -15,6 +15,9 @@
     NSMutableArray *allTasks;
     NSMutableArray *allSeries;
     NSManagedObjectContext *context;
+    
+    NSString *TMTaskEntityName;
+    NSString *TMSeriesEntityName;
 }
 
 @property (nonatomic, strong) NSManagedObjectContext *context;
@@ -25,7 +28,10 @@
 - (void)addTask:(TMTask *)t;
 - (void)removeTask:(TMTask *)t;
 - (void)loadAllTasks;
+- (void)createAndAddSeries;
 - (BOOL)saveChanges;
+
 - (NSArray *)allTasks;
+- (NSArray *)allSeries;
 
 @end

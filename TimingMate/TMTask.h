@@ -13,11 +13,10 @@
 @interface TMTask : NSManagedObject
 
 @property (nonatomic) double expectedCompletionTime;
+@property (nonatomic) BOOL isEngaging;
 @property (nonatomic) BOOL isFinished;
 @property (nonatomic, retain) NSString * title;
 @property (nonatomic, retain) NSDate * creationTime;
 @property (nonatomic, retain) NSManagedObject *series;
-
-- (void)setDefaultData;
 
 @end
