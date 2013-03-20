@@ -34,4 +34,6 @@
 - (NSArray *)allTasks;
 - (NSArray *)allSeries;
 
+- (NSInteger)indexOfSeriesByTitle:(NSString *)title;
+
 @end

@@ -105,6 +105,15 @@
     [allSeries addObject:t];
 }
 
+- (NSInteger)indexOfSeriesByTitle:(NSString *)title
+{
+    for (NSInteger i = 0; i < allSeries.count; i++) {
+        if ([[allSeries objectAtIndex:i] title] == title)
+            return i;
+    }
+    return -1;
+}
+
 - (BOOL)saveChanges
 {
     NSError *error = nil;

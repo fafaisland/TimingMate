@@ -17,7 +17,9 @@
 
 - (void)awakeFromInsert
 {
-    self.title = @"Test Series";
+    static int counter = 0;
+
+    self.title = [NSString stringWithFormat:@"Test Series %d", counter++];
 }
 
 @end

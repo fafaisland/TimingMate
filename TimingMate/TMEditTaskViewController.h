@@ -11,13 +11,20 @@
 @class TMTask;
 
 @interface TMEditTaskViewController : UIViewController
+    <UIPickerViewDelegate, UIPickerViewDataSource>
 {
     __weak IBOutlet UITextField *titleField;
     __weak IBOutlet UITextField *expectedCompletionTimeField;
     __weak IBOutlet UILabel *creationTimeLabel;
+    __weak IBOutlet UIButton *seriesButton;
+
+    UIPickerView *pickerView;
+    UIActionSheet *actionSheet;
+    NSMutableArray *pickerArray;
 }
 
 - (id)initWithTask:(TMTask *)aTask asNewTask:(BOOL)isNew;
+- (IBAction)showPicker:(id)sender;
 
 @property (nonatomic, strong) TMTask *task;
 @property (nonatomic, copy) void (^dismissBlock)(void);
