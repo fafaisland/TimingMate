@@ -12,9 +12,17 @@
 
 @interface TMTimerViewController : UIViewController
 {
+    NSTimer *timer;
+    int seconds;
+    IBOutlet UILabel *timeField;
+    __weak IBOutlet UIButton *stopButton;
+    __weak IBOutlet UIButton *startButton;
+    
 }
 
 - (id)initWithTask:(TMTask *)aTask;
+- (IBAction)startTimer:(id)sender;
+- (IBAction)endTimer:(id)sender;
 
 @property (nonatomic, strong) TMTask *task;
 

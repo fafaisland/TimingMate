@@ -10,6 +10,7 @@
 
 #import "TMEditTaskViewController.h"
 #import "TMTask.h"
+#import "TMTimer.h"
 
 @implementation TMTimerViewController
 
@@ -20,8 +21,41 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        stopButton.hidden = YES;
     }
     return self;
+}
+
+- (IBAction)startTimer:(id)sender{
+    timer = [self createTimer];
+    startButton.hidden = YES;
+    stopButton.hidden = NO;
+    
+}
+- (IBAction)endTimer:(id)sender{
+    [timer invalidate];
+    startButton.hidden = NO;
+    stopButton.hidden = YES;
+
+}
+
+- (NSTimer*)createTimer {
+    
+    // create timer on run loop
+    return [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timerController:) userInfo:nil repeats:YES];
+}
+
+- (void)timerController:(id)sender {
+    seconds++;
+    [timeField setText:[self getTimeStr:seconds]];
+}
+
+- (NSString*)getTimeStr : (int) secondsElapsed {
+    int hours = secondsElapsed / 3600;
+    int secondsLeft = secondsElapsed - hours*3600;
+    int seconds = secondsLeft % 60;
+    int minutes = secondsLeft / 60;
+    return [NSString stringWithFormat:@"%02d:%02d:%02d", hours,minutes, seconds];
 }
 
 - (id)initWithTask:(TMTask *)aTask
