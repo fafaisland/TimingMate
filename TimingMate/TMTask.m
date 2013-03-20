@@ -8,7 +8,6 @@
 
 #import "TMTask.h"
 
-
 @implementation TMTask
 
 @dynamic expectedCompletionTime;

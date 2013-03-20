@@ -8,8 +8,13 @@
 
 #import "TMEditTaskViewController.h"
 
+#import "TMSeries.h"
 #import "TMTask.h"
 #import "TMTaskStore.h"
+
+NSString * const TMSeriesNone = @"None";
+enum { TMSeriesNoneIndex = 0,
+       TMDefaultSeriesEnd = 1 };
 
 @implementation TMEditTaskViewController
 
@@ -68,6 +73,16 @@
     titleField.text = task.title;
     expectedCompletionTimeField.text = [NSString stringWithFormat:@"%f", task.expectedCompletionTime];
     creationTimeLabel.text = [dateFormatter stringFromDate:task.creationTime];
+    
+    TMSeries *series = [task series];
+    NSString *selectedStr;
+    if (series)
+        selectedStr = series.title;
+    else
+        selectedStr = TMSeriesNone;
+    [seriesButton setTitle:selectedStr forState:UIControlStateNormal];
+    
+    [self initializePickerWithString:selectedStr];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -78,6 +93,10 @@
     
     task.title = titleField.text;
     task.expectedCompletionTime = expectedCompletionTimeField.text.floatValue;
+    
+    TMSeries *selectedSeries = [self selectedSeries];
+    if (selectedSeries)
+        [selectedSeries addTasksObject:task];
 }
 
 - (void)didReceiveMemoryWarning
@@ -86,7 +105,7 @@
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark - Button handlers
+#pragma mark - Event handlers
 
 - (void)save:(id)sender
 {
@@ -96,6 +115,105 @@
 - (void)cancel:(id)sender
 {
     [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)showPicker:(id)sender
+{
+    if (!actionSheet)
+        actionSheet = [[UIActionSheet alloc] initWithTitle:nil
+                                                  delegate:nil
+                                         cancelButtonTitle:nil
+                                    destructiveButtonTitle:nil
+                                         otherButtonTitles:nil];
+    
+    [actionSheet setActionSheetStyle:UIActionSheetStyleBlackTranslucent];
+    
+    [actionSheet addSubview:pickerView];
+    
+    UISegmentedControl *closeButton = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObject:@"Close"]];
+    closeButton.momentary = YES;
+    closeButton.frame = CGRectMake(260, 7.0f, 50.0f, 30.0f);
+    closeButton.segmentedControlStyle = UISegmentedControlStyleBar;
+    closeButton.tintColor = [UIColor blackColor];
+    [closeButton addTarget:self action:@selector(dismissActionSheet:) forControlEvents:UIControlEventValueChanged];
+    [actionSheet addSubview:closeButton];
+    
+    [actionSheet showInView:[[UIApplication sharedApplication] keyWindow]];
+    
+    [actionSheet setBounds:CGRectMake(0, 0, 320, 485)];
+}
+
+- (void)dismissActionSheet:(id)sender
+{
+    [actionSheet dismissWithClickedButtonIndex:0 animated:YES];
+}
+
+#pragma mark - Picker methods
+
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
+{
+    return 1;
+}
+
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
+{
+    return pickerArray.count;
+}
+
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
+{
+    [seriesButton setTitle:[pickerArray objectAtIndex:row]
+                                             forState:UIControlStateNormal];
+}
+
+- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
+{
+    return [pickerArray objectAtIndex:row];
+}
+
+#pragma mark - Helper methods
+
+- (void)initializePickerWithString:(NSString *)s
+{
+    if (!pickerView) {
+        CGRect pickerFrame = CGRectMake(0, 40, 0, 0);
+        pickerView = [[UIPickerView alloc] initWithFrame:pickerFrame];
+        
+        pickerArray = [NSMutableArray array];
+        [pickerArray addObject:TMSeriesNone];
+        
+        NSArray *allSeries = [[TMTaskStore sharedStore] allSeries];
+        for (TMSeries *series in allSeries) {
+            [pickerArray addObject:series.title];
+        }
+        
+        pickerView.showsSelectionIndicator = YES;
+        pickerView.dataSource = self;
+        pickerView.delegate = self;
+    }
+    
+    NSInteger row = 0;
+    if (s == TMSeriesNone) {
+        row = TMSeriesNoneIndex;
+    } else {
+        NSInteger idx = [[TMTaskStore sharedStore] indexOfSeriesByTitle:s];
+        if (idx >= 0)
+            row = TMDefaultSeriesEnd + idx;
+    }
+
+    [pickerView selectRow:row inComponent:0 animated:NO];
+}
+
+- (TMSeries *)selectedSeries
+{
+    if (!pickerView)
+        return nil;
+
+    NSInteger row = [pickerView selectedRowInComponent:0];
+    if (row < TMDefaultSeriesEnd)
+        return nil;
+
+    return [[[TMTaskStore sharedStore] allSeries] objectAtIndex:row-TMDefaultSeriesEnd];
 }
 
 @end

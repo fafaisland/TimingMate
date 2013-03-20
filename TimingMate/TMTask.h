@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
+@class TMSeries;
 
 @interface TMTask : NSManagedObject
 
@@ -17,6 +18,6 @@
 @property (nonatomic) BOOL isFinished;
 @property (nonatomic, retain) NSString * title;
 @property (nonatomic, retain) NSDate * creationTime;
-@property (nonatomic, retain) NSManagedObject *series;
+@property (nonatomic, retain) TMSeries *series;
 
 @end
