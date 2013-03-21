@@ -10,7 +10,6 @@
 
 #import "TMEditTaskViewController.h"
 #import "TMTask.h"
-#import "TMTimer.h"
 
 @implementation TMTimerViewController
 
@@ -21,41 +20,8 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        stopButton.hidden = YES;
     }
     return self;
-}
-
-- (IBAction)startTimer:(id)sender{
-    timer = [self createTimer];
-    startButton.hidden = YES;
-    stopButton.hidden = NO;
-    
-}
-- (IBAction)endTimer:(id)sender{
-    [timer invalidate];
-    startButton.hidden = NO;
-    stopButton.hidden = YES;
-
-}
-
-- (NSTimer*)createTimer {
-    
-    // create timer on run loop
-    return [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timerController:) userInfo:nil repeats:YES];
-}
-
-- (void)timerController:(id)sender {
-    seconds++;
-    [timeField setText:[self getTimeStr:seconds]];
-}
-
-- (NSString*)getTimeStr : (int) secondsElapsed {
-    int hours = secondsElapsed / 3600;
-    int secondsLeft = secondsElapsed - hours*3600;
-    int seconds = secondsLeft % 60;
-    int minutes = secondsLeft / 60;
-    return [NSString stringWithFormat:@"%02d:%02d:%02d", hours,minutes, seconds];
 }
 
 - (id)initWithTask:(TMTask *)aTask
@@ -76,6 +42,13 @@
     return self;
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+
+    [self toggleButton:stopButton visible:NO];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -88,6 +61,34 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark - Timer methods
+
+- (NSTimer*)createTimer
+{
+    return [NSTimer scheduledTimerWithTimeInterval:1.0
+                                            target:self
+                                          selector:@selector(incrementTimer)
+                                          userInfo:nil
+                                           repeats:YES];
+}
+
+- (void)incrementTimer
+{
+    elapsedTimeInSeconds += 1;
+    [timeField setText:[self stringFromElapsedTime]];
+}
+
+- (NSString *)stringFromElapsedTime
+{
+    int hours = elapsedTimeInSeconds / 3600;
+    int secondsLeft = elapsedTimeInSeconds % 3600;
+    
+    int minutes = secondsLeft / 60;
+    int seconds = secondsLeft % 60;
+    
+    return [NSString stringWithFormat:@"%02d:%02d:%02d", hours, minutes, seconds];
+}
+
 #pragma mark - Button handlers
 
 - (void)editTask:(id)sender
@@ -96,6 +97,33 @@
                                        initWithTask:task
                                        asNewTask:NO];
     [self.navigationController pushViewController:etvc animated:YES];
+}
+
+- (IBAction)startTimer:(id)sender
+{
+    timer = [self createTimer];
+    [self toggleButton:startButton visible:NO];
+    [self toggleButton:stopButton visible:YES];
+}
+
+- (IBAction)endTimer:(id)sender
+{
+    [timer invalidate];
+    [self toggleButton:startButton visible:YES];
+    [self toggleButton:stopButton visible:NO];
+}
+
+#pragma mark - Helper methods
+
+- (void)toggleButton:(UIBarButtonItem *)button visible:(BOOL)visible
+{
+    NSMutableArray *buttons = [buttonBar.items mutableCopy];
+    if (visible) {
+        [buttons addObject:button];
+    } else {
+        [buttons removeObject:button];
+    }
+    buttonBar.items = buttons;
 }
 
 @end

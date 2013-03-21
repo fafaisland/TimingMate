@@ -97,6 +97,8 @@ enum { TMSeriesNoneIndex = 0,
     TMSeries *selectedSeries = [self selectedSeries];
     if (selectedSeries)
         [selectedSeries addTasksObject:task];
+    else
+        [task.series removeTasksObject:task];
 }
 
 - (void)didReceiveMemoryWarning

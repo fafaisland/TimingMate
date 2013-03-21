@@ -13,11 +13,11 @@
 @interface TMTimerViewController : UIViewController
 {
     NSTimer *timer;
-    int seconds;
+    int elapsedTimeInSeconds;
     IBOutlet UILabel *timeField;
-    __weak IBOutlet UIButton *stopButton;
-    __weak IBOutlet UIButton *startButton;
-    
+    IBOutlet UIBarButtonItem *startButton;
+    IBOutlet UIBarButtonItem *stopButton;
+    __weak IBOutlet UIToolbar *buttonBar;
 }
 
 - (id)initWithTask:(TMTask *)aTask;
