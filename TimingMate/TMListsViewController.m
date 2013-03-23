@@ -163,10 +163,32 @@ enum { TMAllListIndex = 0,
     [self pushListNamed:TMAllListName animated:NO];
 }
 
+- (void (^)(NSMutableArray*))listGenerationBlockFromName:(NSString *)name
+{
+    if (name == TMAllListName)
+        return ^(NSMutableArray * list){
+                   [list removeAllObjects];
+                   [list addObjectsFromArray:[[TMTaskStore sharedStore] allTasks]];
+               };
+    else if (name == TMEngagingListName) {
+        return nil;
+    } else {
+        return ^(NSMutableArray * list){
+            [list removeAllObjects];
+            NSSet *tasks = [[TMSeriesStore sharedStore] seriesByTitle:name].tasks;
+            for (TMTask *task in tasks) {
+                [list addObject:task];
+            }
+        };
+    }
+}
+
 - (void)pushListNamed:(NSString *)name animated:(BOOL)animated
 {
     TMTaskListViewController *taskListController = [[TMTaskListViewController alloc]
-                                                    initWithTitle:name];
+                                                    initWithTitle:name
+                                                    listGenerationBlock:
+                                                    [self listGenerationBlockFromName:name]];
     [self.navigationController pushViewController:taskListController animated:animated];
 }
 

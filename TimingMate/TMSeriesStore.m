@@ -46,18 +46,24 @@
 
 - (void)createAndAddSeries
 {
-    TMSeries *t = [NSEntityDescription insertNewObjectForEntityForName:TMSeriesEntityName
+    TMSeries *s = [NSEntityDescription insertNewObjectForEntityForName:TMSeriesEntityName
                                                 inManagedObjectContext:context];
-    [allSeries addObject:t];
+    [allSeries addObject:s];
 }
 
 - (NSInteger)indexOfSeriesByTitle:(NSString *)title
 {
+    return [allSeries indexOfObject:[self seriesByTitle:title]];
+}
+
+- (TMSeries *)seriesByTitle:(NSString *)title
+{
     for (NSInteger i = 0; i < allSeries.count; i++) {
-        if ([[allSeries objectAtIndex:i] title] == title)
-            return i;
+        TMSeries *s = [allSeries objectAtIndex:i];
+        if (s.title == title)
+            return s;
     }
-    return -1;
+    return nil;
 }
 
 #pragma mark - Static methods

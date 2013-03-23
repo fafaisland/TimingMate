@@ -9,7 +9,12 @@
 #import <Foundation/Foundation.h>
 
 @interface TMTaskListViewController : UITableViewController
+{
+    NSMutableArray *tasks;
+}
 
-- (id)initWithTitle:(NSString *)title;
+@property (nonatomic, copy) void (^listGenerationBlock)(NSMutableArray *);
+
+- (id)initWithTitle:(NSString *)title listGenerationBlock:(void (^)(NSMutableArray*))block;
 
 @end

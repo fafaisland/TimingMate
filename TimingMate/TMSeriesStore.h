@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@class TMTask;
+@class TMSeries;
 
 @interface TMSeriesStore : NSObject
 {
@@ -26,5 +26,6 @@
 - (NSArray *)allSeries;
 
 - (NSInteger)indexOfSeriesByTitle:(NSString *)title;
+- (TMSeries *)seriesByTitle:(NSString *)title;
 
 @end

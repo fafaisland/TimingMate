@@ -15,6 +15,8 @@
 
 @implementation TMTaskListViewController
 
+@synthesize listGenerationBlock;
+
 - (id)init
 {
     self = [super initWithStyle:UITableViewStylePlain];
@@ -35,10 +37,15 @@
 }
 
 - (id)initWithTitle:(NSString *)title
+        listGenerationBlock:(void (^)(NSMutableArray*))block
 {
     self = [self init];
     if (self) {
         self.navigationItem.title = title;
+        self.listGenerationBlock = block;
+        
+        tasks = [NSMutableArray array];
+        block(tasks);
     }
     return self;
 }
@@ -97,7 +104,7 @@
                              reuseIdentifier:CellIdentifier];
     }
     
-    TMTask *t = [[[TMTaskStore sharedStore] allTasks] objectAtIndex:indexPath.row];
+    TMTask *t = [tasks objectAtIndex:indexPath.row];
     cell.textLabel.text = t.title;
     
     return cell;
@@ -112,7 +119,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [[TMTaskStore sharedStore] allTasks].count;
+    return tasks.count;
 }
 
 #pragma mark - Helper methods
@@ -120,12 +127,18 @@
 - (void)addTask:(TMTask *)task
 {
     [[TMTaskStore sharedStore] addTask:task];
+    
+    listGenerationBlock(tasks);
+    [self.tableView reloadData];
+    
+    /*
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
     [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
                           withRowAnimation:UITableViewRowAnimationFade];
     [self.tableView scrollToRowAtIndexPath:indexPath
                           atScrollPosition:UITableViewScrollPositionTop
                                   animated:YES];
+     */
 }
 
 @end
