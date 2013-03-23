@@ -32,7 +32,6 @@
 }
 
 - (TMRecord *)createRecordBeginningAt:(NSDate *)beginTime
-                             endingAt:(NSDate *)endTime
                         withTimeSpent:(int32_t)timeSpent
 {
     NSString *TMRecordEntityName = NSStringFromClass([TMRecord class]);
@@ -40,7 +39,6 @@
     TMRecord *record = [NSEntityDescription insertNewObjectForEntityForName:TMRecordEntityName
                                         inManagedObjectContext:[TMTaskStore sharedStore].context];
     record.beginTime = beginTime;
-    record.endTime = endTime;
     record.timeSpent = timeSpent;
     
     [self addRecordsObject:record];

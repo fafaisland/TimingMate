@@ -32,9 +32,10 @@
     self = [super init];
     if (self) {
         task = aTask;
-        
+        isTiming = false;
         self.navigationItem.title = task.title;
         elapsedTimeInSeconds = 0;
+        elapsedTimePerRecord = 0;
         editButton = [[UIBarButtonItem alloc]
                                         initWithBarButtonSystemItem:UIBarButtonSystemItemEdit
                                         target:self
@@ -84,6 +85,7 @@
 - (void)incrementTimer
 {
     elapsedTimeInSeconds += 1;
+    elapsedTimePerRecord += 1;
     [timeField setText:[self stringFromElapsedTime]];
 }
 
@@ -99,24 +101,10 @@
 }
 
 #pragma mark - Record methods
-- (IBAction)showRecord:(id)sender
-{
-    [self createRecord];
-    [recordDetail setText:[self stringFromRecord]];
-}
-
 - (void)createRecord
 {
     record = [task createRecordBeginningAt:recordBeginTime
-                                  endingAt:recordEndTime
-                             withTimeSpent:elapsedTimeInSeconds];
-    [self endTimer:nil];
-}
-
-- (NSString *)stringFromRecord
-{
-    return [NSString stringWithFormat:@"%@:%@:%d", record.beginTime,
-            record.endTime, record.timeSpent];
+                                withTimeSpent:elapsedTimePerRecord];
 }
 
 #pragma mark - Button handlers
@@ -131,27 +119,33 @@
 
 - (IBAction)startTimer:(id)sender
 {
-    if (elapsedTimeInSeconds == 0)
-    {
-        recordBeginTime = [[NSDate alloc] init];
-        NSLog(@"Begin Time %@",recordBeginTime);
-    }
+    recordBeginTime = [[NSDate alloc] init];
+    NSLog(@"Begin Time %@",recordBeginTime);
+    elapsedTimePerRecord = 0;
+    isTiming = true;
     timer = [self createTimer];
     [self toggleStartButtonVisible:NO];
 }
 
 - (IBAction)endTimer:(id)sender
 {
-    [timer invalidate];
-    recordEndTime = [[NSDate alloc] init];
-    NSLog(@"Ending Time %@",recordEndTime);
-    [self toggleStartButtonVisible:YES];
+    if (isTiming == true)
+    {
+        isTiming = false;
+        [timer invalidate];
+        [self createRecord];
+        NSLog(@"record info %@ %d",record.beginTime, record.timeSpent);
+        [self toggleStartButtonVisible:YES];
+    }
+    
 }
 
 - (IBAction)changeToRecordListView:(id)sender
 {
+    records = task.records;
     TMRecordListViewController *rlvc = [[TMRecordListViewController alloc]
-                                        initWithStyle:UITableViewStylePlain];
+                                        initWithStyle:UITableViewStylePlain
+                                        withRecords:records];
     [self.navigationController pushViewController:rlvc animated:YES];
 }
 

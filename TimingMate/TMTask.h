@@ -30,7 +30,6 @@
 - (void)removeRecords:(NSSet *)values;
 
 - (TMRecord *)createRecordBeginningAt:(NSDate *)beginTime
-                             endingAt:(NSDate *)endTime
                         withTimeSpent:(int32_t)timeSpent;
 
 @end

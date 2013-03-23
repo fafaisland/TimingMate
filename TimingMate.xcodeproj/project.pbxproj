@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0414FE8416FE33F600ADE44B /* TMRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 0414FE8316FE33F600ADE44B /* TMRecord.m */; };
 		0425BE6416F3A9D30023EF2C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0425BE6316F3A9D30023EF2C /* UIKit.framework */; };
 		0425BE6616F3A9D30023EF2C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0425BE6516F3A9D30023EF2C /* Foundation.framework */; };
 		0425BE6816F3A9D30023EF2C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0425BE6716F3A9D30023EF2C /* CoreGraphics.framework */; };
@@ -19,7 +20,6 @@
 		0425BE7C16F3A9D30023EF2C /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0425BE7B16F3A9D30023EF2C /* Default-568h@2x.png */; };
 		0425BE7F16F3A9D30023EF2C /* TimingMate.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0425BE7D16F3A9D30023EF2C /* TimingMate.xcdatamodeld */; };
 		047D7F5516FD22D600DD7B1C /* TMRecordListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 047D7F5416FD22D600DD7B1C /* TMRecordListViewController.m */; };
-		047D7F5F16FD4DF000DD7B1C /* TMRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 047D7F5E16FD4DF000DD7B1C /* TMRecord.m */; };
 		962DFC6E16F952B200E5F8C8 /* TMSeries.m in Sources */ = {isa = PBXBuildFile; fileRef = 962DFC6D16F952B200E5F8C8 /* TMSeries.m */; };
 		966E516216FE05250039B175 /* TMTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 966E516116FE05250039B175 /* TMTask.m */; };
 		966E516516FE156D0039B175 /* TMSeriesStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 966E516416FE156D0039B175 /* TMSeriesStore.m */; };
@@ -35,6 +35,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0414FE8216FE33E800ADE44B /* TMRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMRecord.h; sourceTree = "<group>"; };
+		0414FE8316FE33F600ADE44B /* TMRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMRecord.m; sourceTree = "<group>"; };
 		0425BE5F16F3A9D30023EF2C /* TimingMate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TimingMate.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0425BE6316F3A9D30023EF2C /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		0425BE6516F3A9D30023EF2C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -53,8 +55,6 @@
 		044A3F1A16FA5FDB0078FCCA /* TMTimerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMTimerViewController.h; sourceTree = "<group>"; };
 		047D7F5316FD22D600DD7B1C /* TMRecordListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMRecordListViewController.h; sourceTree = "<group>"; };
 		047D7F5416FD22D600DD7B1C /* TMRecordListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMRecordListViewController.m; sourceTree = "<group>"; };
-		047D7F5D16FD4DF000DD7B1C /* TMRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMRecord.h; sourceTree = "<group>"; };
-		047D7F5E16FD4DF000DD7B1C /* TMRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMRecord.m; sourceTree = "<group>"; };
 		962DFC6C16F952B200E5F8C8 /* TMSeries.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMSeries.h; sourceTree = "<group>"; };
 		962DFC6D16F952B200E5F8C8 /* TMSeries.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMSeries.m; sourceTree = "<group>"; };
 		966E516016FE05250039B175 /* TMTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMTask.h; sourceTree = "<group>"; };
@@ -129,20 +129,20 @@
 				96D4039416F3B64800214323 /* TMGlobals.m */,
 				0425BE7416F3A9D30023EF2C /* TMAppDelegate.h */,
 				0425BE7516F3A9D30023EF2C /* TMAppDelegate.m */,
-				9677DE9716F4CF1900F5F57B /* TMEditTaskViewController.h */,
-				9677DE9816F4CF1900F5F57B /* TMEditTaskViewController.m */,
-				9677DE9916F4CF1900F5F57B /* TMEditTaskViewController.xib */,
 				96F3075416F7ACC400B0E2EF /* TMListsViewController.h */,
 				96F3075516F7ACC400B0E2EF /* TMListsViewController.m */,
 				96D4039016F3B46400214323 /* TMTaskListViewController.h */,
 				96D4039116F3B46400214323 /* TMTaskListViewController.m */,
+				9677DE9716F4CF1900F5F57B /* TMEditTaskViewController.h */,
+				9677DE9816F4CF1900F5F57B /* TMEditTaskViewController.m */,
+				9677DE9916F4CF1900F5F57B /* TMEditTaskViewController.xib */,
 				044A3F1A16FA5FDB0078FCCA /* TMTimerViewController.h */,
 				966FCC6116F60B0100F4A024 /* TMTimerViewController.m */,
 				966FCC6216F60B0100F4A024 /* TMTimerViewController.xib */,
 				047D7F5316FD22D600DD7B1C /* TMRecordListViewController.h */,
 				047D7F5416FD22D600DD7B1C /* TMRecordListViewController.m */,
-				047D7F5D16FD4DF000DD7B1C /* TMRecord.h */,
-				047D7F5E16FD4DF000DD7B1C /* TMRecord.m */,
+				0414FE8316FE33F600ADE44B /* TMRecord.m */,
+				0414FE8216FE33E800ADE44B /* TMRecord.h */,
 				962DFC6C16F952B200E5F8C8 /* TMSeries.h */,
 				962DFC6D16F952B200E5F8C8 /* TMSeries.m */,
 				966E516016FE05250039B175 /* TMTask.h */,
@@ -250,9 +250,9 @@
 				96F3075616F7ACC400B0E2EF /* TMListsViewController.m in Sources */,
 				962DFC6E16F952B200E5F8C8 /* TMSeries.m in Sources */,
 				047D7F5516FD22D600DD7B1C /* TMRecordListViewController.m in Sources */,
-				047D7F5F16FD4DF000DD7B1C /* TMRecord.m in Sources */,
 				966E516216FE05250039B175 /* TMTask.m in Sources */,
 				966E516516FE156D0039B175 /* TMSeriesStore.m in Sources */,
+				0414FE8416FE33F600ADE44B /* TMRecord.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

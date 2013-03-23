@@ -7,14 +7,18 @@
 //
 
 #import "TMRecordListViewController.h"
+#import "TMRecord.h"
 
 @implementation TMRecordListViewController
 
 - (id)initWithStyle:(UITableViewStyle)style
+withRecords:(NSSet *)records
+
 {
     self = [super initWithStyle:style];
     if (self) {
-        // Custom initialization
+        recordsArray = [records allObjects];
+        
     }
     return self;
 }
@@ -45,16 +49,22 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 0;
+    return recordsArray.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
-    // Configure the cell...
+    if (!cell) {
+        cell = [[UITableViewCell alloc]
+                initWithStyle:UITableViewCellStyleDefault
+                reuseIdentifier:CellIdentifier];
+    }
     
+    TMRecord *r = [recordsArray objectAtIndex:indexPath.row];
+    cell.textLabel.text = [self stringFromRecord:r];
     return cell;
 }
 
@@ -109,5 +119,9 @@
      [self.navigationController pushViewController:detailViewController animated:YES];
      */
 }
-
+#pragma mark - Helper Method
+- (NSString *)stringFromRecord:(TMRecord *)record
+{
+    return [NSString stringWithFormat:@"%@:%d", record.beginTime, record.timeSpent];
+}
 @end

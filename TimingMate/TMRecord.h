@@ -14,7 +14,6 @@
 @interface TMRecord : NSManagedObject
 
 @property (nonatomic, retain) NSDate * beginTime;
-@property (nonatomic, retain) NSDate * endTime;
 @property (nonatomic) int32_t timeSpent;
 @property (nonatomic, retain) TMTask *task;
 

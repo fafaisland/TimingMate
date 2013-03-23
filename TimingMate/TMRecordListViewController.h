@@ -9,5 +9,10 @@
 #import <UIKit/UIKit.h>
 
 @interface TMRecordListViewController : UITableViewController
+{
+    NSArray *recordsArray;
+}
+- (id)initWithStyle:(UITableViewStyle)style
+        withRecords:(NSSet *)reocrds;
 
 @end

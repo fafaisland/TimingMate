@@ -13,24 +13,26 @@
 
 @interface TMTimerViewController : UIViewController
 {
+    //timer
     NSTimer *timer;
     int elapsedTimeInSeconds;
+    int elapsedTimePerRecord;
     NSDate *recordBeginTime;
-    NSDate *recordEndTime;
+    BOOL isTiming;
     IBOutlet UILabel *timeField;
     IBOutlet UIBarButtonItem *startButton;
     IBOutlet UIBarButtonItem *stopButton;
+    //button
     UIBarButtonItem *editButton;
     __weak IBOutlet UIToolbar *buttonBar;
-    __weak IBOutlet UIButton *showButton;
-    __weak IBOutlet UILabel *recordDetail;
+    //records
+    NSSet *records;
 }
 
 - (id)initWithTask:(TMTask *)aTask;
 - (IBAction)startTimer:(id)sender;
 - (IBAction)endTimer:(id)sender;
 - (IBAction)changeToRecordListView:(id)sender;
-- (IBAction)showRecord:(id)sender;
 - (void)createRecord;
 
 @property (nonatomic, strong) TMTask *task;

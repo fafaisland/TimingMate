@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="2061" systemVersion="12D78" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1811" systemVersion="11G63" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="TMRecord" representedClassName="TMRecord" syncable="YES">
         <attribute name="beginTime" optional="YES" attributeType="Date" syncable="YES"/>
-        <attribute name="endTime" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="timeSpent" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <relationship name="task" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="TMTask" inverseName="records" inverseEntity="TMTask" syncable="YES"/>
     </entity>
@@ -20,7 +19,7 @@
         <relationship name="series" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="TMSeries" inverseName="tasks" inverseEntity="TMSeries" syncable="YES"/>
     </entity>
     <elements>
-        <element name="TMRecord" positionX="160" positionY="192" width="128" height="105"/>
+        <element name="TMRecord" positionX="160" positionY="192" width="128" height="90"/>
         <element name="TMSeries" positionX="160" positionY="192" width="128" height="75"/>
         <element name="TMTask" positionX="160" positionY="192" width="128" height="150"/>
     </elements>
