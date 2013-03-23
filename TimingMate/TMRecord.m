@@ -12,9 +12,9 @@
 
 @implementation TMRecord
 
-@dynamic recordBeginTime;
-@dynamic recordEndTime;
-@dynamic recordDuration;
+@dynamic beginTime;
+@dynamic endTime;
+@dynamic timeSpent;
 @dynamic task;
 
 @end

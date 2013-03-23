@@ -10,14 +10,12 @@
 
 #import "TMEditTaskViewController.h"
 #import "TMTask.h"
-#import "TMTaskStore.h"
 #import "TMRecord.h"
 #import "TMRecordListViewController.h"
 
 @implementation TMTimerViewController
 
 @synthesize task;
-@synthesize context;
 @synthesize record;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -34,11 +32,10 @@
     self = [super init];
     if (self) {
         task = aTask;
-        context = [TMTaskStore sharedStore].context;
-        TMRecordEntityName = NSStringFromClass([TMRecord class]);
+        
         self.navigationItem.title = task.title;
         elapsedTimeInSeconds = 0;
-        UIBarButtonItem *editButton = [[UIBarButtonItem alloc]
+        editButton = [[UIBarButtonItem alloc]
                                         initWithBarButtonSystemItem:UIBarButtonSystemItemEdit
                                         target:self
                                         action:@selector(editTask:)];
@@ -110,20 +107,16 @@
 
 - (void)createRecord
 {
-    record = [NSEntityDescription insertNewObjectForEntityForName:TMRecordEntityName
-                                              inManagedObjectContext:context];
-    record.recordBeginTime = recordBeginTime;
+    record = [task createRecordBeginningAt:recordBeginTime
+                                  endingAt:recordEndTime
+                             withTimeSpent:elapsedTimeInSeconds];
     [self endTimer:nil];
-    record.recordEndTime = recordEndTime;
-    record.recordDuration = elapsedTimeInSeconds;
 }
 
 - (NSString *)stringFromRecord
 {
-    NSDate * recordBeginTime = record.recordBeginTime;
-    NSDate * recordEndTime = record.recordEndTime;
-    int32_t recordDuration = record.recordDuration;
-    return [NSString stringWithFormat:@"%@:%@:%d", recordBeginTime, recordEndTime, recordDuration];
+    return [NSString stringWithFormat:@"%@:%@:%d", record.beginTime,
+            record.endTime, record.timeSpent];
 }
 
 #pragma mark - Button handlers
@@ -171,16 +164,15 @@
                         initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
                         target:nil
                         action:nil]];
-    if (startIsVisible) {
-        [buttons addObject:startButton];
-    } else {
-        [buttons addObject:stopButton];
-    }
+    [buttons addObject:(startIsVisible ? startButton : stopButton)];
+    [self.navigationItem setHidesBackButton:!startIsVisible animated:YES];
+    [self.navigationItem setRightBarButtonItem:(startIsVisible ? editButton : nil) animated:YES];
+
     [buttons addObject:[[UIBarButtonItem alloc]
                         initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
                         target:nil
                         action:nil]];
-    buttonBar.items = buttons;
+    [buttonBar setItems:buttons animated:YES];
 }
 
 @end

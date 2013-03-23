@@ -20,11 +20,10 @@
     IBOutlet UILabel *timeField;
     IBOutlet UIBarButtonItem *startButton;
     IBOutlet UIBarButtonItem *stopButton;
+    UIBarButtonItem *editButton;
     __weak IBOutlet UIToolbar *buttonBar;
     __weak IBOutlet UIButton *showButton;
-    
-    NSString *TMRecordEntityName;
-    IBOutlet UILabel *recordDetail;
+    __weak IBOutlet UILabel *recordDetail;
 }
 
 - (id)initWithTask:(TMTask *)aTask;
@@ -36,6 +35,5 @@
 
 @property (nonatomic, strong) TMTask *task;
 @property (nonatomic, strong) TMRecord *record;
-@property (nonatomic, strong) NSManagedObjectContext *context;
 
 @end

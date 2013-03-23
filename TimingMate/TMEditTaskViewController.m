@@ -9,6 +9,7 @@
 #import "TMEditTaskViewController.h"
 
 #import "TMSeries.h"
+#import "TMSeriesStore.h"
 #import "TMTask.h"
 #import "TMTaskStore.h"
 
@@ -184,7 +185,7 @@ enum { TMSeriesNoneIndex = 0,
         pickerArray = [NSMutableArray array];
         [pickerArray addObject:TMSeriesNone];
         
-        NSArray *allSeries = [[TMTaskStore sharedStore] allSeries];
+        NSArray *allSeries = [[TMSeriesStore sharedStore] allSeries];
         for (TMSeries *series in allSeries) {
             [pickerArray addObject:series.title];
         }
@@ -198,7 +199,7 @@ enum { TMSeriesNoneIndex = 0,
     if (s == TMSeriesNone) {
         row = TMSeriesNoneIndex;
     } else {
-        NSInteger idx = [[TMTaskStore sharedStore] indexOfSeriesByTitle:s];
+        NSInteger idx = [[TMSeriesStore sharedStore] indexOfSeriesByTitle:s];
         if (idx >= 0)
             row = TMDefaultSeriesEnd + idx;
     }
@@ -215,7 +216,7 @@ enum { TMSeriesNoneIndex = 0,
     if (row < TMDefaultSeriesEnd)
         return nil;
 
-    return [[[TMTaskStore sharedStore] allSeries] objectAtIndex:row-TMDefaultSeriesEnd];
+    return [[[TMSeriesStore sharedStore] allSeries] objectAtIndex:row-TMDefaultSeriesEnd];
 }
 
 @end

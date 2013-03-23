@@ -10,6 +10,7 @@
 
 #import "TMGlobals.h"
 #import "TMSeries.h"
+#import "TMSeriesStore.h"
 #import "TMTaskListViewController.h"
 #import "TMTaskStore.h"
 
@@ -57,7 +58,7 @@ enum { TMAllListIndex = 0,
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSUInteger seriesCount = [[TMTaskStore sharedStore] allSeries].count;
+    NSUInteger seriesCount = [[TMSeriesStore sharedStore] allSeries].count;
     return TMDefaultListEnd + seriesCount;
 }
 
@@ -128,10 +129,11 @@ enum { TMAllListIndex = 0,
 
 - (void)addNewSeries:(id)sender
 {
-    [[TMTaskStore sharedStore] createAndAddSeries];
+    [[TMSeriesStore sharedStore] createAndAddSeries];
     
     NSIndexPath *indexPath = [NSIndexPath
-                    indexPathForRow:[[TMTaskStore sharedStore] allSeries].count-1+TMDefaultListEnd
+                    indexPathForRow:[[TMSeriesStore sharedStore]
+                                     allSeries].count-1+TMDefaultListEnd
                     inSection:0];
     [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
                           withRowAnimation:UITableViewRowAnimationFade];
@@ -149,7 +151,7 @@ enum { TMAllListIndex = 0,
     } else if (row == TMEngagingListIndex) {
         return TMEngagingListName;
     } else {
-        TMSeries *series = [[[TMTaskStore sharedStore] allSeries]
+        TMSeries *series = [[[TMSeriesStore sharedStore] allSeries]
                             objectAtIndex:(row - TMDefaultListEnd)];
         return series.title;
     }

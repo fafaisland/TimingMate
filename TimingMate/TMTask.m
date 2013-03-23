@@ -2,19 +2,24 @@
 //  TMTask.m
 //  TimingMate
 //
-//  Created by Long Wei on 3/17/13.
+//  Created by Long Wei on 3/23/13.
 //  Copyright (c) 2013 TimingMate. All rights reserved.
 //
 
 #import "TMTask.h"
+#import "TMRecord.h"
+#import "TMSeries.h"
+
+#import "TMTaskStore.h"
 
 @implementation TMTask
 
+@dynamic creationTime;
 @dynamic expectedCompletionTime;
 @dynamic isEngaging;
 @dynamic isFinished;
 @dynamic title;
-@dynamic creationTime;
+@dynamic records;
 @dynamic series;
 
 - (void)awakeFromInsert
@@ -24,6 +29,23 @@
     self.isFinished = NO;
     self.series = nil;
     self.creationTime = [NSDate date];
+}
+
+- (TMRecord *)createRecordBeginningAt:(NSDate *)beginTime
+                             endingAt:(NSDate *)endTime
+                        withTimeSpent:(int32_t)timeSpent
+{
+    NSString *TMRecordEntityName = NSStringFromClass([TMRecord class]);
+
+    TMRecord *record = [NSEntityDescription insertNewObjectForEntityForName:TMRecordEntityName
+                                        inManagedObjectContext:[TMTaskStore sharedStore].context];
+    record.beginTime = beginTime;
+    record.endTime = endTime;
+    record.timeSpent = timeSpent;
+    
+    [self addRecordsObject:record];
+    
+    return record;
 }
 
 @end
