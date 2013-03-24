@@ -9,6 +9,7 @@
 #import "TMTaskListViewController.h"
 
 #import "TMEditTaskViewController.h"
+#import "TMGlobals.h"
 #import "TMTask.h"
 #import "TMTaskStore.h"
 #import "TMTimerViewController.h"
@@ -22,16 +23,25 @@
     self = [super initWithStyle:UITableViewStylePlain];
     if (self) {
         UIBarButtonItem *listButton = [[UIBarButtonItem alloc]
-                                       initWithTitle:@"Lists"
+                                       initWithTitle:TMListsTitle
                                        style:UIBarButtonItemStylePlain
                                        target:self
                                        action:@selector(showListSelectionView:)];
         self.navigationItem.leftBarButtonItem = listButton;
         
-        UIBarButtonItem *addButton = [[UIBarButtonItem alloc]
+        addButton = [[UIBarButtonItem alloc]
                                       initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
                                       target:self action:@selector(addNewTask:)];
-        self.navigationItem.rightBarButtonItem = addButton;
+        deleteButton = [[UIBarButtonItem alloc]
+                         initWithTitle:@"Delete"
+                         style:UIBarButtonItemStyleBordered
+                         target:self
+                         action:@selector(toggleDelete)];
+        deleteDoneButton = [[UIBarButtonItem alloc]
+                             initWithBarButtonSystemItem:UIBarButtonSystemItemDone
+                            target:self
+                            action:@selector(toggleDelete)];
+        self.navigationItem.rightBarButtonItems = @[addButton, deleteButton];
     }
     return self;
 }
@@ -89,6 +99,18 @@
      [CATransaction commit];*/
 }
 
+- (void)toggleDelete
+{
+    if (self.isEditing) {
+        [self setEditing:NO animated:YES];
+        self.navigationItem.rightBarButtonItems = @[addButton, deleteButton];
+    } else {
+        [self setEditing:YES animated:YES];
+        self.navigationItem.rightBarButtonItems = @[addButton, deleteDoneButton];
+    }
+
+}
+
 #pragma mark - Table methods
 
 - (UITableViewCell *)tableView:(UITableView *)tableView
@@ -108,6 +130,17 @@
     cell.textLabel.text = t.title;
     
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)
+    editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        TMTask *t = [tasks objectAtIndex:indexPath.row];
+        [[TMTaskStore sharedStore] removeTask:t];
+        [tasks removeObject:t];
+        [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+    }
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

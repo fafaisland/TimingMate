@@ -8,4 +8,4 @@
 
 #import "TMGlobals.h"
 
-NSString * const TMAppName = @"TimingMate";
+NSString * const TMListsTitle = @"Lists";

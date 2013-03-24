@@ -27,7 +27,7 @@ enum { TMAllListIndex = 0,
 {
     self = [super initWithStyle:style];
     if (self) {
-        self.navigationItem.title = TMAppName;
+        self.navigationItem.title = TMListsTitle;
         
         UIBarButtonItem *addButton = [[UIBarButtonItem alloc]
                                       initWithBarButtonSystemItem:UIBarButtonSystemItemAdd

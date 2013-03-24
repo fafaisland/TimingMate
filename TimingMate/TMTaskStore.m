@@ -31,8 +31,8 @@
         NSFetchRequest *request = [[NSFetchRequest alloc] init];
         request.entity = [NSEntityDescription entityForName:TMTaskEntityName
                                      inManagedObjectContext:context];
-        NSSortDescriptor *sd = [NSSortDescriptor sortDescriptorWithKey:@"title"
-                                                             ascending:YES];
+        NSSortDescriptor *sd = [NSSortDescriptor sortDescriptorWithKey:@"creationTime"
+                                                             ascending:NO];
         [request setSortDescriptors:[NSArray arrayWithObject:sd]];
         
         NSError *error = nil;

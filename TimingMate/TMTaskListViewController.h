@@ -11,6 +11,10 @@
 @interface TMTaskListViewController : UITableViewController
 {
     NSMutableArray *tasks;
+    
+    UIBarButtonItem *addButton;
+    UIBarButtonItem *deleteButton;
+    UIBarButtonItem *deleteDoneButton;
 }
 
 @property (nonatomic, copy) void (^listGenerationBlock)(NSMutableArray *);

@@ -6,4 +6,4 @@
 //  Copyright (c) 2013 TimingMate. All rights reserved.
 //
 
-extern NSString * const TMAppName;
+extern NSString * const TMListsTitle;
