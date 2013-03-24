@@ -49,6 +49,12 @@
     return allTasks;
 }
 
+- (NSArray *)allEngagingTasks
+{
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"isEngaging == YES"];
+    return [allTasks filteredArrayUsingPredicate:predicate];
+}
+
 - (TMTask *)createTask
 {
     TMTask *t = [NSEntityDescription insertNewObjectForEntityForName:TMTaskEntityName

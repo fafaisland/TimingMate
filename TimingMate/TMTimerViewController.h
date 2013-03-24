@@ -22,6 +22,10 @@
     IBOutlet UILabel *timeField;
     IBOutlet UIBarButtonItem *startButton;
     IBOutlet UIBarButtonItem *stopButton;
+    
+    UIBarButtonItem *currentEngagementButton;
+    IBOutlet UIBarButtonItem *engageButton;
+    IBOutlet UIBarButtonItem *disengageButton;
     //button
     UIBarButtonItem *editButton;
     __weak IBOutlet UIToolbar *buttonBar;
@@ -32,6 +36,7 @@
 - (id)initWithTask:(TMTask *)aTask;
 - (IBAction)startTimer:(id)sender;
 - (IBAction)endTimer:(id)sender;
+- (IBAction)toggleEngagement:(id)sender;
 - (IBAction)changeToRecordListView:(id)sender;
 - (void)createRecord;
 

@@ -171,7 +171,10 @@ enum { TMAllListIndex = 0,
                    [list addObjectsFromArray:[[TMTaskStore sharedStore] allTasks]];
                };
     else if (name == TMEngagingListName) {
-        return nil;
+        return ^(NSMutableArray * list){
+            [list removeAllObjects];
+            [list addObjectsFromArray:[[TMTaskStore sharedStore] allEngagingTasks]];
+        };
     } else {
         return ^(NSMutableArray * list){
             [list removeAllObjects];

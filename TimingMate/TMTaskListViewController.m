@@ -145,7 +145,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    TMTask *t = [[[TMTaskStore sharedStore] allTasks] objectAtIndex:indexPath.row];
+    TMTask *t = [tasks objectAtIndex:indexPath.row];
     TMTimerViewController *tvc = [[TMTimerViewController alloc] initWithTask:t];
     [self.navigationController pushViewController:tvc animated:YES];
 }

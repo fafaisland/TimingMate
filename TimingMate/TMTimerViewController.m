@@ -50,7 +50,8 @@
 {
     [super viewWillAppear:animated];
 
-    [self toggleStartButtonVisible:YES];
+    currentEngagementButton = task.isEngaging ? disengageButton : engageButton;
+    [self toggleStart:YES];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -101,6 +102,7 @@
 }
 
 #pragma mark - Record methods
+
 - (void)createRecord
 {
     record = [task createRecordBeginningAt:recordBeginTime
@@ -124,7 +126,7 @@
     elapsedTimePerRecord = 0;
     isTiming = true;
     timer = [self createTimer];
-    [self toggleStartButtonVisible:NO];
+    [self toggleStart:NO];
 }
 
 - (IBAction)endTimer:(id)sender
@@ -135,9 +137,21 @@
         [timer invalidate];
         [self createRecord];
         NSLog(@"record info %@ %d",record.beginTime, record.timeSpent);
-        [self toggleStartButtonVisible:YES];
+        [self toggleStart:YES];
     }
     
+}
+
+- (IBAction)toggleEngagement:(id)sender
+{
+    if (task.isEngaging) {
+        task.isEngaging = NO;
+        currentEngagementButton = engageButton;
+    } else {
+        task.isEngaging = YES;
+        currentEngagementButton = disengageButton;
+    }
+    [self toggleStart:!isTiming];
 }
 
 - (IBAction)changeToRecordListView:(id)sender
@@ -151,16 +165,17 @@
 
 #pragma mark - Helper methods
 
-- (void)toggleStartButtonVisible:(BOOL)startIsVisible
+- (void)toggleStart:(BOOL)start
 {
     NSMutableArray *buttons = [NSMutableArray array];
+    [buttons addObject:currentEngagementButton];
     [buttons addObject:[[UIBarButtonItem alloc]
                         initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
                         target:nil
                         action:nil]];
-    [buttons addObject:(startIsVisible ? startButton : stopButton)];
-    [self.navigationItem setHidesBackButton:!startIsVisible animated:YES];
-    [self.navigationItem setRightBarButtonItem:(startIsVisible ? editButton : nil) animated:YES];
+    [buttons addObject:(start ? startButton : stopButton)];
+    [self.navigationItem setHidesBackButton:!start animated:YES];
+    [self.navigationItem setRightBarButtonItem:(start ? editButton : nil) animated:YES];
 
     [buttons addObject:[[UIBarButtonItem alloc]
                         initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
