@@ -28,27 +28,32 @@
 - (NSArray *)allTasks
 {
     if (!allTasks) {
-        NSFetchRequest *request = [[NSFetchRequest alloc] init];
-        request.entity = [NSEntityDescription entityForName:TMTaskEntityName
-                                     inManagedObjectContext:context];
-        NSSortDescriptor *sd1 = [NSSortDescriptor sortDescriptorWithKey:@"creationTime"
-                                                             ascending:NO];
-        NSSortDescriptor *sd2 = [NSSortDescriptor sortDescriptorWithKey:@"isFinished"
-                                                             ascending:YES];
-        [request setSortDescriptors:@[sd2,sd1]];
-        
-        NSError *error = nil;
-        NSArray *result = [context executeFetchRequest:request
-                                                 error:&error];
-        if (!result) {
-            [NSException raise:@"Fetch failed"
-                        format:@"Reason: %@", [error localizedDescription]];
-        }
-        
-        allTasks = [[NSMutableArray alloc] initWithArray:result];
+        [self fetchAllTasks];
     }
 
     return allTasks;
+}
+
+- (void)fetchAllTasks
+{
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    request.entity = [NSEntityDescription entityForName:TMTaskEntityName
+                                 inManagedObjectContext:context];
+    NSSortDescriptor *sd1 = [NSSortDescriptor sortDescriptorWithKey:@"creationTime"
+                                                          ascending:NO];
+    NSSortDescriptor *sd2 = [NSSortDescriptor sortDescriptorWithKey:@"isFinished"
+                                                          ascending:YES];
+    [request setSortDescriptors:@[sd2,sd1]];
+    
+    NSError *error = nil;
+    NSArray *result = [context executeFetchRequest:request
+                                             error:&error];
+    if (!result) {
+        [NSException raise:@"Fetch failed"
+                    format:@"Reason: %@", [error localizedDescription]];
+    }
+    
+    allTasks = [[NSMutableArray alloc] initWithArray:result];
 }
 
 - (NSArray *)allEngagingTasks

@@ -27,6 +27,7 @@
 - (void)removeTask:(TMTask *)t;
 
 - (NSArray *)allTasks;
+- (void)fetchAllTasks;
 - (NSArray *)allEngagingTasks;
 
 @end

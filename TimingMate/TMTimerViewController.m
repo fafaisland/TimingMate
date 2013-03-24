@@ -12,6 +12,7 @@
 #import "TMTask.h"
 #import "TMRecord.h"
 #import "TMRecordListViewController.h"
+#import "TMTaskListViewController.h"
 
 @implementation TMTimerViewController
 
@@ -57,7 +58,12 @@
 
 - (void)viewWillDisappear:(BOOL)animated
 {
+    if ([self.navigationController.viewControllers indexOfObject:self] == NSNotFound) {
+        // back button was pressed.  We know this is true because self is no longer
+        // in the navigation stack.
+    }
     [super viewWillDisappear:animated];
+    
     [self endTimer:nil];
 }
 
@@ -159,6 +165,8 @@
 {
     task.isFinished = !task.isFinished;
     [self showButtonsForFinished:task.isFinished animated:YES];
+    
+    [[self getPreviousViewController] setNeedsReload];
 }
 
 - (IBAction)changeToRecordListView:(id)sender
@@ -214,6 +222,12 @@
         [recordListButton setAlpha:(finished ? 0.0 : 1.0)];
     }
     [self toggleStart:!isTiming animated:animated];
+}
+
+- (TMTaskListViewController *)getPreviousViewController
+{
+    int idx = [self.navigationController.viewControllers indexOfObject:self];
+    return [self.navigationController.viewControllers objectAtIndex:idx-1];
 }
 
 @end

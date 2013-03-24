@@ -15,10 +15,13 @@
     UIBarButtonItem *addButton;
     UIBarButtonItem *deleteButton;
     UIBarButtonItem *deleteDoneButton;
+    
+    BOOL needsReload;
 }
 
 @property (nonatomic, copy) void (^listGenerationBlock)(NSMutableArray *);
 
 - (id)initWithTitle:(NSString *)title listGenerationBlock:(void (^)(NSMutableArray*))block;
+- (void)setNeedsReload;
 
 @end

@@ -22,6 +22,8 @@
 {
     self = [super initWithStyle:UITableViewStylePlain];
     if (self) {
+        needsReload = NO;
+
         UIBarButtonItem *listButton = [[UIBarButtonItem alloc]
                                        initWithTitle:TMListsTitle
                                        style:UIBarButtonItemStylePlain
@@ -63,6 +65,12 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
+    if (needsReload)
+    {
+        [[TMTaskStore sharedStore] fetchAllTasks];
+        listGenerationBlock(tasks);
+    }
     [self.tableView reloadData];
 }
 
@@ -152,8 +160,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     TMTask *t = [tasks objectAtIndex:indexPath.row];
-    TMTimerViewController *tvc = [[TMTimerViewController alloc] initWithTask:t];
-    [self.navigationController pushViewController:tvc animated:YES];
+    [self showTimerViewForTask:t];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -178,6 +185,17 @@
                           atScrollPosition:UITableViewScrollPositionTop
                                   animated:YES];
      */
+}
+
+- (void)showTimerViewForTask:(TMTask *)task
+{
+    TMTimerViewController *tvc = [[TMTimerViewController alloc] initWithTask:task];
+    [self.navigationController pushViewController:tvc animated:YES];
+}
+
+- (void)setNeedsReload
+{
+    needsReload = YES;
 }
 
 @end
