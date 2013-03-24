@@ -26,6 +26,7 @@
     UIBarButtonItem *currentEngagementButton;
     IBOutlet UIBarButtonItem *engageButton;
     IBOutlet UIBarButtonItem *disengageButton;
+    __weak IBOutlet UIButton *finishButton;
     //button
     UIBarButtonItem *editButton;
     __weak IBOutlet UIToolbar *buttonBar;
@@ -37,6 +38,7 @@
 - (IBAction)startTimer:(id)sender;
 - (IBAction)endTimer:(id)sender;
 - (IBAction)toggleEngagement:(id)sender;
+- (IBAction)toggleFinished:(id)sender;
 - (IBAction)changeToRecordListView:(id)sender;
 - (void)createRecord;
 

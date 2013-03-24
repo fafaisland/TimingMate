@@ -129,6 +129,12 @@
     TMTask *t = [tasks objectAtIndex:indexPath.row];
     cell.textLabel.text = t.title;
     
+    if (t.isFinished) {
+        cell.textLabel.textColor = [UIColor grayColor];
+    } else {
+        cell.textLabel.textColor = [UIColor blackColor];
+    }
+    
     return cell;
 }
 

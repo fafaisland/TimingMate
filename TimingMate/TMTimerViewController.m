@@ -154,6 +154,18 @@
     [self toggleStart:!isTiming];
 }
 
+- (IBAction)toggleFinished:(id)sender
+{
+    if (task.isFinished) {
+        task.isFinished = NO;
+        [finishButton setTitle:@"Mark as Finished" forState:UIControlStateNormal];
+    } else {
+        task.isFinished = YES;
+        [finishButton setTitle:@"Mark as Unfinished" forState:UIControlStateNormal];
+    }
+    [finishButton sizeToFit];
+}
+
 - (IBAction)changeToRecordListView:(id)sender
 {
     records = task.records;
