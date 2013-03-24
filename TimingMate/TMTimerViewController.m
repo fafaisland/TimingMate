@@ -51,7 +51,8 @@
     [super viewWillAppear:animated];
 
     currentEngagementButton = task.isEngaging ? disengageButton : engageButton;
-    [self toggleStart:YES];
+    [self toggleStart:YES animated:NO];
+    [self showButtonsForFinished:task.isFinished animated:NO];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -126,7 +127,7 @@
     elapsedTimePerRecord = 0;
     isTiming = true;
     timer = [self createTimer];
-    [self toggleStart:NO];
+    [self toggleStart:NO animated:YES];
 }
 
 - (IBAction)endTimer:(id)sender
@@ -137,7 +138,7 @@
         [timer invalidate];
         [self createRecord];
         NSLog(@"record info %@ %d",record.beginTime, record.timeSpent);
-        [self toggleStart:YES];
+        [self toggleStart:YES animated:YES];
     }
     
 }
@@ -151,19 +152,13 @@
         task.isEngaging = YES;
         currentEngagementButton = disengageButton;
     }
-    [self toggleStart:!isTiming];
+    [self toggleStart:!isTiming animated:YES];
 }
 
 - (IBAction)toggleFinished:(id)sender
 {
-    if (task.isFinished) {
-        task.isFinished = NO;
-        [finishButton setTitle:@"Mark as Finished" forState:UIControlStateNormal];
-    } else {
-        task.isFinished = YES;
-        [finishButton setTitle:@"Mark as Unfinished" forState:UIControlStateNormal];
-    }
-    [finishButton sizeToFit];
+    task.isFinished = !task.isFinished;
+    [self showButtonsForFinished:task.isFinished animated:YES];
 }
 
 - (IBAction)changeToRecordListView:(id)sender
@@ -177,23 +172,48 @@
 
 #pragma mark - Helper methods
 
-- (void)toggleStart:(BOOL)start
+- (void)toggleStart:(BOOL)start animated:(BOOL)animated
 {
     NSMutableArray *buttons = [NSMutableArray array];
     [buttons addObject:currentEngagementButton];
-    [buttons addObject:[[UIBarButtonItem alloc]
-                        initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
-                        target:nil
-                        action:nil]];
-    [buttons addObject:(start ? startButton : stopButton)];
-    [self.navigationItem setHidesBackButton:!start animated:YES];
-    [self.navigationItem setRightBarButtonItem:(start ? editButton : nil) animated:YES];
+    
+    if (!task.isFinished) {
+        [buttons addObject:[[UIBarButtonItem alloc]
+                            initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
+                            target:nil
+                            action:nil]];
+        [buttons addObject:(start ? startButton : stopButton)];
+        [buttons addObject:[[UIBarButtonItem alloc]
+                            initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
+                            target:nil
+                            action:nil]];
+        [self.navigationItem setRightBarButtonItem:(start ? editButton : nil) animated:YES];
+    }
+    
+    [self.navigationItem setHidesBackButton:!start animated:animated];
+    [buttonBar setItems:buttons animated:animated];
+}
 
-    [buttons addObject:[[UIBarButtonItem alloc]
-                        initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
-                        target:nil
-                        action:nil]];
-    [buttonBar setItems:buttons animated:YES];
+- (void)showButtonsForFinished:(BOOL)finished animated:(BOOL)animated
+{
+    if (finished) {
+        [finishButton setTitle:@"Mark as Unfinished" forState:UIControlStateNormal];
+    } else {
+        [finishButton setTitle:@"Mark as Finished" forState:UIControlStateNormal];
+    }
+    [finishButton sizeToFit];
+    [self.navigationItem setRightBarButtonItem:(task.isFinished ? nil : editButton)
+                                      animated:animated];
+    if (animated) {
+        [UIView beginAnimations:nil context:nil];
+        [UIView setAnimationDuration:0.4];
+        [UIView setAnimationCurve: UIViewAnimationCurveEaseInOut];
+        [recordListButton setAlpha:(finished ? 0.0 : 1.0)];
+        [UIView commitAnimations];
+    } else {
+        [recordListButton setAlpha:(finished ? 0.0 : 1.0)];
+    }
+    [self toggleStart:!isTiming animated:animated];
 }
 
 @end

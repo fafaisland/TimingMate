@@ -27,8 +27,9 @@
     IBOutlet UIBarButtonItem *engageButton;
     IBOutlet UIBarButtonItem *disengageButton;
     __weak IBOutlet UIButton *finishButton;
-    //button
     UIBarButtonItem *editButton;
+    __weak IBOutlet UIButton *recordListButton;
+    
     __weak IBOutlet UIToolbar *buttonBar;
     //records
     NSSet *records;
