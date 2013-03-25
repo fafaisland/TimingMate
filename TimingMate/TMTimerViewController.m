@@ -116,6 +116,20 @@
                                 withTimeSpent:elapsedTimePerRecord];
 }
 
+- (IBAction)changetoAddRecordView:(id)sender
+{
+    
+}
+
+- (IBAction)changeToRecordListView:(id)sender
+{
+    records = task.records;
+    TMRecordListViewController *rlvc = [[TMRecordListViewController alloc]
+                                        initWithStyle:UITableViewStylePlain
+                                        withRecords:records];
+    [self.navigationController pushViewController:rlvc animated:YES];
+}
+
 #pragma mark - Button handlers
 
 - (void)editTask:(id)sender
@@ -167,15 +181,6 @@
     [self showButtonsForFinished:task.isFinished animated:YES];
     
     [[self getPreviousViewController] setNeedsReload];
-}
-
-- (IBAction)changeToRecordListView:(id)sender
-{
-    records = task.records;
-    TMRecordListViewController *rlvc = [[TMRecordListViewController alloc]
-                                        initWithStyle:UITableViewStylePlain
-                                        withRecords:records];
-    [self.navigationController pushViewController:rlvc animated:YES];
 }
 
 #pragma mark - Helper methods
