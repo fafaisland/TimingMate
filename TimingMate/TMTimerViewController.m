@@ -13,6 +13,7 @@
 #import "TMRecord.h"
 #import "TMRecordListViewController.h"
 #import "TMTaskListViewController.h"
+#import "TMAddRecordViewController.h"
 
 @implementation TMTimerViewController
 
@@ -116,18 +117,16 @@
                                 withTimeSpent:elapsedTimePerRecord];
 }
 
-- (IBAction)changetoAddRecordView:(id)sender
-{
-    
-}
 
 - (IBAction)changeToRecordListView:(id)sender
 {
     records = task.records;
     TMRecordListViewController *rlvc = [[TMRecordListViewController alloc]
                                         initWithStyle:UITableViewStylePlain
+                                        withTask:task
                                         withRecords:records];
-    [self.navigationController pushViewController:rlvc animated:YES];
+    UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:rlvc];
+    [self presentViewController:nc animated:YES completion:nil];
 }
 
 #pragma mark - Button handlers

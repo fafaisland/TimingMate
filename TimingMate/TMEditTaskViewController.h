@@ -11,7 +11,7 @@
 @class TMTask;
 
 @interface TMEditTaskViewController : UIViewController
-    <UIPickerViewDelegate, UIPickerViewDataSource>
+    <UIPickerViewDelegate, UIPickerViewDataSource,UITextFieldDelegate>
 {
     __weak IBOutlet UITextField *titleField;
     __weak IBOutlet UITextField *expectedCompletionTimeField;

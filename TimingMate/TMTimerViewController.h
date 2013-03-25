@@ -30,8 +30,6 @@
     UIBarButtonItem *editButton;
     __weak IBOutlet UIButton *recordListButton;
     
-    __weak IBOutlet UIButton *addRecordButton;
-    
     __weak IBOutlet UIToolbar *buttonBar;
     //records
     NSSet *records;
@@ -44,7 +42,7 @@
 - (IBAction)toggleFinished:(id)sender;
 - (IBAction)changeToRecordListView:(id)sender;
 - (void)createRecord;
-- (IBAction)changetoAddRecordView:(id)sender;
+
 
 @property (nonatomic, strong) TMTask *task;
 @property (nonatomic, strong) TMRecord *record;

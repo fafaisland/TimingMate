@@ -8,6 +8,18 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TMAddRecordViewController : UIViewController
+@class TMTask;
+
+@interface TMAddRecordViewController : UIViewController <UITextFieldDelegate>
+{
+    NSDate *beginTime;
+    int32_t duration;
+    __weak IBOutlet UITextField *beginTimeField;
+    __weak IBOutlet UITextField *durationField;
+}
+
+@property (nonatomic, strong) TMTask *task;
+
+- (id)initWithTask:(TMTask *)aTask;
 
 @end
