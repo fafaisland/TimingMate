@@ -70,6 +70,7 @@
     {
         [[TMTaskStore sharedStore] fetchAllTasks];
         listGenerationBlock(tasks);
+        needsReload = NO;
     }
     [self.tableView reloadData];
 }
