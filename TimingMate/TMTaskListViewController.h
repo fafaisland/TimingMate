@@ -8,7 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
-@interface TMTaskListViewController : UITableViewController
+#import "thirdparty/SideSwipeTableViewController.h"
+
+@interface TMTaskListViewController : SideSwipeTableViewController
 {
     NSMutableArray *tasks;
     
@@ -17,6 +19,9 @@
     UIBarButtonItem *deleteDoneButton;
     
     BOOL needsReload;
+    
+    NSArray* sideSwipeButtonData;
+    NSMutableArray* sideSwipeButtons;
 }
 
 @property (nonatomic, copy) void (^listGenerationBlock)(NSMutableArray *);
