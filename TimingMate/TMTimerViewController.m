@@ -55,6 +55,7 @@
     currentEngagementButton = task.isEngaging ? disengageButton : engageButton;
     [self toggleStart:YES animated:NO];
     [self showButtonsForFinished:task.isFinished animated:NO];
+    [self showHoursPerDay];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -109,6 +110,55 @@
     return [NSString stringWithFormat:@"%02d:%02d:%02d", hours, minutes, seconds];
 }
 
+#pragma mark - Representation methods
+- (void)showHoursPerDay
+{
+    NSDate *taskCreationTime = task.creationTime;
+    NSDate *now = [NSDate date];
+    int daysFromCreationToNow = [self countDaysBetween:taskCreationTime and:now];
+    NSLog(@"%d",daysFromCreationToNow);
+    int totalSecondsSpentOnTask = [self countTotalSecondsSpentOnTask];
+    int secondsPerDay = 0;
+    if (0 != totalSecondsSpentOnTask)
+    {
+        secondsPerDay = totalSecondsSpentOnTask / daysFromCreationToNow;
+    }
+    [hoursPerDayField setText:[self getStringFromSecondsPerDay:(int)secondsPerDay]];
+    
+}
+
+- (int)countDaysBetween:(NSDate *)dt1 and:(NSDate *)dt2 {
+    NSUInteger unitFlags = NSDayCalendarUnit;
+    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    NSDateComponents *components = [calendar components:unitFlags fromDate:dt1 toDate:dt2 options:0];
+    return [components day]+1;
+}
+
+- (int32_t)countTotalSecondsSpentOnTask
+{
+    int32_t secondsTotal = 0;
+    for (TMRecord *r in task.records)
+    {
+        secondsTotal += r.timeSpent;
+    }
+    return secondsTotal;
+}
+
+- (NSString *)getStringFromSecondsPerDay:(int)secondsPerDay
+{
+    int hours = secondsPerDay / 3600;
+    int secondsLeft = secondsPerDay % 3600;
+    int minutes = secondsLeft / 60;
+    int seconds = secondsLeft % 60;
+    if (hours > 0)
+    {
+        return [NSString stringWithFormat:@"%02d hours %02d mins Per Day", hours, minutes];
+    }
+    else{
+        return [NSString stringWithFormat:@"%02d mins %02d seconds Per Day",minutes,seconds];
+    }
+}
+
 #pragma mark - Record methods
 
 - (void)createRecord
@@ -116,7 +166,6 @@
     record = [task createRecordBeginningAt:recordBeginTime
                                 withTimeSpent:elapsedTimePerRecord];
 }
-
 
 - (IBAction)changeToRecordListView:(id)sender
 {

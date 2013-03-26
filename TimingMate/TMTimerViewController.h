@@ -33,6 +33,8 @@
     __weak IBOutlet UIToolbar *buttonBar;
     //records
     NSSet *records;
+    __weak IBOutlet UILabel *hoursPerDayField;
+    
 }
 
 - (id)initWithTask:(TMTask *)aTask;

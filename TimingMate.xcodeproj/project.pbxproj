@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0414FE8416FE33F600ADE44B /* TMRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 0414FE8316FE33F600ADE44B /* TMRecord.m */; };
 		041B14251701030700D77383 /* TMTimerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 041B14241701030700D77383 /* TMTimerViewController.xib */; };
+		042170FA17022DFD006931B6 /* TMRecordListPerDayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 042170F817022DFD006931B6 /* TMRecordListPerDayViewController.m */; };
 		0425BE6416F3A9D30023EF2C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0425BE6316F3A9D30023EF2C /* UIKit.framework */; };
 		0425BE6616F3A9D30023EF2C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0425BE6516F3A9D30023EF2C /* Foundation.framework */; };
 		0425BE6816F3A9D30023EF2C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0425BE6716F3A9D30023EF2C /* CoreGraphics.framework */; };
@@ -40,6 +41,8 @@
 		0414FE8216FE33E800ADE44B /* TMRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMRecord.h; sourceTree = "<group>"; };
 		0414FE8316FE33F600ADE44B /* TMRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMRecord.m; sourceTree = "<group>"; };
 		041B14241701030700D77383 /* TMTimerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TMTimerViewController.xib; sourceTree = "<group>"; };
+		042170F717022DFD006931B6 /* TMRecordListPerDayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMRecordListPerDayViewController.h; sourceTree = "<group>"; };
+		042170F817022DFD006931B6 /* TMRecordListPerDayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMRecordListPerDayViewController.m; sourceTree = "<group>"; };
 		0425BE5F16F3A9D30023EF2C /* TimingMate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TimingMate.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0425BE6316F3A9D30023EF2C /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		0425BE6516F3A9D30023EF2C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -149,6 +152,8 @@
 				04BB8E9516FFFE03000A2428 /* TMAddRecordViewController.h */,
 				04BB8E9616FFFE03000A2428 /* TMAddRecordViewController.m */,
 				04BB8E9716FFFE03000A2428 /* TMAddRecordViewController.xib */,
+				042170F717022DFD006931B6 /* TMRecordListPerDayViewController.h */,
+				042170F817022DFD006931B6 /* TMRecordListPerDayViewController.m */,
 				0414FE8316FE33F600ADE44B /* TMRecord.m */,
 				0414FE8216FE33E800ADE44B /* TMRecord.h */,
 				962DFC6C16F952B200E5F8C8 /* TMSeries.h */,
@@ -263,6 +268,7 @@
 				966E516516FE156D0039B175 /* TMSeriesStore.m in Sources */,
 				0414FE8416FE33F600ADE44B /* TMRecord.m in Sources */,
 				04BB8E9816FFFE03000A2428 /* TMAddRecordViewController.m in Sources */,
+				042170FA17022DFD006931B6 /* TMRecordListPerDayViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

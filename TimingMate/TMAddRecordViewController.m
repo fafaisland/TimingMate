@@ -51,12 +51,15 @@
 {
     NSString *stringBeginTime = beginTimeField.text;
     NSString *stringDuration = durationField.text;
-    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-    [dateFormat setDateFormat:@"yyyy-MMMM-dd"];
-    beginTime = [dateFormat dateFromString:stringBeginTime];
-    duration = (int32_t)stringDuration;
-    [task createRecordBeginningAt:beginTime
+    if ([stringBeginTime length] != 0 && [stringDuration length] != 0)
+    {
+        NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+        [dateFormat setDateFormat:@"yyyy-MMMM-dd"];
+        beginTime = [dateFormat dateFromString:stringBeginTime];
+        duration = (int32_t)stringDuration;
+        [task createRecordBeginningAt:beginTime
                     withTimeSpent:duration];
+    }
     [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
 }
 
