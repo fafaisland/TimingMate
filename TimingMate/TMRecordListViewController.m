@@ -8,16 +8,26 @@
 
 #import "TMRecordListViewController.h"
 #import "TMRecord.h"
+#import "TMAddRecordViewController.h"
 
 @implementation TMRecordListViewController
+@synthesize task;
 
 - (id)initWithStyle:(UITableViewStyle)style
+withTask:(TMTask *)aTask
 withRecords:(NSSet *)records
 
 {
     self = [super initWithStyle:style];
     if (self) {
         recordsArray = [records allObjects];
+        task = aTask;
+        UIBarButtonItem *addButton = [[UIBarButtonItem alloc]
+                                      initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
+                                      target:self
+                                      action:@selector(changeToAddRecordView:)];
+        self.navigationItem.rightBarButtonItem = addButton;
+
         
     }
     return self;
@@ -40,6 +50,13 @@ withRecords:(NSSet *)records
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark - button helper
+- (IBAction)changeToAddRecordView:(id)sender
+{
+    TMAddRecordViewController *arvc = [[TMAddRecordViewController alloc]
+                                       initWithTask:task];
+    [self.navigationController pushViewController:arvc animated:YES];
+}
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView

@@ -13,6 +13,7 @@
 #import "TMRecord.h"
 #import "TMRecordListViewController.h"
 #import "TMTaskListViewController.h"
+#import "TMAddRecordViewController.h"
 
 @implementation TMTimerViewController
 
@@ -116,6 +117,18 @@
                                 withTimeSpent:elapsedTimePerRecord];
 }
 
+
+- (IBAction)changeToRecordListView:(id)sender
+{
+    records = task.records;
+    TMRecordListViewController *rlvc = [[TMRecordListViewController alloc]
+                                        initWithStyle:UITableViewStylePlain
+                                        withTask:task
+                                        withRecords:records];
+    UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:rlvc];
+    [self presentViewController:nc animated:YES completion:nil];
+}
+
 #pragma mark - Button handlers
 
 - (void)editTask:(id)sender
@@ -167,15 +180,6 @@
     [self showButtonsForFinished:task.isFinished animated:YES];
     
     [[self getPreviousViewController] setNeedsReload];
-}
-
-- (IBAction)changeToRecordListView:(id)sender
-{
-    records = task.records;
-    TMRecordListViewController *rlvc = [[TMRecordListViewController alloc]
-                                        initWithStyle:UITableViewStylePlain
-                                        withRecords:records];
-    [self.navigationController pushViewController:rlvc animated:YES];
 }
 
 #pragma mark - Helper methods

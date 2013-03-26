@@ -175,6 +175,10 @@ enum { TMSeriesNoneIndex = 0,
 }
 
 #pragma mark - Helper methods
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    return YES;
+}
 
 - (void)initializePickerWithString:(NSString *)s
 {

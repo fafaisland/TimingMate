@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0414FE8416FE33F600ADE44B /* TMRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 0414FE8316FE33F600ADE44B /* TMRecord.m */; };
+		041B14251701030700D77383 /* TMTimerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 041B14241701030700D77383 /* TMTimerViewController.xib */; };
 		0425BE6416F3A9D30023EF2C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0425BE6316F3A9D30023EF2C /* UIKit.framework */; };
 		0425BE6616F3A9D30023EF2C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0425BE6516F3A9D30023EF2C /* Foundation.framework */; };
 		0425BE6816F3A9D30023EF2C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0425BE6716F3A9D30023EF2C /* CoreGraphics.framework */; };
@@ -20,6 +21,8 @@
 		0425BE7C16F3A9D30023EF2C /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0425BE7B16F3A9D30023EF2C /* Default-568h@2x.png */; };
 		0425BE7F16F3A9D30023EF2C /* TimingMate.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0425BE7D16F3A9D30023EF2C /* TimingMate.xcdatamodeld */; };
 		047D7F5516FD22D600DD7B1C /* TMRecordListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 047D7F5416FD22D600DD7B1C /* TMRecordListViewController.m */; };
+		04BB8E9816FFFE03000A2428 /* TMAddRecordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BB8E9616FFFE03000A2428 /* TMAddRecordViewController.m */; };
+		04BB8E9916FFFE03000A2428 /* TMAddRecordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04BB8E9716FFFE03000A2428 /* TMAddRecordViewController.xib */; };
 		962DFC6E16F952B200E5F8C8 /* TMSeries.m in Sources */ = {isa = PBXBuildFile; fileRef = 962DFC6D16F952B200E5F8C8 /* TMSeries.m */; };
 		965D5059170232E6008201E8 /* SideSwipeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 965D5056170232E6008201E8 /* SideSwipeTableViewCell.m */; };
 		965D505A170232E6008201E8 /* SideSwipeTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 965D5058170232E6008201E8 /* SideSwipeTableViewController.m */; };
@@ -42,7 +45,6 @@
 		966E516216FE05250039B175 /* TMTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 966E516116FE05250039B175 /* TMTask.m */; };
 		966E516516FE156D0039B175 /* TMSeriesStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 966E516416FE156D0039B175 /* TMSeriesStore.m */; };
 		966FCC6316F60B0100F4A024 /* TMTimerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 966FCC6116F60B0100F4A024 /* TMTimerViewController.m */; };
-		966FCC6416F60B0100F4A024 /* TMTimerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 966FCC6216F60B0100F4A024 /* TMTimerViewController.xib */; };
 		9677DE9A16F4CF1900F5F57B /* TMEditTaskViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9677DE9816F4CF1900F5F57B /* TMEditTaskViewController.m */; };
 		9677DE9B16F4CF1900F5F57B /* TMEditTaskViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9677DE9916F4CF1900F5F57B /* TMEditTaskViewController.xib */; };
 		968460EF16F3CFA700EF2221 /* TMTaskStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 968460EE16F3CFA700EF2221 /* TMTaskStore.m */; };
@@ -55,6 +57,7 @@
 /* Begin PBXFileReference section */
 		0414FE8216FE33E800ADE44B /* TMRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMRecord.h; sourceTree = "<group>"; };
 		0414FE8316FE33F600ADE44B /* TMRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMRecord.m; sourceTree = "<group>"; };
+		041B14241701030700D77383 /* TMTimerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TMTimerViewController.xib; sourceTree = "<group>"; };
 		0425BE5F16F3A9D30023EF2C /* TimingMate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TimingMate.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0425BE6316F3A9D30023EF2C /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		0425BE6516F3A9D30023EF2C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -73,6 +76,9 @@
 		044A3F1A16FA5FDB0078FCCA /* TMTimerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMTimerViewController.h; sourceTree = "<group>"; };
 		047D7F5316FD22D600DD7B1C /* TMRecordListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMRecordListViewController.h; sourceTree = "<group>"; };
 		047D7F5416FD22D600DD7B1C /* TMRecordListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMRecordListViewController.m; sourceTree = "<group>"; };
+		04BB8E9516FFFE03000A2428 /* TMAddRecordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMAddRecordViewController.h; sourceTree = "<group>"; };
+		04BB8E9616FFFE03000A2428 /* TMAddRecordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMAddRecordViewController.m; sourceTree = "<group>"; };
+		04BB8E9716FFFE03000A2428 /* TMAddRecordViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TMAddRecordViewController.xib; sourceTree = "<group>"; };
 		962DFC6C16F952B200E5F8C8 /* TMSeries.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMSeries.h; sourceTree = "<group>"; };
 		962DFC6D16F952B200E5F8C8 /* TMSeries.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMSeries.m; sourceTree = "<group>"; };
 		965D5055170232E6008201E8 /* SideSwipeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SideSwipeTableViewCell.h; path = thirdparty/SideSwipeTableViewCell.h; sourceTree = "<group>"; };
@@ -100,7 +106,6 @@
 		966E516316FE156D0039B175 /* TMSeriesStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMSeriesStore.h; sourceTree = "<group>"; };
 		966E516416FE156D0039B175 /* TMSeriesStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMSeriesStore.m; sourceTree = "<group>"; };
 		966FCC6116F60B0100F4A024 /* TMTimerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMTimerViewController.m; sourceTree = "<group>"; };
-		966FCC6216F60B0100F4A024 /* TMTimerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TMTimerViewController.xib; sourceTree = "<group>"; };
 		9677DE9716F4CF1900F5F57B /* TMEditTaskViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMEditTaskViewController.h; sourceTree = "<group>"; };
 		9677DE9816F4CF1900F5F57B /* TMEditTaskViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMEditTaskViewController.m; sourceTree = "<group>"; };
 		9677DE9916F4CF1900F5F57B /* TMEditTaskViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TMEditTaskViewController.xib; sourceTree = "<group>"; };
@@ -177,9 +182,12 @@
 				9677DE9916F4CF1900F5F57B /* TMEditTaskViewController.xib */,
 				044A3F1A16FA5FDB0078FCCA /* TMTimerViewController.h */,
 				966FCC6116F60B0100F4A024 /* TMTimerViewController.m */,
-				966FCC6216F60B0100F4A024 /* TMTimerViewController.xib */,
+				041B14241701030700D77383 /* TMTimerViewController.xib */,
 				047D7F5316FD22D600DD7B1C /* TMRecordListViewController.h */,
 				047D7F5416FD22D600DD7B1C /* TMRecordListViewController.m */,
+				04BB8E9516FFFE03000A2428 /* TMAddRecordViewController.h */,
+				04BB8E9616FFFE03000A2428 /* TMAddRecordViewController.m */,
+				04BB8E9716FFFE03000A2428 /* TMAddRecordViewController.xib */,
 				0414FE8316FE33F600ADE44B /* TMRecord.m */,
 				0414FE8216FE33E800ADE44B /* TMRecord.h */,
 				962DFC6C16F952B200E5F8C8 /* TMSeries.h */,
@@ -310,7 +318,6 @@
 				0425BE7A16F3A9D30023EF2C /* Default@2x.png in Resources */,
 				0425BE7C16F3A9D30023EF2C /* Default-568h@2x.png in Resources */,
 				9677DE9B16F4CF1900F5F57B /* TMEditTaskViewController.xib in Resources */,
-				966FCC6416F60B0100F4A024 /* TMTimerViewController.xib in Resources */,
 				965D506C1702369A008201E8 /* action.png in Resources */,
 				965D506D1702369A008201E8 /* action@2x.png in Resources */,
 				965D506E1702369A008201E8 /* dotted-pattern.png in Resources */,
@@ -327,6 +334,8 @@
 				965D50791702369A008201E8 /* star-hollow.png in Resources */,
 				965D507A1702369A008201E8 /* star-hollow@2x.png in Resources */,
 				965D507C17023AF4008201E8 /* TMTaskListViewController.xib in Resources */,
+				04BB8E9916FFFE03000A2428 /* TMAddRecordViewController.xib in Resources */,
+				041B14251701030700D77383 /* TMTimerViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -353,6 +362,7 @@
 				0414FE8416FE33F600ADE44B /* TMRecord.m in Sources */,
 				965D5059170232E6008201E8 /* SideSwipeTableViewCell.m in Sources */,
 				965D505A170232E6008201E8 /* SideSwipeTableViewController.m in Sources */,
+				04BB8E9816FFFE03000A2428 /* TMAddRecordViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
