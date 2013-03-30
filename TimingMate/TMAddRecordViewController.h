@@ -16,6 +16,8 @@
     int32_t duration;
     __weak IBOutlet UITextField *durationField;
     __weak IBOutlet UIButton *datePickerButton;
+    UIActionSheet *actionSheet;
+    UIDatePicker *pickerView1;
 }
 
 @property (nonatomic, strong) TMTask *task;
