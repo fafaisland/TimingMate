@@ -32,6 +32,14 @@ withTask:(TMTask *)aTask withSomeDay:(NSString *)someDay
     return self;
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [recordsArray removeAllObjects];
+    [self getRecordsForToday];
+    [self.tableView reloadData];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];

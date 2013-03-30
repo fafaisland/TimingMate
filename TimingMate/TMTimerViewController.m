@@ -207,7 +207,6 @@
         NSLog(@"record info %@ %d",record.beginTime, record.timeSpent);
         [self toggleStart:YES animated:YES];
     }
-    
 }
 
 - (IBAction)toggleEngagement:(id)sender

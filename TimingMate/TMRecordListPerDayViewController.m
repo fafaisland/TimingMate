@@ -36,6 +36,12 @@
     return self;
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    totalTimePerDayRecordArray = [task computeTotalTimePerDayRecords];
+    [self.tableView reloadData];
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
