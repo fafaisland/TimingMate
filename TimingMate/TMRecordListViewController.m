@@ -78,8 +78,13 @@ withTask:(TMTask *)aTask withSomeDay:(NSString *)someDay
 #pragma mark - button helper
 - (IBAction)changeToAddRecordView:(id)sender
 {
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyy-MM-dd"];
+    NSDate *date = [formatter dateFromString:day];
+    [formatter setDateFormat:@"MMM dd, yyyy"];
+    NSString *transformDay = [formatter stringFromDate:date];
     TMAddRecordViewController *arvc = [[TMAddRecordViewController alloc]
-                                       initWithTask:task];
+                                       initWithTask:task withDay:transformDay];
     [self.navigationController pushViewController:arvc animated:YES];
 }
 #pragma mark - Table view data source

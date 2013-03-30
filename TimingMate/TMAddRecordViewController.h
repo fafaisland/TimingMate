@@ -18,11 +18,13 @@
     __weak IBOutlet UIButton *datePickerButton;
     UIActionSheet *actionSheet;
     UIDatePicker *pickerView1;
+    NSString *initDate;
+    NSDate *appearDate;
 }
 
 @property (nonatomic, strong) TMTask *task;
 
-- (id)initWithTask:(TMTask *)aTask;
+- (id)initWithTask:(TMTask *)aTask withDay:(NSString *)date;
 - (IBAction)datePickerValueChanged:(id)sender;
 
 @end

@@ -26,10 +26,17 @@
     return self;
 }
 
-- (id)initWithTask:(TMTask *)aTask 
+- (id)initWithTask:(TMTask *)aTask withDay:(NSString *)date
 {
     self = [super init];
     if (self) {
+        NSLog(@"%@",date);
+        NSDateFormatter *appearFormat = [[NSDateFormatter alloc] init];
+        [appearFormat setDateFormat:@"MMM dd, yyyy"];
+        appearDate = [[NSDate alloc] init];
+        initDate = [[NSString alloc] init];
+        appearDate = [appearFormat dateFromString:date];
+        initDate = [appearFormat stringFromDate:appearDate];
         UIBarButtonItem *doneButton = [[UIBarButtonItem alloc]
                                        initWithBarButtonSystemItem:
                                         UIBarButtonSystemItemDone
@@ -62,9 +69,11 @@
     //CGRect pickerFrame = CGRectMake(0, 45, 0, 0);
     if (!pickerView1)
         pickerView1 = [[UIDatePicker alloc] initWithFrame:CGRectMake(0, 40, 320, 450)];
+    
+    [pickerView1 setDate:appearDate];
+    
     pickerView1.datePickerMode = UIDatePickerModeDate;
     [actionSheet addSubview:pickerView1];
-    
     UISegmentedControl *closeButton = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObject:@"Close"]];
     closeButton.momentary = YES;
     closeButton.frame = CGRectMake(260, 7.0f, 50.0f, 30.0f);
@@ -75,7 +84,7 @@
     [actionSheet showInView:[[UIApplication sharedApplication] keyWindow]];
     [actionSheet setBounds:CGRectMake(0, 0, 320, 485)];
     [pickerView1 addTarget:self
-                    action:@selector(updateLabel:)
+                    action:@selector(updateLabel)
           forControlEvents:UIControlEventValueChanged];
     UIBarButtonItem *spacer = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
     UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(dismissDatePicker:)] ;
@@ -91,7 +100,7 @@
 {
     [actionSheet dismissWithClickedButtonIndex:0 animated:YES];
 }
-- (void)updateLabel:(id)sender
+- (void)updateLabel
 {
     NSDateFormatter *df = [[NSDateFormatter alloc] init];
     df.dateStyle = NSDateFormatterMediumStyle;
@@ -105,7 +114,13 @@
     NSLog(@"%@",stringDuration);
     if ([stringDuration length] != 0)
     {
-        beginTime = pickerView1.date;
+        if (pickerView1.date == nil)
+        {
+            beginTime = appearDate;
+        }
+        else{
+            beginTime = pickerView1.date;
+        }
         duration = [stringDuration intValue];
         [task createRecordBeginningAt:beginTime
                     withTimeSpent:duration];
@@ -137,4 +152,9 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [datePickerButton setTitle:initDate forState:UIControlStateNormal];
+}
 @end

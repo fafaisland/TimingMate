@@ -105,8 +105,12 @@
 #pragma mark - Helper Method
 - (IBAction)changeToAddRecordView:(id)sender
 {
+    NSDate *now = [[NSDate alloc] init];
+    NSDateFormatter *format = [[NSDateFormatter alloc] init];
+    [format setDateFormat:@"MMM dd, yyyy"];
+    NSString *day = [format stringFromDate:now];
     TMAddRecordViewController *arvc = [[TMAddRecordViewController alloc]
-                                       initWithTask:task];
+                                       initWithTask:task withDay: day];
     [self.navigationController pushViewController:arvc animated:YES];
 }
 - (void)showRecordListWithDay:(NSString *)someDay
