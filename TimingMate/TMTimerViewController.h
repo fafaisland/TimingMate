@@ -42,7 +42,7 @@
 - (IBAction)endTimer:(id)sender;
 - (IBAction)toggleEngagement:(id)sender;
 - (IBAction)toggleFinished:(id)sender;
-- (IBAction)changeToRecordListView:(id)sender;
+- (IBAction)changeToRecordListPerDayView:(id)sender;
 - (void)createRecord;
 
 

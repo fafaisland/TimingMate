@@ -16,4 +16,23 @@
 @dynamic timeSpent;
 @dynamic task;
 
+-(TMRecord *)compareByBeginTime:(TMRecord *)otherTMRecord
+{
+    if (otherTMRecord.beginTime > self.beginTime)
+    {
+        return otherTMRecord;
+    }
+    else{
+        return self;
+    }
+}
+
+-(NSString *)getDateDay
+{
+    NSDateComponents *components = [[NSCalendar currentCalendar] components:NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit fromDate:self.beginTime];
+    NSInteger day = [components day];
+    NSInteger month = [components month];
+    NSInteger year = [components year];
+    return [NSString stringWithFormat:@"%02d-%02d-%02d", year, month, day];
+}
 @end

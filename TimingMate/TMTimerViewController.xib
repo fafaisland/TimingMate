@@ -356,12 +356,12 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
-						<string key="label">changeToRecordListView:</string>
+						<string key="label">changeToRecordListPerDayView:</string>
 						<reference key="source" ref="683911857"/>
 						<reference key="destination" ref="372490531"/>
 						<int key="IBEventType">7</int>
 					</object>
-					<int key="connectionID">122</int>
+					<int key="connectionID">214</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
@@ -518,7 +518,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">213</int>
+			<int key="maxID">214</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -526,15 +526,15 @@
 					<string key="className">TMTimerViewController</string>
 					<string key="superclassName">UIViewController</string>
 					<dictionary class="NSMutableDictionary" key="actions">
-						<string key="changeToRecordListView:">id</string>
+						<string key="changeToRecordListPerDayView:">id</string>
 						<string key="endTimer:">id</string>
 						<string key="startTimer:">id</string>
 						<string key="toggleEngagement:">id</string>
 						<string key="toggleFinished:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
-						<object class="IBActionInfo" key="changeToRecordListView:">
-							<string key="name">changeToRecordListView:</string>
+						<object class="IBActionInfo" key="changeToRecordListPerDayView:">
+							<string key="name">changeToRecordListPerDayView:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="endTimer:">

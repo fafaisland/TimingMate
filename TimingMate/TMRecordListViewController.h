@@ -11,11 +11,11 @@
 
 @interface TMRecordListViewController : UITableViewController
 {
-    NSArray *recordsArray;
+    NSMutableArray *recordsArray;
+    NSString *day;
 }
-- (id)initWithStyle:(UITableViewStyle)style
-           withTask:(TMTask *)aTask
-        withRecords:(NSSet *)reocrds;
+- (id)initWithStyle:(UITableViewStyle)style withTask:(TMTask *)aTask withSomeDay:(NSString *)someDay;
+
 
 - (IBAction)changetoAddRecordView:(id)sender;
 @property (nonatomic, strong) TMTask *task;

@@ -9,26 +9,25 @@
 #import "TMRecordListViewController.h"
 #import "TMRecord.h"
 #import "TMAddRecordViewController.h"
+#import "TMTask.h"
 
 @implementation TMRecordListViewController
 @synthesize task;
 
 - (id)initWithStyle:(UITableViewStyle)style
-withTask:(TMTask *)aTask
-withRecords:(NSSet *)records
-
+withTask:(TMTask *)aTask withSomeDay:(NSString *)someDay
 {
     self = [super initWithStyle:style];
     if (self) {
-        recordsArray = [records allObjects];
         task = aTask;
+        day = someDay;
+        recordsArray = [[NSMutableArray alloc] init];
+        [self getRecordsForToday];
         UIBarButtonItem *addButton = [[UIBarButtonItem alloc]
                                       initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
                                       target:self
                                       action:@selector(changeToAddRecordView:)];
         self.navigationItem.rightBarButtonItem = addButton;
-
-        
     }
     return self;
 }
@@ -48,6 +47,24 @@ withRecords:(NSSet *)records
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - Helper Method
+- (NSString *)stringFromRecord:(TMRecord *)record
+{
+    return [NSString stringWithFormat:@"%@:%d", record.beginTime, record.timeSpent];
+}
+
+- (void)getRecordsForToday
+{
+    NSArray *temp = [task.records allObjects];
+    for (TMRecord* r in temp)
+    {
+        if ([[r getDateDay] isEqualToString:day])
+        {
+            [recordsArray addObject:r];
+        }
+    }
 }
 
 #pragma mark - button helper
@@ -135,10 +152,5 @@ withRecords:(NSSet *)records
      // Pass the selected object to the new view controller.
      [self.navigationController pushViewController:detailViewController animated:YES];
      */
-}
-#pragma mark - Helper Method
-- (NSString *)stringFromRecord:(TMRecord *)record
-{
-    return [NSString stringWithFormat:@"%@:%d", record.beginTime, record.timeSpent];
 }
 @end

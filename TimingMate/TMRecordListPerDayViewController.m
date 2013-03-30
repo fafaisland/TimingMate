@@ -7,18 +7,31 @@
 //
 
 #import "TMRecordListPerDayViewController.h"
-
-@interface TMRecordListPerDayViewController ()
-
-@end
+#import "TMTask.h"
+#import "TMRecord.h"
+#import "TMTotalTimePerDayRecord.h"
+#import "TMRecordListViewController.h"
 
 @implementation TMRecordListPerDayViewController
+
+@synthesize task;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
     if (self) {
         // Custom initialization
+    }
+    return self;
+}
+
+- (id)initWithStyle:(UITableViewStyle)style
+           withTask:(TMTask *)aTask
+{
+    self = [super initWithStyle:style];
+    if (self) {
+        task = aTask;
+        totalTimePerDayRecordArray = [task computeTotalTimePerDayRecords];
     }
     return self;
 }
@@ -44,31 +57,49 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-#warning Potentially incomplete method implementation.
     // Return the number of sections.
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-#warning Incomplete method implementation.
     // Return the number of rows in the section.
-    return 0;
+    return [totalTimePerDayRecordArray count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+    
+    if (!cell) {
+        cell = [[UITableViewCell alloc]
+                initWithStyle:UITableViewCellStyleDefault
+                reuseIdentifier:CellIdentifier];
     }
     
-    // Configure the cell...
-    
+    TMTotalTimePerDayRecord *ttpdr = [totalTimePerDayRecordArray objectAtIndex:indexPath.row];
+    cell.textLabel.text = [NSString stringWithFormat:@"%@ %dseconds",ttpdr.someDay,[ttpdr totalTimeInSeconds]];
     return cell;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSString *someDay = [[totalTimePerDayRecordArray objectAtIndex:indexPath.row] someDay];
+    [self showRecordListWithDay:someDay];
+}
+
+#pragma mark - Helper Method
+- (void)showRecordListWithDay:(NSString *)someDay
+{
+    TMRecordListViewController *rlvc = [[TMRecordListViewController alloc] initWithStyle:UITableViewStylePlain withTask:task withSomeDay:someDay];
+    [self.navigationController pushViewController:rlvc animated:YES];
+}
+
+- (NSString *)stringFromRecord:(TMRecord *)record
+{
+    return [NSString stringWithFormat:@"%@:%d", record.beginTime, record.timeSpent];
+}
 /*
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
@@ -107,18 +138,5 @@
     return YES;
 }
 */
-
-#pragma mark - Table view delegate
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
-}
 
 @end

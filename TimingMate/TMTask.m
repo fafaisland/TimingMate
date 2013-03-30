@@ -9,7 +9,7 @@
 #import "TMTask.h"
 #import "TMRecord.h"
 #import "TMSeries.h"
-
+#import "TMTotalTimePerDayRecord.h"
 #import "TMTaskStore.h"
 
 @implementation TMTask
@@ -46,4 +46,29 @@
     return record;
 }
 
+- (NSMutableArray *)computeTotalTimePerDayRecords
+{
+    if ([self.records count] > 0)
+    {
+        NSArray *recordsArray = [self.records allObjects];
+        NSArray *sortedRecordsArray = [recordsArray sortedArrayUsingSelector:@selector(compareByBeginTime:)];
+        NSMutableArray *totalTimePerDayRecordsArray = [[NSMutableArray alloc] init];
+        for (TMRecord* r in sortedRecordsArray)
+        {
+            TMTotalTimePerDayRecord *lastRecord = [totalTimePerDayRecordsArray lastObject];
+            if ([totalTimePerDayRecordsArray count] == 0 || [[r getDateDay] isEqualToString:lastRecord.someDay] == NO)
+            {
+                TMTotalTimePerDayRecord *ttpdRecord = [[TMTotalTimePerDayRecord alloc] initWithSomeDay:[r getDateDay] withSeconds:r.timeSpent];
+                [totalTimePerDayRecordsArray addObject:ttpdRecord];
+            }
+            else{
+                [[totalTimePerDayRecordsArray lastObject] addTimeInSeconds:r.timeSpent];
+            }
+        }
+        return totalTimePerDayRecordsArray;
+    }
+    else{
+        return nil;
+    }
+}
 @end

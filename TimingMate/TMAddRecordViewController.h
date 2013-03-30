@@ -14,12 +14,13 @@
 {
     NSDate *beginTime;
     int32_t duration;
-    __weak IBOutlet UITextField *beginTimeField;
     __weak IBOutlet UITextField *durationField;
+    __weak IBOutlet UIButton *datePickerButton;
 }
 
 @property (nonatomic, strong) TMTask *task;
 
 - (id)initWithTask:(TMTask *)aTask;
+- (IBAction)datePickerValueChanged:(id)sender;
 
 @end

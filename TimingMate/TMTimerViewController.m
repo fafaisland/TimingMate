@@ -14,6 +14,7 @@
 #import "TMRecordListViewController.h"
 #import "TMTaskListViewController.h"
 #import "TMAddRecordViewController.h"
+#import "TMRecordListPerDayViewController.h"
 
 @implementation TMTimerViewController
 
@@ -167,15 +168,13 @@
                                 withTimeSpent:elapsedTimePerRecord];
 }
 
-- (IBAction)changeToRecordListView:(id)sender
+- (IBAction)changeToRecordListPerDayView:(id)sender
 {
     records = task.records;
-    TMRecordListViewController *rlvc = [[TMRecordListViewController alloc]
+    TMRecordListPerDayViewController *rlvc = [[TMRecordListPerDayViewController alloc]
                                         initWithStyle:UITableViewStylePlain
-                                        withTask:task
-                                        withRecords:records];
-    UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:rlvc];
-    [self presentViewController:nc animated:YES completion:nil];
+                                        withTask:task];
+    [self.navigationController pushViewController:rlvc animated:YES];
 }
 
 #pragma mark - Button handlers

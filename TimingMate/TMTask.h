@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class TMRecord, TMSeries;
+@class TMRecord, TMSeries,TMTotalTimePerDayRecord;
 
 @interface TMTask : NSManagedObject
 
@@ -28,6 +28,7 @@
 - (void)removeRecordsObject:(TMRecord *)value;
 - (void)addRecords:(NSSet *)values;
 - (void)removeRecords:(NSSet *)values;
+- (NSMutableArray *)computeTotalTimePerDayRecords;
 
 - (TMRecord *)createRecordBeginningAt:(NSDate *)beginTime
                         withTimeSpent:(int32_t)timeSpent;
