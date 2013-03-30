@@ -11,6 +11,7 @@
 #import "TMRecord.h"
 #import "TMTotalTimePerDayRecord.h"
 #import "TMRecordListViewController.h"
+#import "TMAddRecordViewController.h"
 
 @implementation TMRecordListPerDayViewController
 
@@ -32,6 +33,12 @@
     if (self) {
         task = aTask;
         totalTimePerDayRecordArray = [task computeTotalTimePerDayRecords];
+        UIBarButtonItem *addButton = [[UIBarButtonItem alloc]
+                                      initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
+                                      target:self
+                                      action:@selector(changeToAddRecordView:)];
+        self.navigationItem.rightBarButtonItem = addButton;
+
     }
     return self;
 }
@@ -96,6 +103,12 @@
 }
 
 #pragma mark - Helper Method
+- (IBAction)changeToAddRecordView:(id)sender
+{
+    TMAddRecordViewController *arvc = [[TMAddRecordViewController alloc]
+                                       initWithTask:task];
+    [self.navigationController pushViewController:arvc animated:YES];
+}
 - (void)showRecordListWithDay:(NSString *)someDay
 {
     TMRecordListViewController *rlvc = [[TMRecordListViewController alloc] initWithStyle:UITableViewStylePlain withTask:task withSomeDay:someDay];
