@@ -50,8 +50,8 @@
 - (IBAction) datePickerValueChanged:(id)sender
 {
     // following code reference: http://stackoverflow.com/questions/8930052/iphone-datepicker-with-actionsheet
-    
-    actionSheet = [[UIActionSheet alloc] initWithTitle:nil
+    if (!actionSheet)
+        actionSheet = [[UIActionSheet alloc] initWithTitle:nil
                                               delegate:nil
                                      cancelButtonTitle:nil
                                 destructiveButtonTitle:nil
@@ -60,7 +60,8 @@
     [actionSheet setActionSheetStyle:UIActionSheetStyleBlackTranslucent];
     
     //CGRect pickerFrame = CGRectMake(0, 45, 0, 0);
-    pickerView1 = [[UIDatePicker alloc] initWithFrame:CGRectMake(0, 40, 320, 450)];
+    if (!pickerView1)
+        pickerView1 = [[UIDatePicker alloc] initWithFrame:CGRectMake(0, 40, 320, 450)];
     pickerView1.datePickerMode = UIDatePickerModeDate;
     [actionSheet addSubview:pickerView1];
     
@@ -98,23 +99,23 @@
 }
 - (void)save:(id)sender
 {
-    NSString *stringBeginTime = nil;
+   // NSString *stringBeginTime = [datePickerButton currentTitle];
+    //NSLog(@"%@",[datePickerButton currentTitle]);
     NSString *stringDuration = durationField.text;
-    if ([stringBeginTime length] != 0 && [stringDuration length] != 0)
+    NSLog(@"%@",stringDuration);
+    if ([stringDuration length] != 0)
     {
-        NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-        [dateFormat setDateFormat:@"yyyy-MMMM-dd"];
-        beginTime = [dateFormat dateFromString:stringBeginTime];
-        duration = (int32_t)stringDuration;
+        beginTime = pickerView1.date;
+        duration = [stringDuration intValue];
         [task createRecordBeginningAt:beginTime
                     withTimeSpent:duration];
     }
-    [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)cancel:(id)sender
 {
-    [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {

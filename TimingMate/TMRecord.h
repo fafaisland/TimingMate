@@ -17,6 +17,5 @@
 @property (nonatomic) int32_t timeSpent;
 @property (nonatomic, retain) TMTask *task;
 
--(TMTask *)compareByBeginTime:(TMTask *)otherTMTask;
 -(NSString *)getDateDay;
 @end

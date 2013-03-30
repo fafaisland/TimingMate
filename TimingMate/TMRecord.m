@@ -16,16 +16,6 @@
 @dynamic timeSpent;
 @dynamic task;
 
--(TMRecord *)compareByBeginTime:(TMRecord *)otherTMRecord
-{
-    if (otherTMRecord.beginTime > self.beginTime)
-    {
-        return otherTMRecord;
-    }
-    else{
-        return self;
-    }
-}
 
 -(NSString *)getDateDay
 {

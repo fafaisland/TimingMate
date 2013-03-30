@@ -51,7 +51,10 @@
     if ([self.records count] > 0)
     {
         NSArray *recordsArray = [self.records allObjects];
-        NSArray *sortedRecordsArray = [recordsArray sortedArrayUsingSelector:@selector(compareByBeginTime:)];
+        NSComparisonResult (^sortBlock)(id, id) = ^(id obj1, id obj2) {
+            return [[obj1 beginTime] compare:[obj2 beginTime]];
+        };
+        NSArray *sortedRecordsArray = [recordsArray sortedArrayUsingComparator:sortBlock];
         NSMutableArray *totalTimePerDayRecordsArray = [[NSMutableArray alloc] init];
         for (TMRecord* r in sortedRecordsArray)
         {
@@ -69,6 +72,20 @@
     }
     else{
         return nil;
+    }
+}
+-(NSComparisonResult)compareByBeginTimeWithRecord1:(TMRecord *)TMRecord1 withRecord2:(TMRecord *)TMRecord2
+{
+    if (TMRecord1.beginTime > TMRecord2.beginTime)
+    {
+        return NSOrderedDescending;
+    }
+    else if (TMRecord1.beginTime == TMRecord2.beginTime)
+    {
+        return NSOrderedSame;
+    }
+    else{
+        return NSOrderedAscending;
     }
 }
 @end
