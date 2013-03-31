@@ -173,6 +173,9 @@ enum { TMAllListIndex = 0,
         if (addField.text.length != 0) {
             [self addSeries:addField.text];
         }
+    } else {
+        if (self.isEditing)
+            [self toggleDelete];
     }
 
     isAdding = !isAdding;
@@ -184,10 +187,12 @@ enum { TMAllListIndex = 0,
 {
     if (self.isEditing) {
         [self setEditing:NO animated:YES];
-        self.navigationItem.leftBarButtonItem = deleteButton;
+        [self.navigationItem setLeftBarButtonItem:deleteButton animated:YES];
     } else {
+        if (isAdding)
+            [self toggleAdd];
         [self setEditing:YES animated:YES];
-        self.navigationItem.leftBarButtonItem = deleteDoneButton;
+        [self.navigationItem setLeftBarButtonItem:deleteDoneButton animated:YES];
     }
 }
 
