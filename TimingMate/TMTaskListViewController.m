@@ -140,11 +140,11 @@
 
 - (void)toggleDelete
 {
-    if (self.isEditing) {
-        [self setEditing:NO animated:YES];
+    if (self.tableView.isEditing) {
+        [self.tableView setEditing:NO animated:YES];
         self.navigationItem.rightBarButtonItems = @[addButton, deleteButton];
     } else {
-        [self setEditing:YES animated:YES];
+        [self.tableView setEditing:YES animated:YES];
         self.navigationItem.rightBarButtonItems = @[addButton, deleteDoneButton];
     }
 
@@ -173,7 +173,8 @@
     } else {
         cell.textLabel.textColor = [UIColor blackColor];
     }
-    cell.supressDeleteButton = ![self gestureRecognizersSupported];
+    //cell.supressDeleteButton = ![self gestureRecognizersSupported];
+    cell.supressDeleteButton = NO;
     
     return cell;
 }

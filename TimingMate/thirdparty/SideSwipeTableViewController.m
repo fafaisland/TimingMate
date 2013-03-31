@@ -127,9 +127,9 @@
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
   // If we are using gestures, then don't allow editing
-  if ([self gestureRecognizersSupported])
-    return NO;
-  else
+  //if ([self gestureRecognizersSupported])
+  //  return NO;
+  //else
     return YES;
 }
 
