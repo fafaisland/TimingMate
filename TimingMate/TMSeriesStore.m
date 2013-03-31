@@ -44,10 +44,11 @@
     return allSeries;
 }
 
-- (void)createAndAddSeries
+- (void)createAndAddSeriesWithTitle:(NSString *)title
 {
     TMSeries *s = [NSEntityDescription insertNewObjectForEntityForName:TMSeriesEntityName
                                                 inManagedObjectContext:context];
+    s.title = title;
     [allSeries addObject:s];
 }
 

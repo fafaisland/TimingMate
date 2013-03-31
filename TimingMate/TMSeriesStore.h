@@ -22,7 +22,7 @@
 
 + (TMSeriesStore *)sharedStore;
 
-- (void)createAndAddSeries;
+- (void)createAndAddSeriesWithTitle:(NSString *)title;
 - (NSArray *)allSeries;
 
 - (NSInteger)indexOfSeriesByTitle:(NSString *)title;

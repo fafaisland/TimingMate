@@ -8,7 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TMListsViewController : UITableViewController
+@interface TMListsViewController : UITableViewController <UITextFieldDelegate>
+{
+    BOOL isAdding;
+    __weak UITextField *addField;
+    
+    UIBarButtonItem *addButton;
+    UIBarButtonItem *addDoneButton;
+    UIBarButtonItem *deleteButton;
+    UIBarButtonItem *deleteDoneButton;
+}
 
 - (void)pushDefaultList;
 

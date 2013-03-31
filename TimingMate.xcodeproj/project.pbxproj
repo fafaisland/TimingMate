@@ -26,6 +26,8 @@
 		04BB8E9816FFFE03000A2428 /* TMAddRecordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BB8E9616FFFE03000A2428 /* TMAddRecordViewController.m */; };
 		04BB8E9916FFFE03000A2428 /* TMAddRecordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04BB8E9716FFFE03000A2428 /* TMAddRecordViewController.xib */; };
 		962AB654170893F70061D238 /* TPKeyboardAvoidingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 962AB653170893F70061D238 /* TPKeyboardAvoidingScrollView.m */; };
+		962AB657170894F50061D238 /* TMListsViewEditableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 962AB656170894F50061D238 /* TMListsViewEditableCell.m */; };
+		962AB659170895160061D238 /* TMListsViewEditableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 962AB658170895160061D238 /* TMListsViewEditableCell.xib */; };
 		962DFC6E16F952B200E5F8C8 /* TMSeries.m in Sources */ = {isa = PBXBuildFile; fileRef = 962DFC6D16F952B200E5F8C8 /* TMSeries.m */; };
 		965D5059170232E6008201E8 /* SideSwipeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 965D5056170232E6008201E8 /* SideSwipeTableViewCell.m */; };
 		965D505A170232E6008201E8 /* SideSwipeTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 965D5058170232E6008201E8 /* SideSwipeTableViewController.m */; };
@@ -88,6 +90,9 @@
 		04BB8E9716FFFE03000A2428 /* TMAddRecordViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TMAddRecordViewController.xib; sourceTree = "<group>"; };
 		962AB652170893EB0061D238 /* TPKeyboardAvoidingScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TPKeyboardAvoidingScrollView.h; path = thirdparty/TPKeyboardAvoidingScrollView.h; sourceTree = "<group>"; };
 		962AB653170893F70061D238 /* TPKeyboardAvoidingScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TPKeyboardAvoidingScrollView.m; path = thirdparty/TPKeyboardAvoidingScrollView.m; sourceTree = "<group>"; };
+		962AB655170894F50061D238 /* TMListsViewEditableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMListsViewEditableCell.h; sourceTree = "<group>"; };
+		962AB656170894F50061D238 /* TMListsViewEditableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMListsViewEditableCell.m; sourceTree = "<group>"; };
+		962AB658170895160061D238 /* TMListsViewEditableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TMListsViewEditableCell.xib; sourceTree = "<group>"; };
 		962DFC6C16F952B200E5F8C8 /* TMSeries.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMSeries.h; sourceTree = "<group>"; };
 		962DFC6D16F952B200E5F8C8 /* TMSeries.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMSeries.m; sourceTree = "<group>"; };
 		965D5055170232E6008201E8 /* SideSwipeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SideSwipeTableViewCell.h; path = thirdparty/SideSwipeTableViewCell.h; sourceTree = "<group>"; };
@@ -183,6 +188,9 @@
 				0425BE7516F3A9D30023EF2C /* TMAppDelegate.m */,
 				96F3075416F7ACC400B0E2EF /* TMListsViewController.h */,
 				96F3075516F7ACC400B0E2EF /* TMListsViewController.m */,
+				962AB655170894F50061D238 /* TMListsViewEditableCell.h */,
+				962AB656170894F50061D238 /* TMListsViewEditableCell.m */,
+				962AB658170895160061D238 /* TMListsViewEditableCell.xib */,
 				96D4039016F3B46400214323 /* TMTaskListViewController.h */,
 				96D4039116F3B46400214323 /* TMTaskListViewController.m */,
 				965D507B17023AF4008201E8 /* TMTaskListViewController.xib */,
@@ -351,6 +359,7 @@
 				965D507C17023AF4008201E8 /* TMTaskListViewController.xib in Resources */,
 				04BB8E9916FFFE03000A2428 /* TMAddRecordViewController.xib in Resources */,
 				041B14251701030700D77383 /* TMTimerViewController.xib in Resources */,
+				962AB659170895160061D238 /* TMListsViewEditableCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -381,6 +390,7 @@
 				042170FA17022DFD006931B6 /* TMRecordListPerDayViewController.m in Sources */,
 				040202B91704D5C200E46A2F /* TMTotalTimePerDayRecord.m in Sources */,
 				962AB654170893F70061D238 /* TPKeyboardAvoidingScrollView.m in Sources */,
+				962AB657170894F50061D238 /* TMListsViewEditableCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

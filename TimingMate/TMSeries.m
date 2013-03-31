@@ -15,11 +15,4 @@
 @dynamic title;
 @dynamic tasks;
 
-- (void)awakeFromInsert
-{
-    static int counter = 0;
-
-    self.title = [NSString stringWithFormat:@"Test Series %d", counter++];
-}
-
 @end

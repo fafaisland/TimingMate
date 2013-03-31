@@ -147,7 +147,6 @@
         [self.tableView setEditing:YES animated:YES];
         self.navigationItem.rightBarButtonItems = @[addButton, deleteDoneButton];
     }
-
 }
 
 #pragma mark - Table methods

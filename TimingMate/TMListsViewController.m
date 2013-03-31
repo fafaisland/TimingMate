@@ -9,6 +9,7 @@
 #import "TMListsViewController.h"
 
 #import "TMGlobals.h"
+#import "TMListsViewEditableCell.h"
 #import "TMSeries.h"
 #import "TMSeriesStore.h"
 #import "TMTaskListViewController.h"
@@ -16,6 +17,8 @@
 
 NSString * const TMAllListName = @"All";
 NSString * const TMEngagingListName = @"Engaging";
+
+NSString * const TMListsViewEditableCellIdentifier = @"EditableCell";
 
 enum { TMAllListIndex = 0,
        TMEngagingListIndex = 1,
@@ -29,10 +32,24 @@ enum { TMAllListIndex = 0,
     if (self) {
         self.navigationItem.title = TMListsTitle;
         
-        UIBarButtonItem *addButton = [[UIBarButtonItem alloc]
-                                      initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
-                                      target:self action:@selector(addNewSeries:)];
-        self.navigationItem.rightBarButtonItem = addButton;
+        addButton = [[UIBarButtonItem alloc]
+                              initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
+                              target:self action:@selector(toggleAdd)];
+        addDoneButton = [[UIBarButtonItem alloc]
+                      initWithTitle:@"Done"
+                      style:UIBarButtonItemStyleDone
+                      target:self
+                      action:@selector(toggleAdd)];
+        deleteButton = [[UIBarButtonItem alloc]
+                      initWithTitle:@"Delete"
+                      style:UIBarButtonItemStylePlain
+                      target:self
+                      action:@selector(toggleDelete)];
+        deleteDoneButton = [[UIBarButtonItem alloc]
+                        initWithTitle:@"Done"
+                        style:UIBarButtonItemStyleDone
+                        target:self
+                        action:@selector(toggleDelete)];
     }
     return self;
 }
@@ -40,6 +57,16 @@ enum { TMAllListIndex = 0,
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    isAdding = NO;
+    [self switchButtonToAdd:YES];
+    
+    self.navigationItem.leftBarButtonItem = deleteButton;
+    self.editing = NO;
+    
+    UINib *nib = [UINib nibWithNibName:@"TMListsViewEditableCell" bundle:nil];
+    [self.tableView registerNib:nib
+         forCellReuseIdentifier:TMListsViewEditableCellIdentifier];
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -58,38 +85,49 @@ enum { TMAllListIndex = 0,
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSUInteger seriesCount = [[TMSeriesStore sharedStore] allSeries].count;
-    return TMDefaultListEnd + seriesCount;
+    return [self usualRowCount] + (isAdding ? 1 : 0);
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    
-    if (!cell) {
-        cell = [[UITableViewCell alloc]
-                initWithStyle:UITableViewCellStyleDefault
-                reuseIdentifier:CellIdentifier];
+    if (indexPath.row < [self usualRowCount]) {
+        UITableViewCell *cell =
+            [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        
+        if (!cell) {
+            cell = [[UITableViewCell alloc]
+                    initWithStyle:UITableViewCellStyleDefault
+                    reuseIdentifier:CellIdentifier];
+        }
+
+        cell.textLabel.text = [self listNameFromRow:indexPath.row];
+        
+        return cell;
+    } else {
+        TMListsViewEditableCell *editableCell = [tableView
+                    dequeueReusableCellWithIdentifier:TMListsViewEditableCellIdentifier];
+        addField = editableCell.titleField;
+
+        addField.text = @"";
+        [addField setPlaceholder:@"Series name"];
+        [addField performSelector:@selector(becomeFirstResponder)
+                       withObject:nil
+                       afterDelay:0.1f];
+        addField.delegate = self;
+        editableCell.selectionStyle = UITableViewCellSelectionStyleNone;
+        return editableCell;
     }
-
-    cell.textLabel.text = [self listNameFromRow:indexPath.row];
-
-    return cell;
 }
 
-/*
-// Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Return NO if you do not want the specified item to be editable.
+    if (indexPath.row < TMDefaultListEnd)
+        return NO;
     return YES;
 }
-*/
 
-/*
-// Override to support editing the table view.
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
@@ -100,7 +138,6 @@ enum { TMAllListIndex = 0,
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
     }   
 }
-*/
 
 /*
 // Override to support rearranging the table view.
@@ -122,27 +159,64 @@ enum { TMAllListIndex = 0,
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if (indexPath.row >= [self usualRowCount])
+        return;
+
     [self pushListNamed:[self listNameFromRow:indexPath.row] animated:YES];
 }
 
 #pragma mark - Button handlers
 
-- (void)addNewSeries:(id)sender
+- (void)toggleAdd
 {
-    [[TMSeriesStore sharedStore] createAndAddSeries];
-    
-    NSIndexPath *indexPath = [NSIndexPath
-                    indexPathForRow:[[TMSeriesStore sharedStore]
-                                     allSeries].count-1+TMDefaultListEnd
-                    inSection:0];
-    [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
-                          withRowAnimation:UITableViewRowAnimationFade];
-    [self.tableView scrollToRowAtIndexPath:indexPath
-                          atScrollPosition:UITableViewScrollPositionTop
-                                  animated:YES];
+    if (isAdding) {
+        if (addField.text.length != 0) {
+            [self addSeries:addField.text];
+        }
+    }
+
+    isAdding = !isAdding;
+    [self switchButtonToAdd:!isAdding];
+    [self.tableView reloadData];
+}
+
+- (void)toggleDelete
+{
+    if (self.isEditing) {
+        [self setEditing:NO animated:YES];
+        self.navigationItem.leftBarButtonItem = deleteButton;
+    } else {
+        [self setEditing:YES animated:YES];
+        self.navigationItem.leftBarButtonItem = deleteDoneButton;
+    }
+}
+
+#pragma mark - TextField delegate
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    return YES;
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField
+{
+    if (isAdding)
+        [self toggleAdd];
 }
 
 #pragma mark - Helper methods
+
+- (void)addSeries:(NSString *)title
+{
+    [[TMSeriesStore sharedStore] createAndAddSeriesWithTitle:title];
+}
+
+- (void)switchButtonToAdd:(BOOL)showingAdd
+{
+    [self.navigationItem setRightBarButtonItem:(showingAdd ? addButton : addDoneButton)
+                                      animated:YES];
+}
 
 - (NSString *)listNameFromRow:(NSInteger)row
 {
@@ -193,6 +267,12 @@ enum { TMAllListIndex = 0,
                                                     listGenerationBlock:
                                                     [self listGenerationBlockFromName:name]];
     [self.navigationController pushViewController:taskListController animated:animated];
+}
+
+- (NSUInteger)usualRowCount
+{
+    NSUInteger seriesCount = [[TMSeriesStore sharedStore] allSeries].count;
+    return TMDefaultListEnd + seriesCount;
 }
 
 @end
