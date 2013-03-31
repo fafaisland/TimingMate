@@ -77,6 +77,9 @@
 // Handle a left or right swipe
 - (void)swipe:(UISwipeGestureRecognizer *)recognizer direction:(UISwipeGestureRecognizerDirection)direction
 {
+  if (self.tableView.isEditing)
+      return;
+
   if (recognizer && recognizer.state == UIGestureRecognizerStateEnded)
   {
     // Get the table view cell where the swipe occured

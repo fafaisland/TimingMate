@@ -144,6 +144,7 @@
         [self.tableView setEditing:NO animated:YES];
         self.navigationItem.rightBarButtonItems = @[addButton, deleteButton];
     } else {
+        [self removeSideSwipeView:YES];
         [self.tableView setEditing:YES animated:YES];
         self.navigationItem.rightBarButtonItems = @[addButton, deleteDoneButton];
     }
