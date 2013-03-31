@@ -12,14 +12,15 @@
     <UITextFieldDelegate, UIAlertViewDelegate>
 {
     BOOL isAdding;
-    __weak UITextField *addField;
+    __weak UITextField *editField;
     
     UIBarButtonItem *addButton;
     UIBarButtonItem *addDoneButton;
-    UIBarButtonItem *deleteButton;
-    UIBarButtonItem *deleteDoneButton;
+    UIBarButtonItem *editButton;
+    UIBarButtonItem *editDoneButton;
     
     NSIndexPath *indexOfSeriesToBeDeleted;
+    NSIndexPath *editingIndexPath;
 }
 
 - (void)pushDefaultList;

@@ -67,7 +67,7 @@
 {
     for (NSInteger i = 0; i < allSeries.count; i++) {
         TMSeries *s = [allSeries objectAtIndex:i];
-        if (s.title == title)
+        if ([s.title localizedCompare:title] == NSOrderedSame)
             return s;
     }
     return nil;
