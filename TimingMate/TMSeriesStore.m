@@ -52,6 +52,12 @@
     [allSeries addObject:s];
 }
 
+- (void)removeSeries:(TMSeries *)s
+{
+    [context deleteObject:s];
+    [allSeries removeObjectIdenticalTo:s];
+}
+
 - (NSInteger)indexOfSeriesByTitle:(NSString *)title
 {
     return [allSeries indexOfObject:[self seriesByTitle:title]];

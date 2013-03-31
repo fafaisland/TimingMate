@@ -131,9 +131,19 @@ enum { TMAllListIndex = 0,
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
+        TMSeries *series = [[[TMSeriesStore sharedStore] allSeries] objectAtIndex:indexPath.row-TMDefaultListEnd];
+        if (series.tasks.count > 0) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
+                                         message:@"This will delete all associated tasks"
+                                                       delegate:self
+                                              cancelButtonTitle:@"Cancel"
+                                              otherButtonTitles:@"Delete", nil];
+            indexOfSeriesToBeDeleted = indexPath;
+            [alert show];
+        } else {
+            [self deleteSeriesAtIndexPath:indexPath];
+        }
+    }
     else if (editingStyle == UITableViewCellEditingStyleInsert) {
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
     }   
@@ -210,6 +220,15 @@ enum { TMAllListIndex = 0,
         [self toggleAdd];
 }
 
+#pragma mark - AlertView delegate
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 1) {
+        [self deleteSeriesAtIndexPath:indexOfSeriesToBeDeleted];
+    }
+}
+
 #pragma mark - Helper methods
 
 - (void)addSeries:(NSString *)title
@@ -278,6 +297,22 @@ enum { TMAllListIndex = 0,
 {
     NSUInteger seriesCount = [[TMSeriesStore sharedStore] allSeries].count;
     return TMDefaultListEnd + seriesCount;
+}
+
+- (void)deleteSeriesAtIndexPath:(NSIndexPath *)indexPath
+{
+    TMSeries *series = [[[TMSeriesStore sharedStore] allSeries]
+                        objectAtIndex:indexPath.row-TMDefaultListEnd];
+    for (TMTask *task in series.tasks) {
+        [[TMTaskStore sharedStore] removeTask:task];
+    }
+    [[TMSeriesStore sharedStore] removeSeries:series];
+    [self.tableView deleteRowsAtIndexPaths:@[indexPath]
+                          withRowAnimation:UITableViewRowAnimationFade];
+    
+    if ([[TMSeriesStore sharedStore] allSeries].count == 0) {
+        [self toggleDelete];
+    }
 }
 
 @end

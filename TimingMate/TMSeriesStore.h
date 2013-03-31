@@ -22,8 +22,9 @@
 
 + (TMSeriesStore *)sharedStore;
 
-- (void)createAndAddSeriesWithTitle:(NSString *)title;
 - (NSArray *)allSeries;
+- (void)createAndAddSeriesWithTitle:(NSString *)title;
+- (void)removeSeries:(TMSeries *)s;
 
 - (NSInteger)indexOfSeriesByTitle:(NSString *)title;
 - (TMSeries *)seriesByTitle:(NSString *)title;

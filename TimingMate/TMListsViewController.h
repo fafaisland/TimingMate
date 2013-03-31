@@ -8,7 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TMListsViewController : UITableViewController <UITextFieldDelegate>
+@interface TMListsViewController : UITableViewController
+    <UITextFieldDelegate, UIAlertViewDelegate>
 {
     BOOL isAdding;
     __weak UITextField *addField;
@@ -17,6 +18,8 @@
     UIBarButtonItem *addDoneButton;
     UIBarButtonItem *deleteButton;
     UIBarButtonItem *deleteDoneButton;
+    
+    NSIndexPath *indexOfSeriesToBeDeleted;
 }
 
 - (void)pushDefaultList;
