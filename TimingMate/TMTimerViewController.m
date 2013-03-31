@@ -263,15 +263,6 @@
     [finishButton sizeToFit];
     [self.navigationItem setRightBarButtonItem:(task.isFinished ? nil : editButton)
                                       animated:animated];
-    if (animated) {
-        [UIView beginAnimations:nil context:nil];
-        [UIView setAnimationDuration:0.4];
-        [UIView setAnimationCurve: UIViewAnimationCurveEaseInOut];
-        [recordListButton setAlpha:(finished ? 0.0 : 1.0)];
-        [UIView commitAnimations];
-    } else {
-        [recordListButton setAlpha:(finished ? 0.0 : 1.0)];
-    }
     [self toggleStart:!isTiming animated:animated];
 }
 
