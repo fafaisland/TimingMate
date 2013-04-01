@@ -92,9 +92,9 @@
 
     // Setup the title and image for each button within the side swipe view
     sideSwipeButtonData = [NSArray arrayWithObjects:
-                           [NSDictionary dictionaryWithObjectsAndKeys:@"Reply", @"title", @"reply.png", @"image", nil],
-                           [NSDictionary dictionaryWithObjectsAndKeys:@"Retweet", @"title", @"retweet-outline-button-item.png", @"image", nil],
-                           [NSDictionary dictionaryWithObjectsAndKeys:@"Favorite", @"title", @"star-hollow.png", @"image", nil],
+                           [NSDictionary dictionaryWithObjectsAndKeys:@"Delete", @"title", @"trash.png", @"image", nil],
+                           [NSDictionary dictionaryWithObjectsAndKeys:@"Engage", @"title", @"engage.png", @"image", nil],
+                           [NSDictionary dictionaryWithObjectsAndKeys:@"Finish", @"title", @"finish.png", @"image", nil],
                            [NSDictionary dictionaryWithObjectsAndKeys:@"Profile", @"title", @"person.png", @"image", nil],
                            [NSDictionary dictionaryWithObjectsAndKeys:@"Links", @"title", @"paperclip.png", @"image", nil],
                            [NSDictionary dictionaryWithObjectsAndKeys:@"Action", @"title", @"action.png", @"image", nil],
