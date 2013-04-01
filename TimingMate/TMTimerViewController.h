@@ -18,7 +18,9 @@
     int elapsedTimeInSeconds;
     int elapsedTimePerRecord;
     NSDate *recordBeginTime;
+    NSSet *records;
     BOOL isTiming;
+    
     IBOutlet UILabel *timeField;
     IBOutlet UIBarButtonItem *startButton;
     IBOutlet UIBarButtonItem *stopButton;
@@ -29,12 +31,10 @@
     __weak IBOutlet UIButton *finishButton;
     UIBarButtonItem *editButton;
     __weak IBOutlet UIButton *recordListButton;
-    
     __weak IBOutlet UIToolbar *buttonBar;
-    //records
-    NSSet *records;
+   
     __weak IBOutlet UILabel *hoursPerDayField;
-    
+    __weak IBOutlet UILabel *seriesLabel;
 }
 
 - (id)initWithTask:(TMTask *)aTask;

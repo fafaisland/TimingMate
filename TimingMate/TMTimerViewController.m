@@ -7,10 +7,10 @@
 //
 
 #import "TMTimerViewController.h"
-
 #import "TMEditTaskViewController.h"
 #import "TMTask.h"
 #import "TMRecord.h"
+#import "TMSeries.h"
 #import "TMRecordListViewController.h"
 #import "TMTaskListViewController.h"
 #import "TMAddRecordViewController.h"
@@ -52,8 +52,8 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-
     currentEngagementButton = task.isEngaging ? disengageButton : engageButton;
+    [seriesLabel setText:task.series.title];
     [self toggleStart:YES animated:NO];
     [self showButtonsForFinished:task.isFinished animated:NO];
     [self showHoursPerDay];
