@@ -204,7 +204,7 @@
         isTiming = false;
         [timer invalidate];
         [self createRecord];
-        NSLog(@"record info %@ %d",record.beginTime, record.timeSpent);
+        [self showHoursPerDay];
         [self toggleStart:YES animated:YES];
     }
 }
