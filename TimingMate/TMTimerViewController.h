@@ -18,7 +18,6 @@
     int elapsedTimeInSeconds;
     int elapsedTimePerRecord;
     NSDate *recordBeginTime;
-    NSSet *records;
     BOOL isTiming;
     
     IBOutlet UILabel *timeField;
@@ -35,6 +34,9 @@
    
     __weak IBOutlet UILabel *hoursPerDayField;
     __weak IBOutlet UILabel *seriesLabel;
+    __weak IBOutlet UILabel *totalTimeLabel;
+    __weak IBOutlet UILabel *expectedTimeLabel;
+    
 }
 
 - (id)initWithTask:(TMTask *)aTask;

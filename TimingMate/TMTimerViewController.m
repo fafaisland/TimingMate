@@ -57,6 +57,8 @@
     [self toggleStart:YES animated:NO];
     [self showButtonsForFinished:task.isFinished animated:NO];
     [self showHoursPerDay];
+    [self showTotalTime];
+    [self showExpectedTime];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -170,15 +172,24 @@
 
 - (IBAction)changeToRecordListPerDayView:(id)sender
 {
-    records = task.records;
     TMRecordListPerDayViewController *rlvc = [[TMRecordListPerDayViewController alloc]
                                         initWithStyle:UITableViewStylePlain
                                         withTask:task];
     [self.navigationController pushViewController:rlvc animated:YES];
 }
 
+#pragma mark - present labels
+- (void)showTotalTime
+{
+    int secondsTotal = [self countTotalSecondsSpentOnTask];
+    [totalTimeLabel setText:[self getStringFromSecondsPerDay:secondsTotal ]];
+}
+- (void)showExpectedTime
+{
+    NSString *expectedTimeString = [NSString stringWithFormat:@"%f",task.expectedCompletionTime];
+    [expectedTimeLabel setText:expectedTimeString];
+}
 #pragma mark - Button handlers
-
 - (void)editTask:(id)sender
 {
     TMEditTaskViewController *etvc = [[TMEditTaskViewController alloc]
@@ -205,6 +216,7 @@
         [timer invalidate];
         [self createRecord];
         [self showHoursPerDay];
+        [self showTotalTime];
         [self toggleStart:YES animated:YES];
     }
 }
