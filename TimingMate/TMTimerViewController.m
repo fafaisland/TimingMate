@@ -225,7 +225,7 @@
 {
     task.isFinished = !task.isFinished;
     [self showButtonsForFinished:task.isFinished animated:YES];
-    
+    [self endTimer:nil];
     [[self getPreviousViewController] setNeedsReload];
 }
 
