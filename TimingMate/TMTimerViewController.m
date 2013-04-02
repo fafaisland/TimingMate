@@ -57,6 +57,9 @@
     [seriesLabel setTextColor:[UIColor colorWithRed:30.0f/255.0f green:144.0f/255.0f blue:255.0f/255.0f alpha:1.0f]];
     UIFont *seriesFont = [UIFont fontWithName:@"TrebuchetMS-Bold" size:40];
     [seriesLabel setFont:seriesFont];
+    CGPoint center = seriesLabel.center;
+    [seriesLabel sizeToFit];
+    seriesLabel.center = center;
     [self toggleStart:YES animated:NO];
     [self showButtonsForFinished:task.isFinished animated:NO];
     [self showHoursPerDay];
