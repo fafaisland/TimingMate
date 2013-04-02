@@ -22,18 +22,18 @@
 		0425BE7C16F3A9D30023EF2C /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0425BE7B16F3A9D30023EF2C /* Default-568h@2x.png */; };
 		0425BE7F16F3A9D30023EF2C /* TimingMate.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0425BE7D16F3A9D30023EF2C /* TimingMate.xcdatamodeld */; };
 		047D7F5516FD22D600DD7B1C /* TMRecordListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 047D7F5416FD22D600DD7B1C /* TMRecordListViewController.m */; };
-		04B6714E170A46EE0011A7E5 /* engage.png in Resources */ = {isa = PBXBuildFile; fileRef = 04B67148170A46EE0011A7E5 /* engage.png */; };
-		04B6714F170A46EE0011A7E5 /* engage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 04B67149170A46EE0011A7E5 /* engage@2x.png */; };
-		04B67150170A46EE0011A7E5 /* finish.png in Resources */ = {isa = PBXBuildFile; fileRef = 04B6714A170A46EE0011A7E5 /* finish.png */; };
-		04B67151170A46EE0011A7E5 /* finish@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 04B6714B170A46EE0011A7E5 /* finish@2x.png */; };
-		04B67152170A46EE0011A7E5 /* trash.png in Resources */ = {isa = PBXBuildFile; fileRef = 04B6714C170A46EE0011A7E5 /* trash.png */; };
-		04B67153170A46EE0011A7E5 /* trash@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 04B6714D170A46EE0011A7E5 /* trash@2x.png */; };
 		04B67155170A68DA0011A7E5 /* TMTimerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04B67154170A68DA0011A7E5 /* TMTimerViewController.xib */; };
 		04BB8E9816FFFE03000A2428 /* TMAddRecordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BB8E9616FFFE03000A2428 /* TMAddRecordViewController.m */; };
 		04BB8E9916FFFE03000A2428 /* TMAddRecordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04BB8E9716FFFE03000A2428 /* TMAddRecordViewController.xib */; };
 		962AB654170893F70061D238 /* TPKeyboardAvoidingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 962AB653170893F70061D238 /* TPKeyboardAvoidingScrollView.m */; };
 		962AB657170894F50061D238 /* TMListsViewEditableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 962AB656170894F50061D238 /* TMListsViewEditableCell.m */; };
 		962AB659170895160061D238 /* TMListsViewEditableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 962AB658170895160061D238 /* TMListsViewEditableCell.xib */; };
+		962B64FE170B681C00770B4F /* engage.png in Resources */ = {isa = PBXBuildFile; fileRef = 962B64F8170B681C00770B4F /* engage.png */; };
+		962B64FF170B681C00770B4F /* engage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 962B64F9170B681C00770B4F /* engage@2x.png */; };
+		962B6500170B681C00770B4F /* finish.png in Resources */ = {isa = PBXBuildFile; fileRef = 962B64FA170B681C00770B4F /* finish.png */; };
+		962B6501170B681C00770B4F /* finish@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 962B64FB170B681C00770B4F /* finish@2x.png */; };
+		962B6502170B681C00770B4F /* trash.png in Resources */ = {isa = PBXBuildFile; fileRef = 962B64FC170B681C00770B4F /* trash.png */; };
+		962B6503170B681C00770B4F /* trash@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 962B64FD170B681C00770B4F /* trash@2x.png */; };
 		962DFC6E16F952B200E5F8C8 /* TMSeries.m in Sources */ = {isa = PBXBuildFile; fileRef = 962DFC6D16F952B200E5F8C8 /* TMSeries.m */; };
 		965D5059170232E6008201E8 /* SideSwipeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 965D5056170232E6008201E8 /* SideSwipeTableViewCell.m */; };
 		965D505A170232E6008201E8 /* SideSwipeTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 965D5058170232E6008201E8 /* SideSwipeTableViewController.m */; };
@@ -90,12 +90,6 @@
 		044A3F1A16FA5FDB0078FCCA /* TMTimerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMTimerViewController.h; sourceTree = "<group>"; };
 		047D7F5316FD22D600DD7B1C /* TMRecordListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMRecordListViewController.h; sourceTree = "<group>"; };
 		047D7F5416FD22D600DD7B1C /* TMRecordListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMRecordListViewController.m; sourceTree = "<group>"; };
-		04B67148170A46EE0011A7E5 /* engage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = engage.png; path = thirdparty/Resources/Images/engage.png; sourceTree = "<group>"; };
-		04B67149170A46EE0011A7E5 /* engage@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "engage@2x.png"; path = "thirdparty/Resources/Images/engage@2x.png"; sourceTree = "<group>"; };
-		04B6714A170A46EE0011A7E5 /* finish.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = finish.png; path = thirdparty/Resources/Images/finish.png; sourceTree = "<group>"; };
-		04B6714B170A46EE0011A7E5 /* finish@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "finish@2x.png"; path = "thirdparty/Resources/Images/finish@2x.png"; sourceTree = "<group>"; };
-		04B6714C170A46EE0011A7E5 /* trash.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = trash.png; path = thirdparty/Resources/Images/trash.png; sourceTree = "<group>"; };
-		04B6714D170A46EE0011A7E5 /* trash@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "trash@2x.png"; path = "thirdparty/Resources/Images/trash@2x.png"; sourceTree = "<group>"; };
 		04B67154170A68DA0011A7E5 /* TMTimerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TMTimerViewController.xib; sourceTree = "<group>"; };
 		04BB8E9516FFFE03000A2428 /* TMAddRecordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMAddRecordViewController.h; sourceTree = "<group>"; };
 		04BB8E9616FFFE03000A2428 /* TMAddRecordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMAddRecordViewController.m; sourceTree = "<group>"; };
@@ -105,6 +99,12 @@
 		962AB655170894F50061D238 /* TMListsViewEditableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMListsViewEditableCell.h; sourceTree = "<group>"; };
 		962AB656170894F50061D238 /* TMListsViewEditableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMListsViewEditableCell.m; sourceTree = "<group>"; };
 		962AB658170895160061D238 /* TMListsViewEditableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TMListsViewEditableCell.xib; sourceTree = "<group>"; };
+		962B64F8170B681C00770B4F /* engage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = engage.png; path = Resources/Images/engage.png; sourceTree = "<group>"; };
+		962B64F9170B681C00770B4F /* engage@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "engage@2x.png"; path = "Resources/Images/engage@2x.png"; sourceTree = "<group>"; };
+		962B64FA170B681C00770B4F /* finish.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = finish.png; path = Resources/Images/finish.png; sourceTree = "<group>"; };
+		962B64FB170B681C00770B4F /* finish@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "finish@2x.png"; path = "Resources/Images/finish@2x.png"; sourceTree = "<group>"; };
+		962B64FC170B681C00770B4F /* trash.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = trash.png; path = Resources/Images/trash.png; sourceTree = "<group>"; };
+		962B64FD170B681C00770B4F /* trash@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "trash@2x.png"; path = "Resources/Images/trash@2x.png"; sourceTree = "<group>"; };
 		962DFC6C16F952B200E5F8C8 /* TMSeries.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMSeries.h; sourceTree = "<group>"; };
 		962DFC6D16F952B200E5F8C8 /* TMSeries.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMSeries.m; sourceTree = "<group>"; };
 		965D5055170232E6008201E8 /* SideSwipeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SideSwipeTableViewCell.h; path = thirdparty/SideSwipeTableViewCell.h; sourceTree = "<group>"; };
@@ -241,6 +241,7 @@
 		0425BE6C16F3A9D30023EF2C /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				962B64F6170B680B00770B4F /* Resources */,
 				0425BE6D16F3A9D30023EF2C /* TimingMate-Info.plist */,
 				0425BE6E16F3A9D30023EF2C /* InfoPlist.strings */,
 				0425BE7116F3A9D30023EF2C /* main.m */,
@@ -250,6 +251,27 @@
 				0425BE7B16F3A9D30023EF2C /* Default-568h@2x.png */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		962B64F6170B680B00770B4F /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				962B64F7170B681000770B4F /* Images */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		962B64F7170B681000770B4F /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				962B64F8170B681C00770B4F /* engage.png */,
+				962B64F9170B681C00770B4F /* engage@2x.png */,
+				962B64FA170B681C00770B4F /* finish.png */,
+				962B64FB170B681C00770B4F /* finish@2x.png */,
+				962B64FC170B681C00770B4F /* trash.png */,
+				962B64FD170B681C00770B4F /* trash@2x.png */,
+			);
+			name = Images;
 			sourceTree = "<group>";
 		};
 		965D504E170231C1008201E8 /* thirdparty */ = {
@@ -277,12 +299,6 @@
 		965D505C17023661008201E8 /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				04B67148170A46EE0011A7E5 /* engage.png */,
-				04B67149170A46EE0011A7E5 /* engage@2x.png */,
-				04B6714A170A46EE0011A7E5 /* finish.png */,
-				04B6714B170A46EE0011A7E5 /* finish@2x.png */,
-				04B6714C170A46EE0011A7E5 /* trash.png */,
-				04B6714D170A46EE0011A7E5 /* trash@2x.png */,
 				965D505D1702369A008201E8 /* action.png */,
 				965D505E1702369A008201E8 /* action@2x.png */,
 				965D505F1702369A008201E8 /* dotted-pattern.png */,
@@ -377,13 +393,13 @@
 				965D507C17023AF4008201E8 /* TMTaskListViewController.xib in Resources */,
 				04BB8E9916FFFE03000A2428 /* TMAddRecordViewController.xib in Resources */,
 				962AB659170895160061D238 /* TMListsViewEditableCell.xib in Resources */,
-				04B6714E170A46EE0011A7E5 /* engage.png in Resources */,
-				04B6714F170A46EE0011A7E5 /* engage@2x.png in Resources */,
-				04B67150170A46EE0011A7E5 /* finish.png in Resources */,
-				04B67151170A46EE0011A7E5 /* finish@2x.png in Resources */,
-				04B67152170A46EE0011A7E5 /* trash.png in Resources */,
-				04B67153170A46EE0011A7E5 /* trash@2x.png in Resources */,
 				04B67155170A68DA0011A7E5 /* TMTimerViewController.xib in Resources */,
+				962B64FE170B681C00770B4F /* engage.png in Resources */,
+				962B64FF170B681C00770B4F /* engage@2x.png in Resources */,
+				962B6500170B681C00770B4F /* finish.png in Resources */,
+				962B6501170B681C00770B4F /* finish@2x.png in Resources */,
+				962B6502170B681C00770B4F /* trash.png in Resources */,
+				962B6503170B681C00770B4F /* trash@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
