@@ -299,7 +299,7 @@
                                 delegate:nil
                        cancelButtonTitle:nil
                        otherButtonTitles:@"OK", nil] show];*/
-    if ([buttonInfo objectForKey:@"title"] == @"Delete")
+    if ([[buttonInfo objectForKey:@"title"] isEqualToString:@"Delete"])
     {
         NSLog(@"Delete");
         TMTask *t = [tasks objectAtIndex:indexPath.row];
@@ -307,7 +307,7 @@
         [tasks removeObject:t];
         [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
     }
-    else if ([buttonInfo objectForKey:@"title"] == @"Engage")
+    else if ([[buttonInfo objectForKey:@"title"] isEqualToString:@"Engage"])
     {
         NSLog(@"Engage");
         TMTask *t = [tasks objectAtIndex:indexPath.row];
@@ -320,7 +320,7 @@
             [self changeButtonImageColorTo:@"gray" on:button with:buttonInfo];
         }
     }
-    else if ([buttonInfo objectForKey:@"title"] == @"Finish"){
+    else if ([[buttonInfo objectForKey:@"title"] isEqualToString:@"Finish"]){
         NSLog(@"Finish");
         TMTask *t = [tasks objectAtIndex:indexPath.row];
         t.isFinished = !t.isFinished;
@@ -345,11 +345,11 @@
 {
     UIImage* buttonImage = [UIImage imageNamed:[buttonInfo objectForKey:@"image"]];
     UIImage* colorImage = nil;
-    if (color == @"yellow")
+    if ([color isEqualToString:@"yellow"])
     {
         colorImage = [self imageFilledWith:[UIColor colorWithRed:255.0f/255.0f green:215.0f/255.0f blue:0.0f/255.0f alpha:1.0f] using:buttonImage];
     }
-    else if (color == @"gray")
+    else if ([color isEqualToString:@"gray"])
     {
         colorImage = [self imageFilledWith:[UIColor colorWithWhite:0.9 alpha:1.0] using:buttonImage];
     }
