@@ -61,6 +61,8 @@
 		968460EF16F3CFA700EF2221 /* TMTaskStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 968460EE16F3CFA700EF2221 /* TMTaskStore.m */; };
 		96D1038D170B7AFD00ED6C9A /* TMSeriesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D1038B170B7AFD00ED6C9A /* TMSeriesViewController.m */; };
 		96D1038E170B7AFD00ED6C9A /* TMSeriesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96D1038C170B7AFD00ED6C9A /* TMSeriesViewController.xib */; };
+		96D10392170B849D00ED6C9A /* TMEngagingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D10390170B849D00ED6C9A /* TMEngagingViewController.m */; };
+		96D10393170B849D00ED6C9A /* TMEngagingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96D10391170B849D00ED6C9A /* TMEngagingViewController.xib */; };
 		96D4039216F3B46400214323 /* TMTaskListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D4039116F3B46400214323 /* TMTaskListViewController.m */; };
 		96D4039516F3B64800214323 /* TMGlobals.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D4039416F3B64800214323 /* TMGlobals.m */; };
 		96F3075316F7A20700B0E2EF /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96F3075216F7A20700B0E2EF /* QuartzCore.framework */; };
@@ -142,6 +144,9 @@
 		96D1038A170B7AFD00ED6C9A /* TMSeriesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMSeriesViewController.h; sourceTree = "<group>"; };
 		96D1038B170B7AFD00ED6C9A /* TMSeriesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMSeriesViewController.m; sourceTree = "<group>"; };
 		96D1038C170B7AFD00ED6C9A /* TMSeriesViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TMSeriesViewController.xib; sourceTree = "<group>"; };
+		96D1038F170B849D00ED6C9A /* TMEngagingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMEngagingViewController.h; sourceTree = "<group>"; };
+		96D10390170B849D00ED6C9A /* TMEngagingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMEngagingViewController.m; sourceTree = "<group>"; };
+		96D10391170B849D00ED6C9A /* TMEngagingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TMEngagingViewController.xib; sourceTree = "<group>"; };
 		96D4039016F3B46400214323 /* TMTaskListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMTaskListViewController.h; sourceTree = "<group>"; };
 		96D4039116F3B46400214323 /* TMTaskListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMTaskListViewController.m; sourceTree = "<group>"; };
 		96D4039316F3B64800214323 /* TMGlobals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMGlobals.h; sourceTree = "<group>"; };
@@ -208,6 +213,9 @@
 				962AB655170894F50061D238 /* TMListsViewEditableCell.h */,
 				962AB656170894F50061D238 /* TMListsViewEditableCell.m */,
 				962AB658170895160061D238 /* TMListsViewEditableCell.xib */,
+				96D1038F170B849D00ED6C9A /* TMEngagingViewController.h */,
+				96D10390170B849D00ED6C9A /* TMEngagingViewController.m */,
+				96D10391170B849D00ED6C9A /* TMEngagingViewController.xib */,
 				96D1038A170B7AFD00ED6C9A /* TMSeriesViewController.h */,
 				96D1038B170B7AFD00ED6C9A /* TMSeriesViewController.m */,
 				96D1038C170B7AFD00ED6C9A /* TMSeriesViewController.xib */,
@@ -409,6 +417,7 @@
 				962B6502170B681C00770B4F /* trash.png in Resources */,
 				962B6503170B681C00770B4F /* trash@2x.png in Resources */,
 				96D1038E170B7AFD00ED6C9A /* TMSeriesViewController.xib in Resources */,
+				96D10393170B849D00ED6C9A /* TMEngagingViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -441,6 +450,7 @@
 				962AB654170893F70061D238 /* TPKeyboardAvoidingScrollView.m in Sources */,
 				962AB657170894F50061D238 /* TMListsViewEditableCell.m in Sources */,
 				96D1038D170B7AFD00ED6C9A /* TMSeriesViewController.m in Sources */,
+				96D10392170B849D00ED6C9A /* TMEngagingViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

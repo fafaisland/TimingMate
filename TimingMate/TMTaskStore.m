@@ -66,13 +66,8 @@
 {
     TMTask *t = [NSEntityDescription insertNewObjectForEntityForName:TMTaskEntityName
                                               inManagedObjectContext:context];
-    [allTasks addObject:t];
-    return t;
-}
-
-- (void)addTask:(TMTask *)t
-{
     [allTasks insertObject:t atIndex:0];
+    return t;
 }
 
 - (void)removeTask:(TMTask *)t

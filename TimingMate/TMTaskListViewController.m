@@ -67,16 +67,10 @@
     self = [self init];
     if (self) {
         self.navigationItem.title = title;
-    }
-    return self;
-}
-
-- (id)initWithTitle:(NSString *)title
-        listGenerationBlock:(void (^)(NSMutableArray*))block
-{
-    self = [self initWithTitle:title];
-    if (self) {
-        listGenerationBlock = block;
+        listGenerationBlock = ^(NSMutableArray * list){
+            [list removeAllObjects];
+            [list addObjectsFromArray:[[TMTaskStore sharedStore] allTasks]];
+        };
         
         tasks = [NSMutableArray array];
         listGenerationBlock(tasks);
@@ -220,19 +214,19 @@
 }
 #pragma mark - Helper methods
 
-- (void)reloadTasks
+- (void)reloadWithTask:(TMTask *)task
 {
     listGenerationBlock(tasks);
-    [self.tableView reloadData];
-    
-    /*
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-    [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
-                          withRowAnimation:UITableViewRowAnimationFade];
-    [self.tableView scrollToRowAtIndexPath:indexPath
-                          atScrollPosition:UITableViewScrollPositionTop
-                                  animated:YES];
-     */
+
+    if ([self viewIncludesTask:task])
+    {
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+        [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
+                              withRowAnimation:UITableViewRowAnimationFade];
+        [self.tableView scrollToRowAtIndexPath:indexPath
+                              atScrollPosition:UITableViewScrollPositionTop
+                                      animated:YES];
+    }
 }
 
 - (void)removeTask:(TMTask *)task
@@ -265,13 +259,18 @@
                                       initWithTask:task
                                       asNewTask:YES];
     [etvc setDismissBlock:^{
-        [self reloadTasks];
+        [self reloadWithTask:task];
     }];
     [etvc setCancelBlock:^{
         [self removeTask:task];
     }];
     UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:etvc];
     [self presentViewController:nc animated:YES completion:nil];
+}
+
+- (BOOL)viewIncludesTask:(TMTask *)task
+{
+    return YES;
 }
 
 #pragma mark - SideSwipeView
@@ -392,6 +391,7 @@
     }
     [button setImage:colorImage forState:UIControlStateNormal];
 }
+
 // Convert the image's fill color to the passed in color
 -(UIImage*) imageFilledWith:(UIColor*)color using:(UIImage*)startImage
 {

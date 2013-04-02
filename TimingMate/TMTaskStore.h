@@ -23,7 +23,6 @@
 + (TMTaskStore *)sharedStore;
 
 - (TMTask *)createAndAddTask;
-- (void)addTask:(TMTask *)t;
 - (void)removeTask:(TMTask *)t;
 
 - (NSArray *)allTasks;

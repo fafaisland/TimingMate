@@ -1,23 +1,21 @@
 //
-//  TMSeriesViewController.m
+//  TMEngagingViewController.m
 //  TimingMate
 //
 //  Created by Long Wei on 4/2/13.
 //  Copyright (c) 2013 TimingMate. All rights reserved.
 //
 
-#import "TMSeriesViewController.h"
+#import "TMEngagingViewController.h"
 
-#import "TMSeries.h"
-#import "TMSeriesStore.h"
 #import "TMTask.h"
 #import "TMTaskStore.h"
 
-@interface TMSeriesViewController ()
+@interface TMEngagingViewController ()
 
 @end
 
-@implementation TMSeriesViewController
+@implementation TMEngagingViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -33,12 +31,9 @@
     self = [super init];
     if (self) {
         self.navigationItem.title = title;
-        series = [[TMSeriesStore sharedStore] seriesByTitle:title];
         self.listGenerationBlock = ^(NSMutableArray * list){
             [list removeAllObjects];
-            for (TMTask *task in [[TMSeriesStore sharedStore] seriesByTitle:title].tasks) {
-                [list addObject:task];
-            };
+            [list addObjectsFromArray:[[TMTaskStore sharedStore] allEngagingTasks]];
         };
         
         tasks = [NSMutableArray array];
@@ -59,17 +54,9 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)addNewTask:(id)sender
-{
-    TMTask *t = [[TMTaskStore sharedStore] createAndAddTask];
-    [series addTasksObject:t];
-    
-    [self presentViewForAddingTask:t];
-}
-
 - (BOOL)viewIncludesTask:(TMTask *)task
 {
-    return task.series == series;
+    return task.isEngaging;
 }
 
 @end

@@ -8,6 +8,7 @@
 
 #import "TMListsViewController.h"
 
+#import "TMEngagingViewController.h"
 #import "TMGlobals.h"
 #import "TMListsViewEditableCell.h"
 #import "TMSeries.h"
@@ -307,37 +308,16 @@ enum { TMAllListIndex = 0,
     [self pushListNamed:TMAllListName animated:NO];
 }
 
-- (void (^)(NSMutableArray*))listGenerationBlockFromName:(NSString *)name
-{
-    if ([name isEqualToString:TMAllListName])
-        return ^(NSMutableArray * list){
-                   [list removeAllObjects];
-                   [list addObjectsFromArray:[[TMTaskStore sharedStore] allTasks]];
-               };
-    else if ([name isEqualToString:TMEngagingListName]) {
-        return ^(NSMutableArray * list){
-            [list removeAllObjects];
-            [list addObjectsFromArray:[[TMTaskStore sharedStore] allEngagingTasks]];
-        };
-    } else {
-        return ^(NSMutableArray * list){
-            [list removeAllObjects];
-            NSSet *tasks = [[TMSeriesStore sharedStore] seriesByTitle:name].tasks;
-            for (TMTask *task in tasks) {
-                [list addObject:task];
-            }
-        };
-    }
-}
-
 - (void)pushListNamed:(NSString *)name animated:(BOOL)animated
 {
-    if ([name isEqualToString:TMAllListName] || [name isEqualToString:TMEngagingListName]) {
+    if ([name isEqualToString:TMAllListName]) {
         TMTaskListViewController *taskListController = [[TMTaskListViewController alloc]
-                                                initWithTitle:name
-                                                listGenerationBlock:
-                                                [self listGenerationBlockFromName:name]];
+                                                initWithTitle:name];
         [self.navigationController pushViewController:taskListController animated:animated];
+    } else if ([name isEqualToString:TMEngagingListName]) {
+        TMEngagingViewController *evc = [[TMEngagingViewController alloc]
+                                         initWithTitle:name];
+        [self.navigationController pushViewController:evc animated:animated];
     } else {
         TMSeriesViewController *svc = [[TMSeriesViewController alloc]
                                                 initWithTitle:name];
