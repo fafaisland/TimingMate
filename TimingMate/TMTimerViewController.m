@@ -239,7 +239,7 @@
         currentEngagementButton = disengageButton;
     }
     [self toggleStart:!isTiming animated:YES];
-    [taskListView setNeedsReload];
+    [taskListView refreshTask:task];
 }
 
 - (IBAction)toggleFinished:(id)sender
@@ -247,7 +247,7 @@
     task.isFinished = !task.isFinished;
     [self showButtonsForFinished:task.isFinished animated:YES];
     [self endTimer:nil];
-    [taskListView setNeedsReload];
+    [taskListView refreshTask:task];
 }
 
 #pragma mark - Helper methods

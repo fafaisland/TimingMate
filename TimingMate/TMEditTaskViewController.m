@@ -101,7 +101,7 @@ enum { TMSeriesNoneIndex = 0,
     
     TMSeries *selectedSeries = [self selectedSeries];
     if (!forNewTask && task.series != selectedSeries) {
-        [taskListView setNeedsReload];
+        [taskListView refreshTask:task];
     }
 
     if (selectedSeries)

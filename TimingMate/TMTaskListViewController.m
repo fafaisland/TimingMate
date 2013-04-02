@@ -33,7 +33,7 @@
 {
     self = [super init];
     if (self) {
-        needsReload = NO;
+        taskToRefresh = nil;
 
         UIBarButtonItem *listButton = [[UIBarButtonItem alloc]
                                        initWithTitle:TMListsTitle
@@ -82,11 +82,11 @@
 {
     [super viewWillAppear:animated];
     
-    if (needsReload)
+    if (taskToRefresh)
     {
         [[TMTaskStore sharedStore] fetchAllTasks];
         listGenerationBlock(tasks);
-        needsReload = NO;
+        taskToRefresh = nil;
     }
     [self.tableView reloadData];
 }
@@ -241,9 +241,9 @@
     [self.navigationController pushViewController:tvc animated:YES];
 }
 
-- (void)setNeedsReload
+- (void)refreshTask:(TMTask *)task;
 {
-    needsReload = YES;
+    taskToRefresh = task;
 }
 
 - (void)changeColorForCell:(UITableViewCell *)cell color:(UIColor *)color

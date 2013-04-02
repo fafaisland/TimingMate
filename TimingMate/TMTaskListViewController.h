@@ -21,7 +21,7 @@
     UIBarButtonItem *deleteButton;
     UIBarButtonItem *deleteDoneButton;
     
-    BOOL needsReload;
+    TMTask *taskToRefresh;
     
     NSArray* sideSwipeButtonData;
     NSMutableArray* sideSwipeButtons;
@@ -33,7 +33,7 @@
 @property (nonatomic, copy) void (^listGenerationBlock)(NSMutableArray *);
 
 - (id)initWithTitle:(NSString *)title;
-- (void)setNeedsReload;
+- (void)refreshTask:(TMTask *)task;
 - (void)presentViewForAddingTask:(TMTask *)task;
 
 @end
