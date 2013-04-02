@@ -201,6 +201,12 @@
     return tasks.count;
 }
 
+- (void)reloadRowsAtIndexPaths:(NSIndexPath*)indexPath
+{
+    NSIndexPath* rowToReload = indexPath;
+    NSArray* rowsToReload = [NSArray arrayWithObjects:rowToReload, nil];
+    [self.tableView reloadRowsAtIndexPaths:rowsToReload withRowAnimation:UITableViewRowAnimationNone];
+}
 #pragma mark - Helper methods
 
 - (void)addTask:(TMTask *)task
@@ -265,6 +271,7 @@
         // Add the image as the button's background image
         // [button setBackgroundImage:buttonImage forState:UIControlStateNormal];
         UIImage* grayImage = [self imageFilledWith:[UIColor colorWithWhite:0.9 alpha:1.0] using:buttonImage];
+        //UIImage* grayImage = [self imageFilledWith:[UIColor colorWithRed:255.0f/255.0f green:215.0f/255.0f blue:0.0f/255.0f alpha:1.0f] using:buttonImage];
         [button setImage:grayImage forState:UIControlStateNormal];
         
         // Add a touch up inside action
@@ -287,15 +294,67 @@
     
     NSUInteger index = [sideSwipeButtons indexOfObject:button];
     NSDictionary* buttonInfo = [sideSwipeButtonData objectAtIndex:index];
-    [[[UIAlertView alloc] initWithTitle:[NSString stringWithFormat: @"%@ on cell %d", [buttonInfo objectForKey:@"title"], indexPath.row]
+    /*[[[UIAlertView alloc] initWithTitle:[NSString stringWithFormat: @"%@ on cell %d", [buttonInfo objectForKey:@"title"], indexPath.row]
                                  message:nil
                                 delegate:nil
                        cancelButtonTitle:nil
-                       otherButtonTitles:@"OK", nil] show];
+                       otherButtonTitles:@"OK", nil] show];*/
+    if ([buttonInfo objectForKey:@"title"] == @"Delete")
+    {
+        NSLog(@"Delete");
+        TMTask *t = [tasks objectAtIndex:indexPath.row];
+        [[TMTaskStore sharedStore] removeTask:t];
+        [tasks removeObject:t];
+        [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+    }
+    else if ([buttonInfo objectForKey:@"title"] == @"Engage")
+    {
+        NSLog(@"Engage");
+        TMTask *t = [tasks objectAtIndex:indexPath.row];
+        t.isEngaging = !t.isEngaging;
+        if (t.isEngaging == YES)
+        {
+            [self changeButtonImageColorTo:@"yellow" on:button with:buttonInfo];
+        }
+        else{
+            [self changeButtonImageColorTo:@"gray" on:button with:buttonInfo];
+        }
+    }
+    else if ([buttonInfo objectForKey:@"title"] == @"Finish"){
+        NSLog(@"Finish");
+        TMTask *t = [tasks objectAtIndex:indexPath.row];
+        t.isFinished = !t.isFinished;
+        if (t.isFinished == YES)
+        {
+            [self changeButtonImageColorTo:@"yellow" on:button with:buttonInfo];
+        }
+        else{
+            [self changeButtonImageColorTo:@"gray" on:button with:buttonInfo];
+        }
+        [self reloadRowsAtIndexPaths:indexPath];
+    }
+    else{
+        NSLog(@"Long Gun Du Zi~~~!!!");
+    }
     
     [self removeSideSwipeView:YES];
 }
 
+# pragma color methods
+- (void) changeButtonImageColorTo:(NSString *)color on:(UIButton *)button with:(NSDictionary *) buttonInfo
+{
+    UIImage* buttonImage = [UIImage imageNamed:[buttonInfo objectForKey:@"image"]];
+    UIImage* colorImage = nil;
+    if (color == @"yellow")
+    {
+        colorImage = [self imageFilledWith:[UIColor colorWithRed:255.0f/255.0f green:215.0f/255.0f blue:0.0f/255.0f alpha:1.0f] using:buttonImage];
+    }
+    else if (color == @"gray")
+    {
+        colorImage = [self imageFilledWith:[UIColor colorWithWhite:0.9 alpha:1.0] using:buttonImage];
+    }
+    [button setImage:colorImage forState:UIControlStateNormal];
+}
 // Convert the image's fill color to the passed in color
 -(UIImage*) imageFilledWith:(UIColor*)color using:(UIImage*)startImage
 {
