@@ -19,7 +19,7 @@ enum { TMSeriesNoneIndex = 0,
 
 @implementation TMEditTaskViewController
 
-@synthesize task, dismissBlock;
+@synthesize task, dismissBlock, cancelBlock;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -112,12 +112,14 @@ enum { TMSeriesNoneIndex = 0,
 
 - (void)save:(id)sender
 {
-    [[self presentingViewController] dismissViewControllerAnimated:YES completion:dismissBlock];
+    [[self presentingViewController] dismissViewControllerAnimated:YES
+                                                        completion:dismissBlock];
 }
 
 - (void)cancel:(id)sender
 {
-    [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
+    [[self presentingViewController] dismissViewControllerAnimated:YES
+                                                        completion:cancelBlock];
 }
 
 - (void)showPicker:(id)sender

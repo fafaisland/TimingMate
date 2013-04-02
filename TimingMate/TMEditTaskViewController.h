@@ -28,5 +28,6 @@
 
 @property (nonatomic, strong) TMTask *task;
 @property (nonatomic, copy) void (^dismissBlock)(void);
+@property (nonatomic, copy) void (^cancelBlock)(void);
 
 @end

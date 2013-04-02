@@ -12,6 +12,7 @@
 #import "TMListsViewEditableCell.h"
 #import "TMSeries.h"
 #import "TMSeriesStore.h"
+#import "TMSeriesViewController.h"
 #import "TMTaskListViewController.h"
 #import "TMTaskStore.h"
 
@@ -308,12 +309,12 @@ enum { TMAllListIndex = 0,
 
 - (void (^)(NSMutableArray*))listGenerationBlockFromName:(NSString *)name
 {
-    if (name == TMAllListName)
+    if ([name isEqualToString:TMAllListName])
         return ^(NSMutableArray * list){
                    [list removeAllObjects];
                    [list addObjectsFromArray:[[TMTaskStore sharedStore] allTasks]];
                };
-    else if (name == TMEngagingListName) {
+    else if ([name isEqualToString:TMEngagingListName]) {
         return ^(NSMutableArray * list){
             [list removeAllObjects];
             [list addObjectsFromArray:[[TMTaskStore sharedStore] allEngagingTasks]];
@@ -331,11 +332,17 @@ enum { TMAllListIndex = 0,
 
 - (void)pushListNamed:(NSString *)name animated:(BOOL)animated
 {
-    TMTaskListViewController *taskListController = [[TMTaskListViewController alloc]
-                                                    initWithTitle:name
-                                                    listGenerationBlock:
-                                                    [self listGenerationBlockFromName:name]];
-    [self.navigationController pushViewController:taskListController animated:animated];
+    if ([name isEqualToString:TMAllListName] || [name isEqualToString:TMEngagingListName]) {
+        TMTaskListViewController *taskListController = [[TMTaskListViewController alloc]
+                                                initWithTitle:name
+                                                listGenerationBlock:
+                                                [self listGenerationBlockFromName:name]];
+        [self.navigationController pushViewController:taskListController animated:animated];
+    } else {
+        TMSeriesViewController *svc = [[TMSeriesViewController alloc]
+                                                initWithTitle:name];
+        [self.navigationController pushViewController:svc animated:animated];
+    }
 }
 
 - (void)deleteSeriesAtIndexPath:(NSIndexPath *)indexPath

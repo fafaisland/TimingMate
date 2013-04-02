@@ -63,15 +63,23 @@
 }
 
 - (id)initWithTitle:(NSString *)title
-        listGenerationBlock:(void (^)(NSMutableArray*))block
 {
     self = [self init];
     if (self) {
         self.navigationItem.title = title;
-        self.listGenerationBlock = block;
+    }
+    return self;
+}
+
+- (id)initWithTitle:(NSString *)title
+        listGenerationBlock:(void (^)(NSMutableArray*))block
+{
+    self = [self initWithTitle:title];
+    if (self) {
+        listGenerationBlock = block;
         
         tasks = [NSMutableArray array];
-        block(tasks);
+        listGenerationBlock(tasks);
     }
     return self;
 }
@@ -117,16 +125,9 @@
 
 - (void)addNewTask:(id)sender
 {
-    TMTask *t = [[TMTaskStore sharedStore] createTask];
+    TMTask *t = [[TMTaskStore sharedStore] createAndAddTask];
     
-    TMEditTaskViewController *etvc = [[TMEditTaskViewController alloc]
-                                      initWithTask:t
-                                      asNewTask:YES];
-    [etvc setDismissBlock:^{
-        [self addTask:t];
-    }];
-    UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:etvc];
-    [self presentViewController:nc animated:YES completion:nil];
+    [self presentViewForAddingTask:t];
     
     /*CGRect f = self.navigationController.view.frame;
      [CATransaction begin];
@@ -219,10 +220,8 @@
 }
 #pragma mark - Helper methods
 
-- (void)addTask:(TMTask *)task
+- (void)reloadTasks
 {
-    [[TMTaskStore sharedStore] addTask:task];
-    
     listGenerationBlock(tasks);
     [self.tableView reloadData];
     
@@ -234,6 +233,11 @@
                           atScrollPosition:UITableViewScrollPositionTop
                                   animated:YES];
      */
+}
+
+- (void)removeTask:(TMTask *)task
+{
+    [[TMTaskStore sharedStore] removeTask:task];
 }
 
 - (void)showTimerViewForTask:(TMTask *)task
@@ -253,6 +257,21 @@
     [UIView setAnimationDuration:0.2];
     cell.textLabel.textColor = color;
     [UIView commitAnimations];
+}
+
+- (void)presentViewForAddingTask:(TMTask *)task
+{
+    TMEditTaskViewController *etvc = [[TMEditTaskViewController alloc]
+                                      initWithTask:task
+                                      asNewTask:YES];
+    [etvc setDismissBlock:^{
+        [self reloadTasks];
+    }];
+    [etvc setCancelBlock:^{
+        [self removeTask:task];
+    }];
+    UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:etvc];
+    [self presentViewController:nc animated:YES completion:nil];
 }
 
 #pragma mark - SideSwipeView

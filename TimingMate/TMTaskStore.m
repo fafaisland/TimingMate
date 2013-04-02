@@ -62,10 +62,11 @@
     return [allTasks filteredArrayUsingPredicate:predicate];
 }
 
-- (TMTask *)createTask
+- (TMTask *)createAndAddTask
 {
     TMTask *t = [NSEntityDescription insertNewObjectForEntityForName:TMTaskEntityName
                                               inManagedObjectContext:context];
+    [allTasks addObject:t];
     return t;
 }
 

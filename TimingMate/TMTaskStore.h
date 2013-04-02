@@ -22,7 +22,7 @@
 
 + (TMTaskStore *)sharedStore;
 
-- (TMTask *)createTask;
+- (TMTask *)createAndAddTask;
 - (void)addTask:(TMTask *)t;
 - (void)removeTask:(TMTask *)t;
 

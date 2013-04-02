@@ -10,6 +10,8 @@
 
 #import "thirdparty/SideSwipeTableViewController.h"
 
+@class TMTask;
+
 @interface TMTaskListViewController : SideSwipeTableViewController
     <UITableViewDelegate>
 {
@@ -30,7 +32,9 @@
 
 @property (nonatomic, copy) void (^listGenerationBlock)(NSMutableArray *);
 
+- (id)initWithTitle:(NSString *)title;
 - (id)initWithTitle:(NSString *)title listGenerationBlock:(void (^)(NSMutableArray*))block;
 - (void)setNeedsReload;
+- (void)presentViewForAddingTask:(TMTask *)task;
 
 @end
