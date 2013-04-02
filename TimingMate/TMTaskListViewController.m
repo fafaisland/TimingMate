@@ -237,6 +237,7 @@
 - (void)showTimerViewForTask:(TMTask *)task
 {
     TMTimerViewController *tvc = [[TMTimerViewController alloc] initWithTask:task];
+    [tvc setTaskListView:self];
     [self.navigationController pushViewController:tvc animated:YES];
 }
 

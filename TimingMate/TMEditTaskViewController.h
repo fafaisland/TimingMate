@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @class TMTask;
+@class TMTaskListViewController;
 
 @interface TMEditTaskViewController : UIViewController
     <UIPickerViewDelegate, UIPickerViewDataSource,UITextFieldDelegate>
@@ -21,6 +22,8 @@
     UIPickerView *pickerView;
     UIActionSheet *actionSheet;
     NSMutableArray *pickerArray;
+    
+    BOOL forNewTask;
 }
 
 - (id)initWithTask:(TMTask *)aTask asNewTask:(BOOL)isNew;
@@ -29,5 +32,6 @@
 @property (nonatomic, strong) TMTask *task;
 @property (nonatomic, copy) void (^dismissBlock)(void);
 @property (nonatomic, copy) void (^cancelBlock)(void);
+@property (nonatomic, weak) TMTaskListViewController *taskListView;
 
 @end

@@ -10,6 +10,7 @@
 
 @class TMTask;
 @class TMRecord;
+@class TMTaskListViewController;
 
 @interface TMTimerViewController : UIViewController
 {
@@ -50,5 +51,6 @@
 
 @property (nonatomic, strong) TMTask *task;
 @property (nonatomic, strong) TMRecord *record;
+@property (nonatomic, weak) TMTaskListViewController *taskListView;
 
 @end

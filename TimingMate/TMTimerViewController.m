@@ -7,6 +7,7 @@
 //
 
 #import "TMTimerViewController.h"
+
 #import "TMEditTaskViewController.h"
 #import "TMTask.h"
 #import "TMRecord.h"
@@ -18,8 +19,7 @@
 
 @implementation TMTimerViewController
 
-@synthesize task;
-@synthesize record;
+@synthesize task, record, taskListView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -199,6 +199,7 @@
     TMEditTaskViewController *etvc = [[TMEditTaskViewController alloc]
                                        initWithTask:task
                                        asNewTask:NO];
+    [etvc setTaskListView:taskListView];
     [self.navigationController pushViewController:etvc animated:YES];
 }
 
@@ -235,6 +236,7 @@
         currentEngagementButton = disengageButton;
     }
     [self toggleStart:!isTiming animated:YES];
+    [taskListView setNeedsReload];
 }
 
 - (IBAction)toggleFinished:(id)sender
@@ -242,7 +244,7 @@
     task.isFinished = !task.isFinished;
     [self showButtonsForFinished:task.isFinished animated:YES];
     [self endTimer:nil];
-    [[self getPreviousViewController] setNeedsReload];
+    [taskListView setNeedsReload];
 }
 
 #pragma mark - Helper methods
@@ -280,12 +282,6 @@
     [self.navigationItem setRightBarButtonItem:(task.isFinished ? nil : editButton)
                                       animated:animated];
     [self toggleStart:!isTiming animated:animated];
-}
-
-- (TMTaskListViewController *)getPreviousViewController
-{
-    int idx = [self.navigationController.viewControllers indexOfObject:self];
-    return [self.navigationController.viewControllers objectAtIndex:idx-1];
 }
 
 @end

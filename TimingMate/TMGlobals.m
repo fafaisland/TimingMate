@@ -8,4 +8,6 @@
 
 #import "TMGlobals.h"
 
+#import "TMTaskListViewController.h"
+
 NSString * const TMListsTitle = @"Lists";

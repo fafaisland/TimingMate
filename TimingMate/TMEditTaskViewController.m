@@ -8,9 +8,11 @@
 
 #import "TMEditTaskViewController.h"
 
+#import "TMGlobals.h"
 #import "TMSeries.h"
 #import "TMSeriesStore.h"
 #import "TMTask.h"
+#import "TMTaskListViewController.h"
 #import "TMTaskStore.h"
 
 NSString * const TMSeriesNone = @"None";
@@ -19,7 +21,7 @@ enum { TMSeriesNoneIndex = 0,
 
 @implementation TMEditTaskViewController
 
-@synthesize task, dismissBlock, cancelBlock;
+@synthesize task, dismissBlock, cancelBlock, taskListView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -46,6 +48,8 @@ enum { TMSeriesNoneIndex = 0,
                                              target:self
                                              action:@selector(cancel:)];
             self.navigationItem.leftBarButtonItem = cancelButton;
+            
+            forNewTask = isNew;
         }
 
         task = aTask;
@@ -96,6 +100,10 @@ enum { TMSeriesNoneIndex = 0,
     task.expectedCompletionTime = expectedCompletionTimeField.text.floatValue;
     
     TMSeries *selectedSeries = [self selectedSeries];
+    if (!forNewTask && task.series != selectedSeries) {
+        [taskListView setNeedsReload];
+    }
+
     if (selectedSeries)
         [selectedSeries addTasksObject:task];
     else
