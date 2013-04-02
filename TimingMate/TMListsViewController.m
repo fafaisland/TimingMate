@@ -22,7 +22,8 @@ NSString * const TMListsViewEditableCellIdentifier = @"EditableCell";
 
 enum { TMAllListIndex = 0,
        TMEngagingListIndex = 1,
-       TMDefaultListEnd = 2 };
+       TMSeriesListsIndex = 2,
+       TMDefaultListEnd = 3 };
 
 @implementation TMListsViewController
 
@@ -90,23 +91,33 @@ enum { TMAllListIndex = 0,
 
 #pragma mark - Table view data source
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return [self usualRowCount] + (isAdding ? 1 : 0);
+    return TMDefaultListEnd + (isAdding ? 1 : 0);
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    if (section == TMAllListIndex || section == TMEngagingListIndex ||
+        section >= TMDefaultListEnd)
+        return 1;
+    return [[TMSeriesStore sharedStore] allSeries].count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView
+         cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
     
     if ([indexPath compare:editingIndexPath] == NSOrderedSame) {
         TMListsViewEditableCell *editableCell = [tableView
                     dequeueReusableCellWithIdentifier:TMListsViewEditableCellIdentifier];
-        [self setupEditableCell:editableCell withText:[self listNameFromRow:indexPath.row]];
+        [self setupEditableCell:editableCell
+                       withText:[self listNameFromIndexPath:indexPath]];
         return editableCell;
     }
     
-    if (indexPath.row < [self usualRowCount]) {
+    if (indexPath.section < TMDefaultListEnd) {
         UITableViewCell *cell =
             [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         
@@ -116,7 +127,7 @@ enum { TMAllListIndex = 0,
                     reuseIdentifier:CellIdentifier];
         }
 
-        cell.textLabel.text = [self listNameFromRow:indexPath.row];
+        cell.textLabel.text = [self listNameFromIndexPath:indexPath];
         
         return cell;
     } else {
@@ -129,9 +140,9 @@ enum { TMAllListIndex = 0,
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row < TMDefaultListEnd)
-        return NO;
-    return YES;
+    if (indexPath.section == TMSeriesListsIndex)
+        return YES;
+    return NO;
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
@@ -139,7 +150,8 @@ enum { TMAllListIndex = 0,
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         [self endCellEdit];
 
-        TMSeries *series = [[[TMSeriesStore sharedStore] allSeries] objectAtIndex:indexPath.row-TMDefaultListEnd];
+        TMSeries *series = [[[TMSeriesStore sharedStore] allSeries]
+                            objectAtIndex:indexPath.row];
         if (series.tasks.count > 0) {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
                                          message:@"This will delete all associated tasks"
@@ -178,7 +190,7 @@ enum { TMAllListIndex = 0,
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (self.isEditing) {
-        if (indexPath.row < TMDefaultListEnd)
+        if (indexPath.section < TMSeriesListsIndex)
             return;
 
         [self endCellEdit];
@@ -186,10 +198,10 @@ enum { TMAllListIndex = 0,
         editingIndexPath = indexPath;
         [self.tableView reloadData];
     } else {
-        if (indexPath.row >= [self usualRowCount])
+        if (indexPath.section >= TMDefaultListEnd)
             return;
 
-        [self pushListNamed:[self listNameFromRow:indexPath.row] animated:YES];
+        [self pushListNamed:[self listNameFromIndexPath:indexPath] animated:YES];
     }
 }
 
@@ -275,15 +287,15 @@ enum { TMAllListIndex = 0,
                                       animated:YES];
 }
 
-- (NSString *)listNameFromRow:(NSInteger)row
+- (NSString *)listNameFromIndexPath:(NSIndexPath *)indexPath
 {
-    if (row == TMAllListIndex) {
+    if (indexPath.section == TMAllListIndex) {
         return TMAllListName;
-    } else if (row == TMEngagingListIndex) {
+    } else if (indexPath.section == TMEngagingListIndex) {
         return TMEngagingListName;
     } else {
         TMSeries *series = [[[TMSeriesStore sharedStore] allSeries]
-                            objectAtIndex:(row - TMDefaultListEnd)];
+                            objectAtIndex:(indexPath.row)];
         return series.title;
     }
     return nil;
@@ -326,16 +338,10 @@ enum { TMAllListIndex = 0,
     [self.navigationController pushViewController:taskListController animated:animated];
 }
 
-- (NSUInteger)usualRowCount
-{
-    NSUInteger seriesCount = [[TMSeriesStore sharedStore] allSeries].count;
-    return TMDefaultListEnd + seriesCount;
-}
-
 - (void)deleteSeriesAtIndexPath:(NSIndexPath *)indexPath
 {
     TMSeries *series = [[[TMSeriesStore sharedStore] allSeries]
-                        objectAtIndex:indexPath.row-TMDefaultListEnd];
+                        objectAtIndex:indexPath.row];
     for (TMTask *task in series.tasks) {
         [[TMTaskStore sharedStore] removeTask:task];
     }
@@ -368,7 +374,7 @@ enum { TMAllListIndex = 0,
     
     NSString *newTitle = editField.text;
 
-    NSUInteger seriesIdx = editingIndexPath.row - TMDefaultListEnd;
+    NSUInteger seriesIdx = editingIndexPath.row;
     TMSeries *series = [[[TMSeriesStore sharedStore] allSeries] objectAtIndex:seriesIdx];
     
     if (newTitle.length != 0 &&
