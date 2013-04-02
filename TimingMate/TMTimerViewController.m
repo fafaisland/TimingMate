@@ -54,6 +54,9 @@
     [super viewWillAppear:animated];
     currentEngagementButton = task.isEngaging ? disengageButton : engageButton;
     [seriesLabel setText:task.series.title];
+    [seriesLabel setTextColor:[UIColor colorWithRed:30.0f/255.0f green:144.0f/255.0f blue:255.0f/255.0f alpha:1.0f]];
+    UIFont *seriesFont = [UIFont fontWithName:@"TrebuchetMS-Bold" size:40];
+    [seriesLabel setFont:seriesFont];
     [self toggleStart:YES animated:NO];
     [self showButtonsForFinished:task.isFinished animated:NO];
     [self showHoursPerDay];
@@ -113,6 +116,7 @@
     return [NSString stringWithFormat:@"%02d:%02d:%02d", hours, minutes, seconds];
 }
 
+
 #pragma mark - Representation methods
 - (void)showHoursPerDay
 {
@@ -155,10 +159,10 @@
     int seconds = secondsLeft % 60;
     if (hours > 0)
     {
-        return [NSString stringWithFormat:@"%02d hours %02d mins Per Day", hours, minutes];
+        return [NSString stringWithFormat:@"%02d hr %02d min", hours, minutes];
     }
     else{
-        return [NSString stringWithFormat:@"%02d mins %02d seconds Per Day",minutes,seconds];
+        return [NSString stringWithFormat:@"%02d min %02d sec",minutes,seconds];
     }
 }
 

@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		040202B91704D5C200E46A2F /* TMTotalTimePerDayRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 040202B81704D5C100E46A2F /* TMTotalTimePerDayRecord.m */; };
 		0414FE8416FE33F600ADE44B /* TMRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 0414FE8316FE33F600ADE44B /* TMRecord.m */; };
-		041B14251701030700D77383 /* TMTimerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 041B14241701030700D77383 /* TMTimerViewController.xib */; };
 		042170FA17022DFD006931B6 /* TMRecordListPerDayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 042170F817022DFD006931B6 /* TMRecordListPerDayViewController.m */; };
 		0425BE6416F3A9D30023EF2C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0425BE6316F3A9D30023EF2C /* UIKit.framework */; };
 		0425BE6616F3A9D30023EF2C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0425BE6516F3A9D30023EF2C /* Foundation.framework */; };
@@ -29,6 +28,7 @@
 		04B67151170A46EE0011A7E5 /* finish@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 04B6714B170A46EE0011A7E5 /* finish@2x.png */; };
 		04B67152170A46EE0011A7E5 /* trash.png in Resources */ = {isa = PBXBuildFile; fileRef = 04B6714C170A46EE0011A7E5 /* trash.png */; };
 		04B67153170A46EE0011A7E5 /* trash@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 04B6714D170A46EE0011A7E5 /* trash@2x.png */; };
+		04B67155170A68DA0011A7E5 /* TMTimerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04B67154170A68DA0011A7E5 /* TMTimerViewController.xib */; };
 		04BB8E9816FFFE03000A2428 /* TMAddRecordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BB8E9616FFFE03000A2428 /* TMAddRecordViewController.m */; };
 		04BB8E9916FFFE03000A2428 /* TMAddRecordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04BB8E9716FFFE03000A2428 /* TMAddRecordViewController.xib */; };
 		962AB654170893F70061D238 /* TPKeyboardAvoidingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 962AB653170893F70061D238 /* TPKeyboardAvoidingScrollView.m */; };
@@ -70,7 +70,6 @@
 		040202B81704D5C100E46A2F /* TMTotalTimePerDayRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMTotalTimePerDayRecord.m; sourceTree = "<group>"; };
 		0414FE8216FE33E800ADE44B /* TMRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMRecord.h; sourceTree = "<group>"; };
 		0414FE8316FE33F600ADE44B /* TMRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMRecord.m; sourceTree = "<group>"; };
-		041B14241701030700D77383 /* TMTimerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TMTimerViewController.xib; sourceTree = "<group>"; };
 		042170F717022DFD006931B6 /* TMRecordListPerDayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMRecordListPerDayViewController.h; sourceTree = "<group>"; };
 		042170F817022DFD006931B6 /* TMRecordListPerDayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMRecordListPerDayViewController.m; sourceTree = "<group>"; };
 		0425BE5F16F3A9D30023EF2C /* TimingMate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TimingMate.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -97,6 +96,7 @@
 		04B6714B170A46EE0011A7E5 /* finish@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "finish@2x.png"; path = "thirdparty/Resources/Images/finish@2x.png"; sourceTree = "<group>"; };
 		04B6714C170A46EE0011A7E5 /* trash.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = trash.png; path = thirdparty/Resources/Images/trash.png; sourceTree = "<group>"; };
 		04B6714D170A46EE0011A7E5 /* trash@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "trash@2x.png"; path = "thirdparty/Resources/Images/trash@2x.png"; sourceTree = "<group>"; };
+		04B67154170A68DA0011A7E5 /* TMTimerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TMTimerViewController.xib; sourceTree = "<group>"; };
 		04BB8E9516FFFE03000A2428 /* TMAddRecordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMAddRecordViewController.h; sourceTree = "<group>"; };
 		04BB8E9616FFFE03000A2428 /* TMAddRecordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMAddRecordViewController.m; sourceTree = "<group>"; };
 		04BB8E9716FFFE03000A2428 /* TMAddRecordViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TMAddRecordViewController.xib; sourceTree = "<group>"; };
@@ -211,7 +211,7 @@
 				9677DE9916F4CF1900F5F57B /* TMEditTaskViewController.xib */,
 				044A3F1A16FA5FDB0078FCCA /* TMTimerViewController.h */,
 				966FCC6116F60B0100F4A024 /* TMTimerViewController.m */,
-				041B14241701030700D77383 /* TMTimerViewController.xib */,
+				04B67154170A68DA0011A7E5 /* TMTimerViewController.xib */,
 				042170F717022DFD006931B6 /* TMRecordListPerDayViewController.h */,
 				042170F817022DFD006931B6 /* TMRecordListPerDayViewController.m */,
 				047D7F5316FD22D600DD7B1C /* TMRecordListViewController.h */,
@@ -376,7 +376,6 @@
 				965D507A1702369A008201E8 /* star-hollow@2x.png in Resources */,
 				965D507C17023AF4008201E8 /* TMTaskListViewController.xib in Resources */,
 				04BB8E9916FFFE03000A2428 /* TMAddRecordViewController.xib in Resources */,
-				041B14251701030700D77383 /* TMTimerViewController.xib in Resources */,
 				962AB659170895160061D238 /* TMListsViewEditableCell.xib in Resources */,
 				04B6714E170A46EE0011A7E5 /* engage.png in Resources */,
 				04B6714F170A46EE0011A7E5 /* engage@2x.png in Resources */,
@@ -384,6 +383,7 @@
 				04B67151170A46EE0011A7E5 /* finish@2x.png in Resources */,
 				04B67152170A46EE0011A7E5 /* trash.png in Resources */,
 				04B67153170A46EE0011A7E5 /* trash@2x.png in Resources */,
+				04B67155170A68DA0011A7E5 /* TMTimerViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
