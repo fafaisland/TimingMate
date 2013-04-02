@@ -55,6 +55,9 @@
                             target:self
                             action:@selector(toggleDelete)];
         self.navigationItem.rightBarButtonItems = @[addButton, deleteButton];
+        
+        finishedTaskColor = [UIColor grayColor];
+        unfinishedTaskColor = [UIColor blackColor];
     }
     return self;
 }
@@ -169,9 +172,9 @@
     cell.textLabel.text = t.title;
     
     if (t.isFinished) {
-        cell.textLabel.textColor = [UIColor grayColor];
+        cell.textLabel.textColor = finishedTaskColor;
     } else {
-        cell.textLabel.textColor = [UIColor blackColor];
+        cell.textLabel.textColor = unfinishedTaskColor;
     }
     //cell.supressDeleteButton = ![self gestureRecognizersSupported];
     cell.supressDeleteButton = NO;
@@ -194,6 +197,13 @@
 {
     TMTask *t = [tasks objectAtIndex:indexPath.row];
     [self showTimerViewForTask:t];
+}
+
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (self.tableView.editing)
+        return UITableViewCellEditingStyleDelete;
+    return UITableViewCellEditingStyleNone;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -235,6 +245,14 @@
 - (void)setNeedsReload
 {
     needsReload = YES;
+}
+
+- (void)changeColorForCell:(UITableViewCell *)cell color:(UIColor *)color
+{
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:0.2];
+    cell.textLabel.textColor = color;
+    [UIView commitAnimations];
 }
 
 #pragma mark - SideSwipeView
@@ -302,6 +320,7 @@
     if ([[buttonInfo objectForKey:@"title"] isEqualToString:@"Delete"])
     {
         NSLog(@"Delete");
+        [self removeSideSwipeView:NO];
         TMTask *t = [tasks objectAtIndex:indexPath.row];
         [[TMTaskStore sharedStore] removeTask:t];
         [tasks removeObject:t];
@@ -324,20 +343,19 @@
         NSLog(@"Finish");
         TMTask *t = [tasks objectAtIndex:indexPath.row];
         t.isFinished = !t.isFinished;
-        if (t.isFinished == YES)
+        if (t.isFinished)
         {
             [self changeButtonImageColorTo:@"yellow" on:button with:buttonInfo];
+            [self changeColorForCell:self.sideSwipeCell color:finishedTaskColor];
         }
         else{
             [self changeButtonImageColorTo:@"gray" on:button with:buttonInfo];
+            [self changeColorForCell:self.sideSwipeCell color:unfinishedTaskColor];
         }
-        [self reloadRowsAtIndexPaths:indexPath];
     }
-    else{
-        NSLog(@"Long Gun Du Zi~~~!!!");
+    else {
+        [self removeSideSwipeView:YES];
     }
-    
-    [self removeSideSwipeView:YES];
 }
 
 # pragma color methods

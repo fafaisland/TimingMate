@@ -5,6 +5,8 @@
 //  Created by Peter Boctor on 4/13/11.
 //  Copyright 2011 Peter Boctor. All rights reserved.
 //
+//  With modifications by Long Wei for project TimingMate
+//
 
 #import "SideSwipeTableViewController.h"
 
@@ -21,7 +23,7 @@
 #define PUSH_STYLE_ANIMATION NO
 
 @interface SideSwipeTableViewController (PrivateStuff)
-- (void) addSwipeViewTo:(UITableViewCell*)cell direction:(UISwipeGestureRecognizerDirection)direction;
+- (void) addSwipeViewTo:(UITableViewCell*)cell direction:(UISwipeGestureRecognizerDirection)direction animated:(BOOL)animated;
 - (void) setupGestureRecognizers;
 - (void) swipe:(UISwipeGestureRecognizer *)recognizer direction:(UISwipeGestureRecognizerDirection)direction;
 @end
@@ -65,13 +67,15 @@
 // Called when a left swipe occurred
 - (void)swipeLeft:(UISwipeGestureRecognizer *)recognizer
 {
-  [self swipe:recognizer direction:UISwipeGestureRecognizerDirectionLeft];
+  if (self.sideSwipeCell)
+      [self swipe:recognizer direction:UISwipeGestureRecognizerDirectionLeft];
 }
 
 // Called when a right swipe ocurred
 - (void)swipeRight:(UISwipeGestureRecognizer *)recognizer
 {
-  [self swipe:recognizer direction:UISwipeGestureRecognizerDirectionRight];
+  if (!self.sideSwipeCell)
+      [self swipe:recognizer direction:UISwipeGestureRecognizerDirectionRight];
 }
 
 // Handle a left or right swipe
@@ -100,7 +104,7 @@
     // If this isn't the cell that already has thew side swipe view and we aren't in the middle of animating
     // then start animating in the the side swipe view
     if (cell!= sideSwipeCell && !animatingSideSwipe)
-      [self addSwipeViewTo:cell direction:direction];
+      [self addSwipeViewTo:cell direction:direction animated:YES];
   }
 }
 
@@ -119,7 +123,8 @@
   // If this isn't the cell that already has thew side swipe view and we aren't in the middle of animating
   // then start animating in the the side swipe view. We don't have access to the direction, so we always assume right
   if (cell!= sideSwipeCell && !animatingSideSwipe)
-    [self addSwipeViewTo:cell direction:UISwipeGestureRecognizerDirectionRight];
+    [self addSwipeViewTo:cell direction:UISwipeGestureRecognizerDirectionRight
+                animated:YES];
 }
 
 // Apple's docs: To enable the swipe-to-delete feature of table views (wherein a user swipes horizontally across a row to display a Delete button), you must implement the tableView:commitEditingStyle:forRowAtIndexPath: method.
@@ -137,7 +142,7 @@
 }
 
 #pragma mark Adding the side swipe view
-- (void) addSwipeViewTo:(UITableViewCell*)cell direction:(UISwipeGestureRecognizerDirection)direction
+- (void) addSwipeViewTo:(UITableViewCell*)cell direction:(UISwipeGestureRecognizerDirection)direction animated:(BOOL)animated
 {
   // Change the frame of the side swipe view to match the cell
   sideSwipeView.frame = cell.frame;
@@ -162,11 +167,13 @@
   }
 
   // Animate in the side swipe view
-  animatingSideSwipe = YES;
-  [UIView beginAnimations:nil context:nil];
-  [UIView setAnimationDuration:0.2];
-  [UIView setAnimationDelegate:self];
-  [UIView setAnimationDidStopSelector:@selector(animationDidStopAddingSwipeView:finished:context:)];
+  if (animated) {
+    animatingSideSwipe = YES;
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:0.2];
+    [UIView setAnimationDelegate:self];
+      [UIView setAnimationDidStopSelector:@selector(animationDidStopAddingSwipeView:finished:context:)];
+  }
   if (PUSH_STYLE_ANIMATION)
   {
     // Move the side swipe view to offset 0
@@ -174,14 +181,21 @@
     // The net effect is that the side swipe view is pushing the cell offscreen
     sideSwipeView.frame = CGRectMake(0, cellFrame.origin.y, cellFrame.size.width, cellFrame.size.height);
   }
-  cell.frame = CGRectMake(direction == UISwipeGestureRecognizerDirectionRight ? cellFrame.size.width : -cellFrame.size.width, cellFrame.origin.y, cellFrame.size.width, cellFrame.size.height);
-  [UIView commitAnimations];
+  cell.frame = CGRectMake(direction == UISwipeGestureRecognizerDirectionRight ? cellFrame.size.width / 2 - 5 : -cellFrame.size.width, cellFrame.origin.y, cellFrame.size.width, cellFrame.size.height);
+  if (animated)
+    [UIView commitAnimations];
 }
 
 // Note that the animation is done
 - (void)animationDidStopAddingSwipeView:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context
 {
   animatingSideSwipe = NO;
+}
+
+- (void)resetSideSwipeView
+{
+  [self removeSideSwipeView:NO];
+  [self addSwipeViewTo:sideSwipeCell direction:sideSwipeDirection animated:NO];
 }
 
 #pragma mark Removing the side swipe view

@@ -11,6 +11,7 @@
 #import "thirdparty/SideSwipeTableViewController.h"
 
 @interface TMTaskListViewController : SideSwipeTableViewController
+    <UITableViewDelegate>
 {
     NSMutableArray *tasks;
     
@@ -22,6 +23,9 @@
     
     NSArray* sideSwipeButtonData;
     NSMutableArray* sideSwipeButtons;
+    
+    UIColor *finishedTaskColor;
+    UIColor *unfinishedTaskColor;
 }
 
 @property (nonatomic, copy) void (^listGenerationBlock)(NSMutableArray *);

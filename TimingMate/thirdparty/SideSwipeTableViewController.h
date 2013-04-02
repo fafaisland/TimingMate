@@ -5,7 +5,7 @@
 //  Created by Peter Boctor on 4/13/11.
 //  Copyright 2011 Peter Boctor. All rights reserved.
 //
-
+//  With modifications by Long Wei for project TimingMate
 
 @interface SideSwipeTableViewController : UIViewController
 {
@@ -24,5 +24,7 @@
 
 - (void) removeSideSwipeView:(BOOL)animated;
 - (BOOL) gestureRecognizersSupported;
+
+- (void) resetSideSwipeView;
 
 @end
