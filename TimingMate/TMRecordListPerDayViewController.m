@@ -37,6 +37,7 @@
                                       initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
                                       target:self
                                       action:@selector(changeToAddRecordView:)];
+        self.title = @"Time Per Day";
         self.navigationItem.rightBarButtonItem = addButton;
 
     }
@@ -92,8 +93,26 @@
     }
     
     TMTotalTimePerDayRecord *ttpdr = [totalTimePerDayRecordArray objectAtIndex:indexPath.row];
-    cell.textLabel.text = [NSString stringWithFormat:@"%@ %dseconds",ttpdr.someDay,[ttpdr totalTimeInSeconds]];
+    cell.textLabel.text = [NSString stringWithFormat:@"%@  %@",ttpdr.someDay,[self getStringFromSecondsPerDay:[ttpdr totalTimeInSeconds]]];
     return cell;
+}
+
+- (NSString *)getStringFromSecondsPerDay:(int)secondsPerDay
+{
+    int hours = secondsPerDay / 3600;
+    int secondsLeft = secondsPerDay % 3600;
+    int minutes = secondsLeft / 60;
+    int seconds = secondsLeft % 60;
+    if (hours > 0)
+    {
+        return [NSString stringWithFormat:@"%d hr %02d min", hours, minutes];
+    }
+    else if (minutes > 0){
+        return [NSString stringWithFormat:@"%02d min %02d sec",minutes,seconds];
+    }
+    else{
+        return [NSString stringWithFormat:@"%02d sec",seconds];
+    }
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

@@ -21,7 +21,9 @@ withTask:(TMTask *)aTask withSomeDay:(NSString *)someDay
     if (self) {
         task = aTask;
         day = someDay;
-        recordsArray = [[NSMutableArray alloc] init];
+        self.title = day;
+        recordsArray = [[NSArray alloc] init];
+        recordsMutableArray = [[NSMutableArray alloc] init];
         [self getRecordsForToday];
         UIBarButtonItem *addButton = [[UIBarButtonItem alloc]
                                       initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
@@ -35,7 +37,7 @@ withTask:(TMTask *)aTask withSomeDay:(NSString *)someDay
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [recordsArray removeAllObjects];
+    [recordsMutableArray removeAllObjects];
     [self getRecordsForToday];
     [self.tableView reloadData];
 }
@@ -60,9 +62,26 @@ withTask:(TMTask *)aTask withSomeDay:(NSString *)someDay
 #pragma mark - Helper Method
 - (NSString *)stringFromRecord:(TMRecord *)record
 {
-    return [NSString stringWithFormat:@"%@:%d", record.beginTime, record.timeSpent];
+    return [NSString stringWithFormat:@"%@  %@", [record getHourAndMinute],[self getStringFromSecondsPerDay:record.timeSpent]];
 }
 
+- (NSString *)getStringFromSecondsPerDay:(int)secondsPerDay
+{
+    int hours = secondsPerDay / 3600;
+    int secondsLeft = secondsPerDay % 3600;
+    int minutes = secondsLeft / 60;
+    int seconds = secondsLeft % 60;
+    if (hours > 0)
+    {
+        return [NSString stringWithFormat:@"%d hr %d min", hours, minutes];
+    }
+    else if (minutes > 0){
+        return [NSString stringWithFormat:@"%d min %d sec",minutes,seconds];
+    }
+    else{
+        return [NSString stringWithFormat:@"%d sec",seconds];
+    }
+}
 - (void)getRecordsForToday
 {
     NSArray *temp = [task.records allObjects];
@@ -70,9 +89,14 @@ withTask:(TMTask *)aTask withSomeDay:(NSString *)someDay
     {
         if ([[r getDateDay] isEqualToString:day])
         {
-            [recordsArray addObject:r];
+            [recordsMutableArray addObject:r];
         }
     }
+    NSArray *unsortedRecordsArray = [NSArray arrayWithArray: recordsMutableArray];
+    NSComparisonResult (^sortBlock)(id, id) = ^(id obj1, id obj2) {
+        return [[obj1 beginTime] compare:[obj2 beginTime]];
+    };
+    recordsArray = [unsortedRecordsArray sortedArrayUsingComparator:sortBlock];
 }
 
 #pragma mark - button helper

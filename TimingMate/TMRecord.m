@@ -25,4 +25,12 @@
     NSInteger year = [components year];
     return [NSString stringWithFormat:@"%02d-%02d-%02d", year, month, day];
 }
+
+-(NSString *)getHourAndMinute
+{
+    NSDateComponents *components = [[NSCalendar currentCalendar] components:NSHourCalendarUnit | NSMinuteCalendarUnit fromDate:self.beginTime];
+    NSInteger hour = [components hour];
+    NSInteger minute = [components minute];
+    return [NSString stringWithFormat:@"%02d:%02d", hour, minute];
+}
 @end

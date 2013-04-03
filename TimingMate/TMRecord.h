@@ -18,4 +18,5 @@
 @property (nonatomic, retain) TMTask *task;
 
 -(NSString *)getDateDay;
+-(NSString *)getHourAndMinute;
 @end

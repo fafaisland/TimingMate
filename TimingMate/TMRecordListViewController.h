@@ -11,7 +11,8 @@
 
 @interface TMRecordListViewController : UITableViewController
 {
-    NSMutableArray *recordsArray;
+    NSMutableArray *recordsMutableArray;
+    NSArray *recordsArray;
     NSString *day;
 }
 - (id)initWithStyle:(UITableViewStyle)style withTask:(TMTask *)aTask withSomeDay:(NSString *)someDay;
