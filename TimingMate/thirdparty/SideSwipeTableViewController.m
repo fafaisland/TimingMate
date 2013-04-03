@@ -67,15 +67,13 @@
 // Called when a left swipe occurred
 - (void)swipeLeft:(UISwipeGestureRecognizer *)recognizer
 {
-  if (self.sideSwipeCell)
-      [self swipe:recognizer direction:UISwipeGestureRecognizerDirectionLeft];
-}        
+    [self swipe:recognizer direction:UISwipeGestureRecognizerDirectionLeft];
+}
 
 // Called when a right swipe ocurred
 - (void)swipeRight:(UISwipeGestureRecognizer *)recognizer
 {
-  if (!self.sideSwipeCell)
-      [self swipe:recognizer direction:UISwipeGestureRecognizerDirectionRight];
+    [self swipe:recognizer direction:UISwipeGestureRecognizerDirectionRight];
 }
 
 // Handle a left or right swipe
@@ -90,6 +88,15 @@
     CGPoint location = [recognizer locationInView:tableView];
     NSIndexPath* indexPath = [tableView indexPathForRowAtPoint:location];
     UITableViewCell* cell = [tableView cellForRowAtIndexPath:indexPath];
+
+      if (self.sideSwipeCell) {
+          if ((self.sideSwipeCell == cell &&
+              direction == UISwipeGestureRecognizerDirectionRight) ||
+              (self.sideSwipeCell != cell &&
+               direction == UISwipeGestureRecognizerDirectionLeft))
+              return;
+      } else if (direction == UISwipeGestureRecognizerDirectionLeft)
+          return;
     
     // If we are already showing the swipe view, remove it
     if (cell.frame.origin.x != 0)
