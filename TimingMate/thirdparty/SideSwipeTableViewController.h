@@ -26,5 +26,6 @@
 - (BOOL) gestureRecognizersSupported;
 
 - (void) resetSideSwipeView;
+- (void)swipe:(UISwipeGestureRecognizer *)recognizer direction:(UISwipeGestureRecognizerDirection)direction;
 
 @end

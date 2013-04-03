@@ -69,7 +69,7 @@
 {
   if (self.sideSwipeCell)
       [self swipe:recognizer direction:UISwipeGestureRecognizerDirectionLeft];
-}
+}        
 
 // Called when a right swipe ocurred
 - (void)swipeRight:(UISwipeGestureRecognizer *)recognizer

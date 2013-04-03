@@ -156,7 +156,6 @@
     static NSString *CellIdentifier = @"Cell";
 
     SideSwipeTableViewCell *cell = [theTableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    
     if (!cell) {
         cell = [[SideSwipeTableViewCell alloc]
                              initWithStyle:UITableViewCellStyleDefault
@@ -275,7 +274,30 @@
 }
 
 #pragma mark - SideSwipeView
-
+- (void)swipe:(UISwipeGestureRecognizer *)recognizer direction:(UISwipeGestureRecognizerDirection)direction
+{
+    CGPoint location = [recognizer locationInView:tableView];
+    NSIndexPath* indexPath = [tableView indexPathForRowAtPoint:location];
+    TMTask *t = [tasks objectAtIndex:indexPath.row];
+    
+    NSDictionary* engageButtonInfo = [sideSwipeButtonData objectAtIndex:1];
+    UIButton *engageButton = [sideSwipeButtons objectAtIndex:1];
+    NSDictionary* finishButtonInfo = [sideSwipeButtonData objectAtIndex:2];
+    UIButton *finishButton = [sideSwipeButtons objectAtIndex:2];
+    if (t.isEngaging)
+    {
+        [self changeButtonImageColorTo:@"yellow" on:engageButton with:engageButtonInfo];
+    }else{
+        [self changeButtonImageColorTo:@"gray" on:engageButton with:engageButtonInfo];
+    }
+    if (t.isFinished) {
+        [self changeButtonImageColorTo:@"yellow" on:finishButton with:finishButtonInfo];
+    } else {
+        [self changeButtonImageColorTo:@"gray" on:finishButton with:finishButtonInfo];
+    }
+    [super swipe:recognizer direction:direction];
+    
+}
 - (void)setupSideSwipeView
 {
     // Add the background pattern
@@ -331,14 +353,11 @@
     
     NSUInteger index = [sideSwipeButtons indexOfObject:button];
     NSDictionary* buttonInfo = [sideSwipeButtonData objectAtIndex:index];
-    /*[[[UIAlertView alloc] initWithTitle:[NSString stringWithFormat: @"%@ on cell %d", [buttonInfo objectForKey:@"title"], indexPath.row]
-                                 message:nil
-                                delegate:nil
-                       cancelButtonTitle:nil
-                       otherButtonTitles:@"OK", nil] show];*/
+    
     if ([[buttonInfo objectForKey:@"title"] isEqualToString:@"Delete"])
     {
         NSLog(@"Delete");
+        NSLog(@"%d",index);
         [self removeSideSwipeView:NO];
         TMTask *t = [tasks objectAtIndex:indexPath.row];
         [[TMTaskStore sharedStore] removeTask:t];
@@ -348,9 +367,10 @@
     else if ([[buttonInfo objectForKey:@"title"] isEqualToString:@"Engage"])
     {
         NSLog(@"Engage");
+        NSLog(@"%d",index);
         TMTask *t = [tasks objectAtIndex:indexPath.row];
         t.isEngaging = !t.isEngaging;
-        if (t.isEngaging == YES)
+        if (t.isEngaging)
         {
             [self changeButtonImageColorTo:@"yellow" on:button with:buttonInfo];
         }
@@ -360,6 +380,7 @@
     }
     else if ([[buttonInfo objectForKey:@"title"] isEqualToString:@"Finish"]){
         NSLog(@"Finish");
+        NSLog(@"%d",index);
         TMTask *t = [tasks objectAtIndex:indexPath.row];
         t.isFinished = !t.isFinished;
         if (t.isFinished)
