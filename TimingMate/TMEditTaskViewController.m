@@ -18,6 +18,8 @@
 NSString * const TMSeriesNone = @"None";
 enum { TMSeriesNoneIndex = 0,
        TMDefaultSeriesEnd = 1 };
+enum { TMHourComponent = 0,
+       TMMinuteComponent = 1 };
 
 @implementation TMEditTaskViewController
 
@@ -76,8 +78,6 @@ enum { TMSeriesNoneIndex = 0,
     [super viewWillAppear:animated];
     
     titleField.text = task.title;
-    expectedCompletionTimeField.text = [NSString stringWithFormat:@"%f", task.expectedCompletionTime];
-    creationTimeLabel.text = [dateFormatter stringFromDate:task.creationTime];
     
     TMSeries *series = [task series];
     NSString *selectedStr;
@@ -87,7 +87,9 @@ enum { TMSeriesNoneIndex = 0,
         selectedStr = TMSeriesNone;
     [seriesButton setTitle:selectedStr forState:UIControlStateNormal];
     
-    [self initializePickerWithString:selectedStr];
+    [self initializeSeriesPickerWithString:selectedStr];
+    [self initializeTimePicker];
+    [self updateExpectedTimeButtonLabel];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -97,7 +99,6 @@ enum { TMSeriesNoneIndex = 0,
     [self.view endEditing:YES];
     
     task.title = titleField.text;
-    task.expectedCompletionTime = expectedCompletionTimeField.text.floatValue;
     
     TMSeries *selectedSeries = [self selectedSeries];
     if (!forNewTask && task.series != selectedSeries) {
@@ -130,7 +131,24 @@ enum { TMSeriesNoneIndex = 0,
                                                         completion:cancelBlock];
 }
 
-- (void)showPicker:(id)sender
+- (void)showSeriesPicker:(id)sender
+{
+    [self showPicker:seriesPickerView];
+}
+
+- (void)showTimePicker:(id)sender
+{
+    [self showPicker:timePickerView];
+}
+
+- (void)dismissActionSheet:(id)sender
+{
+    [actionSheet dismissWithClickedButtonIndex:0 animated:YES];
+}
+
+#pragma mark - Picker methods
+
+- (void)showPicker:(UIPickerView *)picker
 {
     if (!actionSheet)
         actionSheet = [[UIActionSheet alloc] initWithTitle:nil
@@ -141,7 +159,7 @@ enum { TMSeriesNoneIndex = 0,
     
     [actionSheet setActionSheetStyle:UIActionSheetStyleBlackTranslucent];
     
-    [actionSheet addSubview:pickerView];
+    [actionSheet addSubview:picker];
     
     UISegmentedControl *closeButton = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObject:@"Close"]];
     closeButton.momentary = YES;
@@ -156,45 +174,81 @@ enum { TMSeriesNoneIndex = 0,
     [actionSheet setBounds:CGRectMake(0, 0, 320, 485)];
 }
 
-- (void)dismissActionSheet:(id)sender
-{
-    [actionSheet dismissWithClickedButtonIndex:0 animated:YES];
-}
-
-#pragma mark - Picker methods
-
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
 {
-    return 1;
+    if (pickerView == seriesPickerView)
+        return 1;
+    else // pickerView == timePickerView
+        return 2;
 }
 
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
 {
-    return pickerArray.count;
+    if (pickerView == seriesPickerView)
+        return pickerArray.count;
+    else { // pickerView == timePickerView
+        if (component == TMHourComponent)
+            return 100;
+        else // component == TMMinuteComponent
+            return 60;
+    }
 }
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
-    [seriesButton setTitle:[pickerArray objectAtIndex:row]
+    if (pickerView == seriesPickerView)
+        [seriesButton setTitle:[pickerArray objectAtIndex:row]
                                              forState:UIControlStateNormal];
+    else { // pickerView == timePickerView
+        if (component == TMHourComponent)
+            selectedHourRow = row;
+        else // component == TMMinuteComponent
+            selectedMinuteRow = row;
+        [self setTaskExpectedTimeFromPicker];
+        [self updateExpectedTimeButtonLabel];
+    }
 }
 
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
 {
-    return [pickerArray objectAtIndex:row];
+    if (pickerView == seriesPickerView)
+        return [pickerArray objectAtIndex:row];
+    else // pickerView == timePickerView
+        return [self timePickerStringFromRow:row forComoonent:component];
 }
 
 #pragma mark - Helper methods
+
+- (void)updateExpectedTimeButtonLabel
+{
+    [expectedTimeButton setTitle:[NSString stringWithFormat:@"%d hr %d min",
+                                  selectedHourRow, selectedMinuteRow]
+                        forState:UIControlStateNormal];
+}
+
+- (void)setTaskExpectedTimeFromPicker
+{
+    task.expectedCompletionTime = (double)(selectedHourRow * 60 + selectedMinuteRow);
+}
+
+- (NSString *)timePickerStringFromRow:(NSInteger)row forComoonent:(NSInteger)component
+{
+    if (component == TMHourComponent)
+        return [NSString stringWithFormat:@"%d hr", row];
+    else // component == TMMinuteComponent
+        return [NSString stringWithFormat:@"%d min", row];
+}
+
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
     return YES;
 }
 
-- (void)initializePickerWithString:(NSString *)s
+- (void)initializeSeriesPickerWithString:(NSString *)s
 {
-    if (!pickerView) {
+    if (!seriesPickerView) {
         CGRect pickerFrame = CGRectMake(0, 40, 0, 0);
-        pickerView = [[UIPickerView alloc] initWithFrame:pickerFrame];
+        seriesPickerView = [[UIPickerView alloc] initWithFrame:pickerFrame];
         
         pickerArray = [NSMutableArray array];
         [pickerArray addObject:TMSeriesNone];
@@ -204,9 +258,9 @@ enum { TMSeriesNoneIndex = 0,
             [pickerArray addObject:series.title];
         }
         
-        pickerView.showsSelectionIndicator = YES;
-        pickerView.dataSource = self;
-        pickerView.delegate = self;
+        seriesPickerView.showsSelectionIndicator = YES;
+        seriesPickerView.dataSource = self;
+        seriesPickerView.delegate = self;
     }
     
     NSInteger row = 0;
@@ -218,15 +272,32 @@ enum { TMSeriesNoneIndex = 0,
             row = TMDefaultSeriesEnd + idx;
     }
 
-    [pickerView selectRow:row inComponent:0 animated:NO];
+    [seriesPickerView selectRow:row inComponent:0 animated:NO];
+}
+
+- (void)initializeTimePicker
+{
+    if (!timePickerView) {
+        CGRect pickerFrame = CGRectMake(0, 40, 0, 0);
+        timePickerView = [[UIPickerView alloc] initWithFrame:pickerFrame];
+        
+        timePickerView.showsSelectionIndicator = YES;
+        timePickerView.dataSource = self;
+        timePickerView.delegate = self;
+    }
+    
+    selectedMinuteRow = ((int)task.expectedCompletionTime) % 60;
+    selectedHourRow = ((int)task.expectedCompletionTime) / 60;
+    [timePickerView selectRow:selectedMinuteRow inComponent:TMMinuteComponent animated:NO];
+    [timePickerView selectRow:selectedHourRow inComponent:TMHourComponent animated:NO];
 }
 
 - (TMSeries *)selectedSeries
 {
-    if (!pickerView)
+    if (!seriesPickerView)
         return nil;
 
-    NSInteger row = [pickerView selectedRowInComponent:0];
+    NSInteger row = [seriesPickerView selectedRowInComponent:0];
     if (row < TMDefaultSeriesEnd)
         return nil;
 

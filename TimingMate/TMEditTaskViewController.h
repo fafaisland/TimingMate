@@ -15,19 +15,23 @@
     <UIPickerViewDelegate, UIPickerViewDataSource,UITextFieldDelegate>
 {
     __weak IBOutlet UITextField *titleField;
-    __weak IBOutlet UITextField *expectedCompletionTimeField;
-    __weak IBOutlet UILabel *creationTimeLabel;
+    __weak IBOutlet UIButton *expectedTimeButton;
     __weak IBOutlet UIButton *seriesButton;
 
-    UIPickerView *pickerView;
+    UIPickerView *seriesPickerView;
+    UIPickerView *timePickerView;
     UIActionSheet *actionSheet;
     NSMutableArray *pickerArray;
     
     BOOL forNewTask;
+    
+    NSInteger selectedHourRow;
+    NSInteger selectedMinuteRow;
 }
 
 - (id)initWithTask:(TMTask *)aTask asNewTask:(BOOL)isNew;
-- (IBAction)showPicker:(id)sender;
+- (IBAction)showSeriesPicker:(id)sender;
+- (IBAction)showTimePicker:(id)sender;
 
 @property (nonatomic, strong) TMTask *task;
 @property (nonatomic, copy) void (^dismissBlock)(void);
