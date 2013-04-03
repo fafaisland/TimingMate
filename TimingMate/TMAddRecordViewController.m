@@ -112,7 +112,8 @@
     //NSLog(@"%@",[datePickerButton currentTitle]);
     NSString *stringDuration = durationField.text;
     NSLog(@"%@",stringDuration);
-    if ([stringDuration length] != 0)
+    NSInteger integerDuration = [stringDuration integerValue];
+    if ([stringDuration length] != 0 && integerDuration > 0 )
     {
         if (pickerView1.date == nil)
         {
