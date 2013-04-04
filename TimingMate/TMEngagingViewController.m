@@ -54,6 +54,14 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)addNewTask:(id)sender
+{
+    TMTask *t = [[TMTaskStore sharedStore] createAndAddTask];
+    t.isEngaging = YES;
+    
+    [self presentViewForAddingTask:t];
+}
+
 - (BOOL)viewIncludesTask:(TMTask *)task
 {
     return task.isEngaging;
