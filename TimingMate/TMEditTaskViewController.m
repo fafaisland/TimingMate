@@ -221,8 +221,7 @@ enum { TMHourComponent = 0,
 
 - (void)updateExpectedTimeButtonLabel
 {
-    [expectedTimeButton setTitle:[NSString stringWithFormat:@"%d hr %d min",
-                                  selectedHourRow, selectedMinuteRow]
+    [expectedTimeButton setTitle:TMMakeTimeString(selectedHourRow, selectedMinuteRow, 0)
                         forState:UIControlStateNormal];
 }
 
@@ -286,8 +285,8 @@ enum { TMHourComponent = 0,
         timePickerView.delegate = self;
     }
     
-    selectedMinuteRow = ((int)task.expectedCompletionTime) % 60;
-    selectedHourRow = ((int)task.expectedCompletionTime) / 60;
+    selectedMinuteRow = task.expectedTimeMinutes;
+    selectedHourRow = task.expectedTimeHours;
     [timePickerView selectRow:selectedMinuteRow inComponent:TMMinuteComponent animated:NO];
     [timePickerView selectRow:selectedHourRow inComponent:TMHourComponent animated:NO];
 }

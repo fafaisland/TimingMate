@@ -88,4 +88,15 @@
         return NSOrderedAscending;
     }
 }
+
+- (int)expectedTimeHours
+{
+    return ((int)self.expectedCompletionTime) / 60;
+}
+
+- (int)expectedTimeMinutes
+{
+    return ((int)self.expectedCompletionTime) % 60;
+}
+
 @end

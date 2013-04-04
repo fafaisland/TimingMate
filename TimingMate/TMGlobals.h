@@ -7,3 +7,5 @@
 //
 
 extern NSString * const TMListsTitle;
+
+NSString * TMMakeTimeString(int hours, int minutes, int seconds);

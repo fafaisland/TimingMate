@@ -9,6 +9,7 @@
 #import "TMTimerViewController.h"
 
 #import "TMEditTaskViewController.h"
+#import "TMGlobals.h"
 #import "TMTask.h"
 #import "TMRecord.h"
 #import "TMSeries.h"
@@ -186,16 +187,19 @@
 }
 
 #pragma mark - present labels
+
 - (void)showTotalTime
 {
     int secondsTotal = [self countTotalSecondsSpentOnTask];
     [totalTimeLabel setText:[self getStringFromSecondsPerDay:secondsTotal ]];
 }
+
 - (void)showExpectedTime
 {
-    NSString *expectedTimeString = [NSString stringWithFormat:@"%f",task.expectedCompletionTime];
-    [expectedTimeLabel setText:expectedTimeString];
+    [expectedTimeLabel setText:TMMakeTimeString(task.expectedTimeHours,
+                                                task.expectedTimeMinutes, 0)];
 }
+
 #pragma mark - Button handlers
 - (void)editTask:(id)sender
 {

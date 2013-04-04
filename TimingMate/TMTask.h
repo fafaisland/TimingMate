@@ -32,5 +32,7 @@
 
 - (TMRecord *)createRecordBeginningAt:(NSDate *)beginTime
                         withTimeSpent:(int32_t)timeSpent;
+- (int)expectedTimeHours;
+- (int)expectedTimeMinutes;
 
 @end
