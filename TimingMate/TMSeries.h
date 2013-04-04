@@ -24,4 +24,7 @@
 - (void)addTasks:(NSSet *)values;
 - (void)removeTasks:(NSSet *)values;
 
+- (int)getTotalTimeSpent;
+- (int)getAverageTimeSpentPerTask;
+
 @end

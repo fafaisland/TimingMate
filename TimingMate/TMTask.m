@@ -74,6 +74,7 @@
         return nil;
     }
 }
+
 -(NSComparisonResult)compareByBeginTimeWithRecord1:(TMRecord *)TMRecord1 withRecord2:(TMRecord *)TMRecord2
 {
     if (TMRecord1.beginTime > TMRecord2.beginTime)
@@ -97,6 +98,14 @@
 - (int)expectedTimeMinutes
 {
     return ((int)self.expectedCompletionTime) % 60;
+}
+
+- (int)getTotalTimeSpent
+{
+    int total = 0;
+    for (TMRecord *record in self.records)
+        total += record.timeSpent;
+    return total;
 }
 
 @end

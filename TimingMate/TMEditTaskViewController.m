@@ -226,7 +226,8 @@ enum { TMHourComponent = 0,
 
 - (void)updateExpectedTimeButtonLabel
 {
-    [expectedTimeButton setTitle:TMMakeTimeString(selectedHourRow, selectedMinuteRow, 0)
+    [expectedTimeButton
+        setTitle:TMMakeTimeStringFromHoursMinutes(selectedHourRow, selectedMinuteRow)
                         forState:UIControlStateNormal];
 }
 

@@ -18,10 +18,32 @@ NSString * TMMakeTimeString(int hours, int minutes, int seconds)
     if (hours != 0)
         [timeStr appendString:[NSString stringWithFormat:@"%d hr ", hours]];
 
-    [timeStr appendString:[NSString stringWithFormat:@"%d min", minutes]];
-    
-    if (seconds != 0)
-        [timeStr appendString:[NSString stringWithFormat:@"% d sec", seconds]];
+    if (hours != 0 || minutes != 0)
+        [timeStr appendString:[NSString stringWithFormat:@"%d min ", minutes]];
+
+    [timeStr appendString:[NSString stringWithFormat:@"%d sec", seconds]];
     
     return timeStr;
+}
+
+NSString * TMMakeTimeStringFromHoursMinutes(int hours, int minutes)
+{
+    NSMutableString *timeStr = [NSMutableString string];
+    if (hours != 0)
+        [timeStr appendString:[NSString stringWithFormat:@"%d hr ", hours]];
+
+    [timeStr appendString:[NSString stringWithFormat:@"%d min ", minutes]];
+    
+    return timeStr;
+}
+
+NSString * TMMakeTimeStringFromSeconds(int seconds)
+{
+    int hours = seconds / 3600;
+    int secondsLeft = seconds % 3600;
+    
+    int minutes = secondsLeft / 60;
+    secondsLeft = secondsLeft % 60;
+    
+    return TMMakeTimeString(hours, minutes, secondsLeft);
 }

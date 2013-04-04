@@ -34,5 +34,6 @@
                         withTimeSpent:(int32_t)timeSpent;
 - (int)expectedTimeHours;
 - (int)expectedTimeMinutes;
+- (int)getTotalTimeSpent;
 
 @end

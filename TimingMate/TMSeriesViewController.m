@@ -8,6 +8,7 @@
 
 #import "TMSeriesViewController.h"
 
+#import "TMGlobals.h"
 #import "TMSeries.h"
 #import "TMSeriesStatisticsCell.h"
 #import "TMSeriesStore.h"
@@ -111,8 +112,9 @@ NSString * const TMSeriesStatisticsCellIdentifier = @"StatisticsCell";
     
     TMSeriesStatisticsCell *cell = [tableView dequeueReusableCellWithIdentifier:TMSeriesStatisticsCellIdentifier];
     
-    cell.totalLabel.text = @"Not working";
-    cell.averageLabel.text = @"Not working";
+    cell.totalLabel.text = TMMakeTimeStringFromSeconds([series getTotalTimeSpent]);
+    cell.averageLabel.text = TMMakeTimeStringFromSeconds(
+                                    [series getAverageTimeSpentPerTask]);
 
     return cell;
 }

@@ -197,8 +197,8 @@
 
 - (void)showExpectedTime
 {
-    [expectedTimeLabel setText:TMMakeTimeString(task.expectedTimeHours,
-                                                task.expectedTimeMinutes, 0)];
+    [expectedTimeLabel setText:TMMakeTimeStringFromHoursMinutes(task.expectedTimeHours,
+                                                task.expectedTimeMinutes)];
 }
 
 #pragma mark - Button handlers
