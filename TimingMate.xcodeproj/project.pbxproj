@@ -204,6 +204,8 @@
 		0425BE6B16F3A9D30023EF2C /* TimingMate */ = {
 			isa = PBXGroup;
 			children = (
+				96B38A5C170D223500EE4C16 /* Model */,
+				96B38A5B170D221300EE4C16 /* Task List Views */,
 				96D4039316F3B64800214323 /* TMGlobals.h */,
 				96D4039416F3B64800214323 /* TMGlobals.m */,
 				0425BE7416F3A9D30023EF2C /* TMAppDelegate.h */,
@@ -213,15 +215,6 @@
 				962AB655170894F50061D238 /* TMListsViewEditableCell.h */,
 				962AB656170894F50061D238 /* TMListsViewEditableCell.m */,
 				962AB658170895160061D238 /* TMListsViewEditableCell.xib */,
-				96D1038F170B849D00ED6C9A /* TMEngagingViewController.h */,
-				96D10390170B849D00ED6C9A /* TMEngagingViewController.m */,
-				96D10391170B849D00ED6C9A /* TMEngagingViewController.xib */,
-				96D1038A170B7AFD00ED6C9A /* TMSeriesViewController.h */,
-				96D1038B170B7AFD00ED6C9A /* TMSeriesViewController.m */,
-				96D1038C170B7AFD00ED6C9A /* TMSeriesViewController.xib */,
-				96D4039016F3B46400214323 /* TMTaskListViewController.h */,
-				96D4039116F3B46400214323 /* TMTaskListViewController.m */,
-				965D507B17023AF4008201E8 /* TMTaskListViewController.xib */,
 				9677DE9716F4CF1900F5F57B /* TMEditTaskViewController.h */,
 				9677DE9816F4CF1900F5F57B /* TMEditTaskViewController.m */,
 				9677DE9916F4CF1900F5F57B /* TMEditTaskViewController.xib */,
@@ -237,16 +230,6 @@
 				04BB8E9716FFFE03000A2428 /* TMAddRecordViewController.xib */,
 				040202B71704D5C100E46A2F /* TMTotalTimePerDayRecord.h */,
 				040202B81704D5C100E46A2F /* TMTotalTimePerDayRecord.m */,
-				0414FE8216FE33E800ADE44B /* TMRecord.h */,
-				0414FE8316FE33F600ADE44B /* TMRecord.m */,
-				966E516016FE05250039B175 /* TMTask.h */,
-				966E516116FE05250039B175 /* TMTask.m */,
-				962DFC6C16F952B200E5F8C8 /* TMSeries.h */,
-				962DFC6D16F952B200E5F8C8 /* TMSeries.m */,
-				966E516316FE156D0039B175 /* TMSeriesStore.h */,
-				966E516416FE156D0039B175 /* TMSeriesStore.m */,
-				968460ED16F3CFA700EF2221 /* TMTaskStore.h */,
-				968460EE16F3CFA700EF2221 /* TMTaskStore.m */,
 				0425BE7D16F3A9D30023EF2C /* TimingMate.xcdatamodeld */,
 				965D504E170231C1008201E8 /* thirdparty */,
 				0425BE6C16F3A9D30023EF2C /* Supporting Files */,
@@ -332,6 +315,39 @@
 				965D506B1702369A008201E8 /* star-hollow@2x.png */,
 			);
 			name = Images;
+			sourceTree = "<group>";
+		};
+		96B38A5B170D221300EE4C16 /* Task List Views */ = {
+			isa = PBXGroup;
+			children = (
+				96D1038F170B849D00ED6C9A /* TMEngagingViewController.h */,
+				96D10390170B849D00ED6C9A /* TMEngagingViewController.m */,
+				96D10391170B849D00ED6C9A /* TMEngagingViewController.xib */,
+				96D1038A170B7AFD00ED6C9A /* TMSeriesViewController.h */,
+				96D1038B170B7AFD00ED6C9A /* TMSeriesViewController.m */,
+				96D1038C170B7AFD00ED6C9A /* TMSeriesViewController.xib */,
+				96D4039016F3B46400214323 /* TMTaskListViewController.h */,
+				96D4039116F3B46400214323 /* TMTaskListViewController.m */,
+				965D507B17023AF4008201E8 /* TMTaskListViewController.xib */,
+			);
+			name = "Task List Views";
+			sourceTree = "<group>";
+		};
+		96B38A5C170D223500EE4C16 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				0414FE8216FE33E800ADE44B /* TMRecord.h */,
+				0414FE8316FE33F600ADE44B /* TMRecord.m */,
+				966E516016FE05250039B175 /* TMTask.h */,
+				966E516116FE05250039B175 /* TMTask.m */,
+				962DFC6C16F952B200E5F8C8 /* TMSeries.h */,
+				962DFC6D16F952B200E5F8C8 /* TMSeries.m */,
+				966E516316FE156D0039B175 /* TMSeriesStore.h */,
+				966E516416FE156D0039B175 /* TMSeriesStore.m */,
+				968460ED16F3CFA700EF2221 /* TMTaskStore.h */,
+				968460EE16F3CFA700EF2221 /* TMTaskStore.m */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

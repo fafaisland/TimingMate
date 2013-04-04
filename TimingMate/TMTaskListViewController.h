@@ -13,7 +13,7 @@
 @class TMTask;
 
 @interface TMTaskListViewController : SideSwipeTableViewController
-    <UITableViewDelegate>
+    <UITableViewDelegate, UITableViewDataSource>
 {
     NSMutableArray *tasks;
     

@@ -72,4 +72,64 @@
     return task.series == series;
 }
 
+#pragma - mark Table methods
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)aTableView
+{
+    return 1 + [super numberOfSectionsInTableView:aTableView];
+}
+
+- (NSInteger)tableView:(UITableView *)aTableView numberOfRowsInSection:(NSInteger)section
+{
+    if (section != 0)
+        return [super tableView:aTableView numberOfRowsInSection:section-1];
+    
+    return 1;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)aTableView
+    cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *CellIdentifier = @"Cell";
+
+    if (indexPath.section != 0) {
+        return [super tableView:aTableView
+          cellForRowAtIndexPath:[self convertToSuperIndexPath:indexPath]];
+    }
+    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    
+    if (!cell) {
+        cell = [[UITableViewCell alloc]
+                    initWithStyle:UITableViewCellStyleDefault
+                    reuseIdentifier:CellIdentifier];
+    }
+    
+    cell.textLabel.text = @"Statistics go here";
+    return cell;
+}
+
+- (void)tableView:(UITableView *)aTableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.section == 0)
+        return;
+    
+    return [super tableView:aTableView
+        didSelectRowAtIndexPath:[self convertToSuperIndexPath:indexPath]];
+}
+
+- (BOOL)swipeIsEnabledForSection:(NSInteger)section
+{
+    if (section == 0)
+        return NO;
+    return YES;
+}
+
+#pragma mark - Helper methods
+
+- (NSIndexPath *)convertToSuperIndexPath:(NSIndexPath *)indexPath
+{
+    return [NSIndexPath indexPathForRow:indexPath.row inSection:indexPath.section-1];
+}
+
 @end

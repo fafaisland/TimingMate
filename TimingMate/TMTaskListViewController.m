@@ -150,6 +150,11 @@
 
 #pragma mark - Table methods
 
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
+
 - (UITableViewCell *)tableView:(UITableView *)theTableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -219,7 +224,8 @@
 
     if ([self viewIncludesTask:task])
     {
-        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+        NSInteger lastSection = [self numberOfSectionsInTableView:self.tableView];
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:lastSection-1];
         [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
                               withRowAnimation:UITableViewRowAnimationFade];
         [self.tableView scrollToRowAtIndexPath:indexPath
