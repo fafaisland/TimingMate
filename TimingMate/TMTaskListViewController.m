@@ -284,6 +284,10 @@
 {
     CGPoint location = [recognizer locationInView:tableView];
     NSIndexPath* indexPath = [tableView indexPathForRowAtPoint:location];
+
+    if (![self swipeIsEnabledForSection:indexPath.section])
+        return;
+    
     TMTask *t = [tasks objectAtIndex:indexPath.row];
     
     NSDictionary* engageButtonInfo = [sideSwipeButtonData objectAtIndex:1];
@@ -304,6 +308,12 @@
     [super swipe:recognizer direction:direction];
     
 }
+
+- (BOOL)swipeIsEnabledForSection:(NSInteger)section
+{
+    return YES;
+}
+
 - (void)setupSideSwipeView
 {
     // Add the background pattern

@@ -59,6 +59,8 @@
 		9677DE9A16F4CF1900F5F57B /* TMEditTaskViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9677DE9816F4CF1900F5F57B /* TMEditTaskViewController.m */; };
 		9677DE9B16F4CF1900F5F57B /* TMEditTaskViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9677DE9916F4CF1900F5F57B /* TMEditTaskViewController.xib */; };
 		968460EF16F3CFA700EF2221 /* TMTaskStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 968460EE16F3CFA700EF2221 /* TMTaskStore.m */; };
+		96B38A5F170D228F00EE4C16 /* TMSeriesStatisticsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 96B38A5E170D228F00EE4C16 /* TMSeriesStatisticsCell.m */; };
+		96B38A61170D22B000EE4C16 /* TMSeriesStatisticsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96B38A60170D22B000EE4C16 /* TMSeriesStatisticsCell.xib */; };
 		96D1038D170B7AFD00ED6C9A /* TMSeriesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D1038B170B7AFD00ED6C9A /* TMSeriesViewController.m */; };
 		96D1038E170B7AFD00ED6C9A /* TMSeriesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96D1038C170B7AFD00ED6C9A /* TMSeriesViewController.xib */; };
 		96D10392170B849D00ED6C9A /* TMEngagingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D10390170B849D00ED6C9A /* TMEngagingViewController.m */; };
@@ -141,6 +143,9 @@
 		9677DE9916F4CF1900F5F57B /* TMEditTaskViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TMEditTaskViewController.xib; sourceTree = "<group>"; };
 		968460ED16F3CFA700EF2221 /* TMTaskStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMTaskStore.h; sourceTree = "<group>"; };
 		968460EE16F3CFA700EF2221 /* TMTaskStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMTaskStore.m; sourceTree = "<group>"; };
+		96B38A5D170D228F00EE4C16 /* TMSeriesStatisticsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMSeriesStatisticsCell.h; sourceTree = "<group>"; };
+		96B38A5E170D228F00EE4C16 /* TMSeriesStatisticsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMSeriesStatisticsCell.m; sourceTree = "<group>"; };
+		96B38A60170D22B000EE4C16 /* TMSeriesStatisticsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TMSeriesStatisticsCell.xib; sourceTree = "<group>"; };
 		96D1038A170B7AFD00ED6C9A /* TMSeriesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMSeriesViewController.h; sourceTree = "<group>"; };
 		96D1038B170B7AFD00ED6C9A /* TMSeriesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMSeriesViewController.m; sourceTree = "<group>"; };
 		96D1038C170B7AFD00ED6C9A /* TMSeriesViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TMSeriesViewController.xib; sourceTree = "<group>"; };
@@ -206,15 +211,13 @@
 			children = (
 				96B38A5C170D223500EE4C16 /* Model */,
 				96B38A5B170D221300EE4C16 /* Task List Views */,
+				96B38A62170D2AC700EE4C16 /* Table Cells */,
 				96D4039316F3B64800214323 /* TMGlobals.h */,
 				96D4039416F3B64800214323 /* TMGlobals.m */,
 				0425BE7416F3A9D30023EF2C /* TMAppDelegate.h */,
 				0425BE7516F3A9D30023EF2C /* TMAppDelegate.m */,
 				96F3075416F7ACC400B0E2EF /* TMListsViewController.h */,
 				96F3075516F7ACC400B0E2EF /* TMListsViewController.m */,
-				962AB655170894F50061D238 /* TMListsViewEditableCell.h */,
-				962AB656170894F50061D238 /* TMListsViewEditableCell.m */,
-				962AB658170895160061D238 /* TMListsViewEditableCell.xib */,
 				9677DE9716F4CF1900F5F57B /* TMEditTaskViewController.h */,
 				9677DE9816F4CF1900F5F57B /* TMEditTaskViewController.m */,
 				9677DE9916F4CF1900F5F57B /* TMEditTaskViewController.xib */,
@@ -350,6 +353,19 @@
 			name = Model;
 			sourceTree = "<group>";
 		};
+		96B38A62170D2AC700EE4C16 /* Table Cells */ = {
+			isa = PBXGroup;
+			children = (
+				962AB655170894F50061D238 /* TMListsViewEditableCell.h */,
+				962AB656170894F50061D238 /* TMListsViewEditableCell.m */,
+				962AB658170895160061D238 /* TMListsViewEditableCell.xib */,
+				96B38A5D170D228F00EE4C16 /* TMSeriesStatisticsCell.h */,
+				96B38A5E170D228F00EE4C16 /* TMSeriesStatisticsCell.m */,
+				96B38A60170D22B000EE4C16 /* TMSeriesStatisticsCell.xib */,
+			);
+			name = "Table Cells";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -434,6 +450,7 @@
 				962B6503170B681C00770B4F /* trash@2x.png in Resources */,
 				96D1038E170B7AFD00ED6C9A /* TMSeriesViewController.xib in Resources */,
 				96D10393170B849D00ED6C9A /* TMEngagingViewController.xib in Resources */,
+				96B38A61170D22B000EE4C16 /* TMSeriesStatisticsCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -467,6 +484,7 @@
 				962AB657170894F50061D238 /* TMListsViewEditableCell.m in Sources */,
 				96D1038D170B7AFD00ED6C9A /* TMSeriesViewController.m in Sources */,
 				96D10392170B849D00ED6C9A /* TMEngagingViewController.m in Sources */,
+				96B38A5F170D228F00EE4C16 /* TMSeriesStatisticsCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

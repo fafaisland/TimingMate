@@ -9,9 +9,12 @@
 #import "TMSeriesViewController.h"
 
 #import "TMSeries.h"
+#import "TMSeriesStatisticsCell.h"
 #import "TMSeriesStore.h"
 #import "TMTask.h"
 #import "TMTaskStore.h"
+
+NSString * const TMSeriesStatisticsCellIdentifier = @"StatisticsCell";
 
 @interface TMSeriesViewController ()
 
@@ -50,7 +53,18 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    UINib *nib = [UINib nibWithNibName:@"TMSeriesStatisticsCell" bundle:nil];
+    [self.tableView registerNib:nib
+         forCellReuseIdentifier:TMSeriesStatisticsCellIdentifier];
     // Do any additional setup after loading the view from its nib.
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -90,22 +104,16 @@
 - (UITableViewCell *)tableView:(UITableView *)aTableView
     cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
-
     if (indexPath.section != 0) {
         return [super tableView:aTableView
           cellForRowAtIndexPath:[self convertToSuperIndexPath:indexPath]];
     }
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    TMSeriesStatisticsCell *cell = [tableView dequeueReusableCellWithIdentifier:TMSeriesStatisticsCellIdentifier];
     
-    if (!cell) {
-        cell = [[UITableViewCell alloc]
-                    initWithStyle:UITableViewCellStyleDefault
-                    reuseIdentifier:CellIdentifier];
-    }
-    
-    cell.textLabel.text = @"Statistics go here";
+    cell.totalLabel.text = @"Not working";
+    cell.averageLabel.text = @"Not working";
+
     return cell;
 }
 
@@ -116,6 +124,13 @@
     
     return [super tableView:aTableView
         didSelectRowAtIndexPath:[self convertToSuperIndexPath:indexPath]];
+}
+
+- (BOOL)tableView:(UITableView *)aTableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.section == 0)
+        return NO;
+    return YES;
 }
 
 - (BOOL)swipeIsEnabledForSection:(NSInteger)section

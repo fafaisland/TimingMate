@@ -76,11 +76,6 @@
     [self swipe:recognizer direction:UISwipeGestureRecognizerDirectionRight];
 }
 
-- (BOOL)swipeIsEnabledForSection:(NSInteger)section
-{
-    return YES;
-}
-
 // Handle a left or right swipe
 - (void)swipe:(UISwipeGestureRecognizer *)recognizer direction:(UISwipeGestureRecognizerDirection)direction
 {
@@ -92,10 +87,6 @@
     // Get the table view cell where the swipe occured
     CGPoint location = [recognizer locationInView:tableView];
     NSIndexPath* indexPath = [tableView indexPathForRowAtPoint:location];
-      
-    if (![self swipeIsEnabledForSection:indexPath.section])
-        return;
-      
     UITableViewCell* cell = [tableView cellForRowAtIndexPath:indexPath];
 
       if (self.sideSwipeCell) {
