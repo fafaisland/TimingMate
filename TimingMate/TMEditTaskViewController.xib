@@ -71,7 +71,7 @@
 					<object class="IBUILabel" id="233773083">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{20, 87}, {205, 21}}</string>
+						<string key="NSFrame">{{20, 87}, {280, 21}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
@@ -101,6 +101,7 @@
 						<int key="IBUIContentVerticalAlignment">0</int>
 						<string key="IBUIText"/>
 						<int key="IBUIBorderStyle">3</int>
+						<string key="IBUIPlaceholder">Task Name</string>
 						<object class="NSColor" key="IBUITextColor">
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MAA</bytes>
@@ -144,15 +145,15 @@
 							<int key="NSColorSpace">1</int>
 							<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
 						</object>
-						<object class="NSColor" key="IBUINormalTitleShadowColor" id="540461094">
+						<object class="NSColor" key="IBUINormalTitleShadowColor" id="613769498">
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MC41AA</bytes>
 						</object>
-						<object class="IBUIFontDescription" key="IBUIFontDescription" id="530223015">
+						<object class="IBUIFontDescription" key="IBUIFontDescription" id="419784876">
 							<int key="type">2</int>
 							<double key="pointSize">15</double>
 						</object>
-						<object class="NSFont" key="IBUIFont" id="455147382">
+						<object class="NSFont" key="IBUIFont" id="396295840">
 							<string key="NSName">Helvetica-Bold</string>
 							<double key="NSSize">15</double>
 							<int key="NSfFlags">16</int>
@@ -178,7 +179,7 @@
 						<reference key="IBUIFont" ref="709212319"/>
 						<bool key="IBUIAdjustsFontSizeToFit">NO</bool>
 					</object>
-					<object class="IBUIButton" id="1032177747">
+					<object class="IBUIButton" id="307226022">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{20, 116}, {280, 44}}</string>
@@ -195,9 +196,9 @@
 							<int key="NSColorSpace">1</int>
 							<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
 						</object>
-						<reference key="IBUINormalTitleShadowColor" ref="540461094"/>
-						<reference key="IBUIFontDescription" ref="530223015"/>
-						<reference key="IBUIFont" ref="455147382"/>
+						<reference key="IBUINormalTitleShadowColor" ref="613769498"/>
+						<reference key="IBUIFontDescription" ref="419784876"/>
+						<reference key="IBUIFont" ref="396295840"/>
 					</object>
 				</array>
 				<string key="NSFrame">{{0, 20}, {320, 548}}</string>
@@ -255,7 +256,7 @@
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">expectedTimeButton</string>
 						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="1032177747"/>
+						<reference key="destination" ref="307226022"/>
 					</object>
 					<int key="connectionID">131</int>
 				</object>
@@ -279,7 +280,7 @@
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
 						<string key="label">showTimePicker:</string>
-						<reference key="source" ref="1032177747"/>
+						<reference key="source" ref="307226022"/>
 						<reference key="destination" ref="372490531"/>
 						<int key="IBEventType">7</int>
 					</object>
@@ -312,7 +313,7 @@
 							<reference ref="16455051"/>
 							<reference ref="185877799"/>
 							<reference ref="233773083"/>
-							<reference ref="1032177747"/>
+							<reference ref="307226022"/>
 							<reference ref="480358406"/>
 							<reference ref="20771335"/>
 						</array>
@@ -346,7 +347,7 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">130</int>
-						<reference key="object" ref="1032177747"/>
+						<reference key="object" ref="307226022"/>
 						<reference key="parent" ref="191373211"/>
 					</object>
 				</array>

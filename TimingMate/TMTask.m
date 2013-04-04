@@ -24,7 +24,7 @@
 
 - (void)awakeFromInsert
 {
-    self.title = @"Task";
+    self.title = @"";
     self.expectedCompletionTime = 0.0;
     self.isFinished = NO;
     self.series = nil;

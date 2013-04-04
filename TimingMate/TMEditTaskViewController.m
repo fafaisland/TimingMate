@@ -98,7 +98,8 @@ enum { TMHourComponent = 0,
     
     [self.view endEditing:YES];
     
-    task.title = titleField.text;
+    if (![titleField.text isEqualToString:@""])
+        task.title = titleField.text;
     
     TMSeries *selectedSeries = [self selectedSeries];
     if (!forNewTask && task.series != selectedSeries) {
@@ -121,6 +122,10 @@ enum { TMHourComponent = 0,
 
 - (void)save:(id)sender
 {
+    if ([titleField.text isEqualToString:@""]) {
+        titleField.placeholder = @"Please enter a task name";
+        return;
+    }
     [[self presentingViewController] dismissViewControllerAnimated:YES
                                                         completion:dismissBlock];
 }

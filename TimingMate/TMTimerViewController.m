@@ -37,7 +37,6 @@
     if (self) {
         task = aTask;
         isTiming = false;
-        self.navigationItem.title = task.title;
         elapsedTimeInSeconds = 0;
         elapsedTimePerRecord = 0;
         editButton = [[UIBarButtonItem alloc]
@@ -53,6 +52,8 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
+    self.navigationItem.title = task.title;
     currentEngagementButton = task.isEngaging ? disengageButton : engageButton;
     [seriesLabel setText:task.series.title];
     [seriesLabel setTextColor:[UIColor colorWithRed:30.0f/255.0f green:144.0f/255.0f blue:255.0f/255.0f alpha:1.0f]];
