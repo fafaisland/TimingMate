@@ -17,6 +17,7 @@
 #import "TMSeries.h"
 #import "TMTask.h"
 #import "TMTaskListViewController.h"
+#import "TMTimer.h"
 #import "TMTopLevelViewController.h"
 
 @implementation TMTimerViewController
@@ -54,6 +55,8 @@
 {
     [super viewWillAppear:animated];
     
+    [[TMTimer timer] addListener:self];
+    
     self.navigationItem.title = task.title;
     currentEngagementButton = task.isEngaging ? disengageButton : engageButton;
     [seriesLabel setText:task.series.title];
@@ -73,6 +76,8 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+    
+    [[TMTimer timer] removeListener:self];
 }
 
 - (void)viewDidLoad
@@ -89,16 +94,12 @@
 
 #pragma mark - Timer methods
 
-- (NSTimer*)createTimer
+- (void)createTimer
 {
-    return [NSTimer scheduledTimerWithTimeInterval:1.0
-                                            target:self
-                                          selector:@selector(incrementTimer)
-                                          userInfo:nil
-                                           repeats:YES];
+    [[TMTimer timer] startTimerWithTimeInterval:1.0];
 }
 
-- (void)incrementTimer
+- (void)receiveEventFromTimer:(TMTimer *)timer
 {
     elapsedTimeInSeconds += 1;
     elapsedTimePerRecord += 1;
@@ -213,7 +214,9 @@
     NSLog(@"Begin Time %@",recordBeginTime);
     elapsedTimePerRecord = 0;
     isTiming = true;
-    timer = [self createTimer];
+
+    [self createTimer];
+
     [self toggleStart:NO animated:YES];
 }
 
@@ -223,7 +226,9 @@
     if (isTiming == true)
     {
         isTiming = false;
-        [timer invalidate];
+        
+        [[TMTimer timer] stopTimer];
+        
         [self createRecord];
         [self showHoursPerDay];
         [self showTotalTime];

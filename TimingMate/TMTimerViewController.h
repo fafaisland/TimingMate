@@ -8,11 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
+#import "TMTimerListener.h"
+
 @class TMTask;
 @class TMRecord;
 @class TMTaskListViewController;
 
-@interface TMTimerViewController : UIViewController
+@interface TMTimerViewController : UIViewController <TMTimerListener>
 {
     //timer
     NSTimer *timer;

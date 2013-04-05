@@ -8,6 +8,8 @@
 
 #import "TMTopBarViewController.h"
 
+#import "TMTimer.h"
+
 @interface TMTopBarViewController ()
 
 @end
@@ -26,13 +28,21 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+    
+    [[TMTimer timer] addListener:self];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)receiveEventFromTimer:(TMTimer *)timer
+{
+    static int foo = 0;
+    
+    [label setText:[NSString stringWithFormat:@"%d", foo++]];
 }
 
 @end

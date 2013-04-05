@@ -8,6 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TMTopBarViewController : UIViewController
+#import "TMTimerListener.h"
+
+@interface TMTopBarViewController : UIViewController <TMTimerListener>
+{
+    IBOutlet UILabel *label;
+}
 
 @end
