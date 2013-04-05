@@ -8,15 +8,16 @@
 
 #import "TMTimerViewController.h"
 
+#import "TMAddRecordViewController.h"
 #import "TMEditTaskViewController.h"
 #import "TMGlobals.h"
-#import "TMTask.h"
 #import "TMRecord.h"
-#import "TMSeries.h"
-#import "TMRecordListViewController.h"
-#import "TMTaskListViewController.h"
-#import "TMAddRecordViewController.h"
 #import "TMRecordListPerDayViewController.h"
+#import "TMRecordListViewController.h"
+#import "TMSeries.h"
+#import "TMTask.h"
+#import "TMTaskListViewController.h"
+#import "TMTopLevelViewController.h"
 
 @implementation TMTimerViewController
 
@@ -71,13 +72,7 @@
 
 - (void)viewWillDisappear:(BOOL)animated
 {
-    if ([self.navigationController.viewControllers indexOfObject:self] == NSNotFound) {
-        // back button was pressed.  We know this is true because self is no longer
-        // in the navigation stack.
-    }
     [super viewWillDisappear:animated];
-    
-    [self endTimer:nil];
 }
 
 - (void)viewDidLoad
@@ -213,6 +208,7 @@
 
 - (IBAction)startTimer:(id)sender
 {
+    [[TMTopLevelViewController getTopLevelViewController] showTopBar:YES];
     recordBeginTime = [[NSDate alloc] init];
     NSLog(@"Begin Time %@",recordBeginTime);
     elapsedTimePerRecord = 0;
@@ -223,6 +219,7 @@
 
 - (IBAction)endTimer:(id)sender
 {
+    [[TMTopLevelViewController getTopLevelViewController] showTopBar:NO];
     if (isTiming == true)
     {
         isTiming = false;
@@ -274,8 +271,7 @@
                             action:nil]];
         [self.navigationItem setRightBarButtonItem:(start ? editButton : nil) animated:YES];
     }
-    
-    [self.navigationItem setHidesBackButton:!start animated:animated];
+
     [buttonBar setItems:buttons animated:animated];
 }
 

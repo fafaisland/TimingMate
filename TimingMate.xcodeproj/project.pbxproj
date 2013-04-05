@@ -35,6 +35,9 @@
 		962B6502170B681C00770B4F /* trash.png in Resources */ = {isa = PBXBuildFile; fileRef = 962B64FC170B681C00770B4F /* trash.png */; };
 		962B6503170B681C00770B4F /* trash@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 962B64FD170B681C00770B4F /* trash@2x.png */; };
 		962DFC6E16F952B200E5F8C8 /* TMSeries.m in Sources */ = {isa = PBXBuildFile; fileRef = 962DFC6D16F952B200E5F8C8 /* TMSeries.m */; };
+		96547B22170E45FE00847E6B /* TMTopLevelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96547B21170E45FE00847E6B /* TMTopLevelViewController.m */; };
+		96547B26170E4C6500847E6B /* TMTopBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96547B24170E4C6500847E6B /* TMTopBarViewController.m */; };
+		96547B27170E4C6500847E6B /* TMTopBarViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96547B25170E4C6500847E6B /* TMTopBarViewController.xib */; };
 		965D5059170232E6008201E8 /* SideSwipeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 965D5056170232E6008201E8 /* SideSwipeTableViewCell.m */; };
 		965D505A170232E6008201E8 /* SideSwipeTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 965D5058170232E6008201E8 /* SideSwipeTableViewController.m */; };
 		965D506C1702369A008201E8 /* action.png in Resources */ = {isa = PBXBuildFile; fileRef = 965D505D1702369A008201E8 /* action.png */; };
@@ -113,6 +116,11 @@
 		962B64FD170B681C00770B4F /* trash@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "trash@2x.png"; path = "Resources/Images/trash@2x.png"; sourceTree = "<group>"; };
 		962DFC6C16F952B200E5F8C8 /* TMSeries.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMSeries.h; sourceTree = "<group>"; };
 		962DFC6D16F952B200E5F8C8 /* TMSeries.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMSeries.m; sourceTree = "<group>"; };
+		96547B20170E45FE00847E6B /* TMTopLevelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMTopLevelViewController.h; sourceTree = "<group>"; };
+		96547B21170E45FE00847E6B /* TMTopLevelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMTopLevelViewController.m; sourceTree = "<group>"; };
+		96547B23170E4C6400847E6B /* TMTopBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMTopBarViewController.h; sourceTree = "<group>"; };
+		96547B24170E4C6500847E6B /* TMTopBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMTopBarViewController.m; sourceTree = "<group>"; };
+		96547B25170E4C6500847E6B /* TMTopBarViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TMTopBarViewController.xib; sourceTree = "<group>"; };
 		965D5055170232E6008201E8 /* SideSwipeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SideSwipeTableViewCell.h; path = thirdparty/SideSwipeTableViewCell.h; sourceTree = "<group>"; };
 		965D5056170232E6008201E8 /* SideSwipeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SideSwipeTableViewCell.m; path = thirdparty/SideSwipeTableViewCell.m; sourceTree = "<group>"; };
 		965D5057170232E6008201E8 /* SideSwipeTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SideSwipeTableViewController.h; path = thirdparty/SideSwipeTableViewController.h; sourceTree = "<group>"; };
@@ -216,8 +224,13 @@
 				96D4039416F3B64800214323 /* TMGlobals.m */,
 				0425BE7416F3A9D30023EF2C /* TMAppDelegate.h */,
 				0425BE7516F3A9D30023EF2C /* TMAppDelegate.m */,
+				96547B20170E45FE00847E6B /* TMTopLevelViewController.h */,
+				96547B21170E45FE00847E6B /* TMTopLevelViewController.m */,
 				96F3075416F7ACC400B0E2EF /* TMListsViewController.h */,
 				96F3075516F7ACC400B0E2EF /* TMListsViewController.m */,
+				96547B23170E4C6400847E6B /* TMTopBarViewController.h */,
+				96547B24170E4C6500847E6B /* TMTopBarViewController.m */,
+				96547B25170E4C6500847E6B /* TMTopBarViewController.xib */,
 				9677DE9716F4CF1900F5F57B /* TMEditTaskViewController.h */,
 				9677DE9816F4CF1900F5F57B /* TMEditTaskViewController.m */,
 				9677DE9916F4CF1900F5F57B /* TMEditTaskViewController.xib */,
@@ -451,6 +464,7 @@
 				96D1038E170B7AFD00ED6C9A /* TMSeriesViewController.xib in Resources */,
 				96D10393170B849D00ED6C9A /* TMEngagingViewController.xib in Resources */,
 				96B38A61170D22B000EE4C16 /* TMSeriesStatisticsCell.xib in Resources */,
+				96547B27170E4C6500847E6B /* TMTopBarViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -485,6 +499,8 @@
 				96D1038D170B7AFD00ED6C9A /* TMSeriesViewController.m in Sources */,
 				96D10392170B849D00ED6C9A /* TMEngagingViewController.m in Sources */,
 				96B38A5F170D228F00EE4C16 /* TMSeriesStatisticsCell.m in Sources */,
+				96547B22170E45FE00847E6B /* TMTopLevelViewController.m in Sources */,
+				96547B26170E4C6500847E6B /* TMTopBarViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

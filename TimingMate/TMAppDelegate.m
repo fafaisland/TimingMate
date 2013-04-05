@@ -12,6 +12,7 @@
 #import "TMSeriesStore.h"
 #import "TMTaskListViewController.h"
 #import "TMTaskStore.h"
+#import "TMTopLevelViewController.h"
 
 @implementation TMAppDelegate
 
@@ -27,11 +28,16 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     
+    TMTopLevelViewController *tlvc = [[TMTopLevelViewController alloc] init];
+
     TMListsViewController *lvc = [[TMListsViewController alloc] init];
     UINavigationController *navController = [[UINavigationController alloc]
                                              initWithRootViewController:lvc];
     [lvc pushDefaultList];
-    [self.window setRootViewController:navController];
+    
+    [tlvc addNavigationController:navController];
+    
+    [self.window setRootViewController:tlvc];
     
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
