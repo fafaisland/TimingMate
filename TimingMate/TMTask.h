@@ -9,9 +9,15 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
+#import "TMTimerListener.h"
+
 @class TMRecord, TMSeries,TMTotalTimePerDayRecord;
 
-@interface TMTask : NSManagedObject
+@interface TMTask : NSManagedObject <TMTimerListener>
+{
+    NSDate *recordBeginTime;
+    int elapsedTimeOnRecord;
+}
 
 @property (nonatomic, retain) NSDate * creationTime;
 @property (nonatomic) double expectedCompletionTime;
@@ -35,5 +41,8 @@
 - (int)expectedTimeHours;
 - (int)expectedTimeMinutes;
 - (int)getTotalTimeSpent;
+
+- (void)beginNewRecord;
+- (void)endNewRecord;
 
 @end

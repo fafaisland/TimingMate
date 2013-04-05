@@ -22,7 +22,7 @@
 
 @implementation TMTimerViewController
 
-@synthesize task, record, taskListView;
+@synthesize task, taskListView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -40,7 +40,6 @@
         task = aTask;
         isTiming = false;
         elapsedTimeInSeconds = 0;
-        elapsedTimePerRecord = 0;
         editButton = [[UIBarButtonItem alloc]
                                         initWithBarButtonSystemItem:UIBarButtonSystemItemEdit
                                         target:self
@@ -102,7 +101,6 @@
 - (void)receiveEventFromTimer:(TMTimer *)timer
 {
     elapsedTimeInSeconds += 1;
-    elapsedTimePerRecord += 1;
     [timeField setText:[self stringFromElapsedTime]];
 }
 
@@ -169,12 +167,6 @@
 
 #pragma mark - Record methods
 
-- (void)createRecord
-{
-    record = [task createRecordBeginningAt:recordBeginTime
-                                withTimeSpent:elapsedTimePerRecord];
-}
-
 - (IBAction)changeToRecordListPerDayView:(id)sender
 {
     TMRecordListPerDayViewController *rlvc = [[TMRecordListPerDayViewController alloc]
@@ -210,10 +202,9 @@
 - (IBAction)startTimer:(id)sender
 {
     [[TMTopLevelViewController getTopLevelViewController] showTopBar:YES];
-    recordBeginTime = [[NSDate alloc] init];
-    NSLog(@"Begin Time %@",recordBeginTime);
-    elapsedTimePerRecord = 0;
     isTiming = true;
+    
+    [task beginNewRecord];
 
     [self createTimer];
 
@@ -229,7 +220,7 @@
         
         [[TMTimer timer] stopTimer];
         
-        [self createRecord];
+        [task endNewRecord];
         [self showHoursPerDay];
         [self showTotalTime];
         [self toggleStart:YES animated:YES];

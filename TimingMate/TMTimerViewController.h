@@ -19,8 +19,6 @@
     //timer
     NSTimer *timer;
     int elapsedTimeInSeconds;
-    int elapsedTimePerRecord;
-    NSDate *recordBeginTime;
     BOOL isTiming;
     
     IBOutlet UILabel *timeField;
@@ -48,11 +46,8 @@
 - (IBAction)toggleEngagement:(id)sender;
 - (IBAction)toggleFinished:(id)sender;
 - (IBAction)changeToRecordListPerDayView:(id)sender;
-- (void)createRecord;
-
 
 @property (nonatomic, strong) TMTask *task;
-@property (nonatomic, strong) TMRecord *record;
 @property (nonatomic, weak) TMTaskListViewController *taskListView;
 
 @end

@@ -7,10 +7,12 @@
 //
 
 #import "TMTask.h"
+
 #import "TMRecord.h"
 #import "TMSeries.h"
 #import "TMTotalTimePerDayRecord.h"
 #import "TMTaskStore.h"
+#import "TMTimer.h"
 
 @implementation TMTask
 
@@ -106,6 +108,26 @@
     for (TMRecord *record in self.records)
         total += record.timeSpent;
     return total;
+}
+
+- (void)receiveEventFromTimer:(TMTimer *)timer
+{
+    elapsedTimeOnRecord += 1;
+}
+
+- (void)beginNewRecord
+{
+    recordBeginTime = [[NSDate alloc] init];
+    NSLog(@"Begin Time %@",recordBeginTime);
+    elapsedTimeOnRecord = 0;
+    [[TMTimer timer] addListener:self];
+}
+
+- (void)endNewRecord
+{
+    [self createRecordBeginningAt:recordBeginTime
+                             withTimeSpent:elapsedTimeOnRecord];
+    [[TMTimer timer] removeListener:self];
 }
 
 @end
