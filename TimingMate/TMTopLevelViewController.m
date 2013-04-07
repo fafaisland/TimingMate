@@ -42,7 +42,7 @@ const NSInteger TMTopBarHeight = 20;
     if (![self.view.subviews containsObject:topBarController.view]) {
         CGRect frm = self.view.frame;
         frm.origin.y = 0;
-        frm.size.height = 20;
+        frm.size.height = TMTopBarHeight;
         topBarController.view.frame = frm;
         [self.view addSubview:topBarController.view];
     }
