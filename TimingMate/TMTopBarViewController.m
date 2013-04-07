@@ -8,7 +8,10 @@
 
 #import "TMTopBarViewController.h"
 
-#import "TMTimer.h"
+#import "TMGlobals.h"
+#import "TMTask.h"
+#import "TMTaskStore.h"
+#import "TMTopLevelViewController.h"
 
 @interface TMTopBarViewController ()
 
@@ -28,8 +31,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    [[TMTimer timer] addListener:self];
 }
 
 - (void)didReceiveMemoryWarning
@@ -40,9 +41,12 @@
 
 - (void)receiveEventFromTimer:(TMTimer *)timer
 {
-    static int foo = 0;
-    
-    [label setText:[NSString stringWithFormat:@"%d", foo++]];
+    [label setText:TMTimerStringFromSeconds([TMTaskStore sharedStore].currentTimingTask.elapsedTimeOnRecord)];
+}
+
+- (void)receiveInterruptFromTimer:(TMTimer *)timer
+{
+    [[TMTopLevelViewController getTopLevelViewController] showTopBar:NO];
 }
 
 @end

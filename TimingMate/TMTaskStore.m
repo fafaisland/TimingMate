@@ -10,16 +10,18 @@
 
 #import "TMSeries.h"
 #import "TMTask.h"
+#import "TMTimer.h"
 
 @implementation TMTaskStore
 
-@synthesize context;
+@synthesize context, currentTimingTask;
 
 - (id)init
 {
     self = [super init];
     if (self) {
         TMTaskEntityName = NSStringFromClass([TMTask class]);
+        currentTimingTask = nil;
     }
     
     return self;
@@ -72,6 +74,10 @@
 
 - (void)removeTask:(TMTask *)t
 {
+    if (currentTimingTask == t) {
+        [t endNewRecord];
+        [[TMTimer timer] sendInterrupt];
+    }
     [context deleteObject:t];
     [allTasks removeObjectIdenticalTo:t];
 }

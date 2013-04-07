@@ -17,6 +17,7 @@
 #import "TMSeries.h"
 #import "TMTask.h"
 #import "TMTaskListViewController.h"
+#import "TMTaskStore.h"
 #import "TMTimer.h"
 #import "TMTopLevelViewController.h"
 
@@ -39,7 +40,6 @@
     if (self) {
         task = aTask;
         isTiming = false;
-        elapsedTimeInSeconds = 0;
         editButton = [[UIBarButtonItem alloc]
                                         initWithBarButtonSystemItem:UIBarButtonSystemItemEdit
                                         target:self
@@ -54,8 +54,6 @@
 {
     [super viewWillAppear:animated];
     
-    [[TMTimer timer] addListener:self];
-    
     self.navigationItem.title = task.title;
     currentEngagementButton = task.isEngaging ? disengageButton : engageButton;
     [seriesLabel setText:task.series.title];
@@ -65,7 +63,14 @@
     CGPoint center = seriesLabel.center;
     [seriesLabel sizeToFit];
     seriesLabel.center = center;
-    [self toggleStart:YES animated:NO];
+    
+    if ([TMTaskStore sharedStore].currentTimingTask == task) {
+        [[TMTimer timer] addListener:self];
+        isTiming = YES;
+        [self toggleStart:NO animated:NO];
+    } else {
+        [self toggleStart:YES animated:NO];
+    }
     [self showButtonsForFinished:task.isFinished animated:NO];
     [self showHoursPerDay];
     [self showTotalTime];
@@ -100,23 +105,34 @@
 
 - (void)receiveEventFromTimer:(TMTimer *)timer
 {
-    elapsedTimeInSeconds += 1;
-    [timeField setText:[self stringFromElapsedTime]];
+    if ([TMTaskStore sharedStore].currentTimingTask == task) {
+        [timeField setText:[self stringFromElapsedTime]];
+    }
+}
+
+- (void)receiveInterruptFromTimer:(TMTimer *)timer
+{
+    // Shouldn't happen
+    [timer removeListener:self];
 }
 
 - (NSString *)stringFromElapsedTime
 {
-    int hours = elapsedTimeInSeconds / 3600;
-    int secondsLeft = elapsedTimeInSeconds % 3600;
-    
-    int minutes = secondsLeft / 60;
-    int seconds = secondsLeft % 60;
-    
-    return [NSString stringWithFormat:@"%02d:%02d:%02d", hours, minutes, seconds];
+    return TMTimerStringFromSeconds(task.elapsedTimeOnRecord);
 }
 
+#pragma mark - AlertView delegate
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 1) {
+        [[TMTaskStore sharedStore].currentTimingTask endNewRecord];
+        [self startTimer];
+    }
+}
 
 #pragma mark - Representation methods
+
 - (void)showHoursPerDay
 {
     NSDate *taskCreationTime = task.creationTime;
@@ -199,21 +215,23 @@
     [self.navigationController pushViewController:etvc animated:YES];
 }
 
-- (IBAction)startTimer:(id)sender
+- (IBAction)handleStartButton:(id)sender
 {
-    [[TMTopLevelViewController getTopLevelViewController] showTopBar:YES];
-    isTiming = true;
-    
-    [task beginNewRecord];
-
-    [self createTimer];
-
-    [self toggleStart:NO animated:YES];
+    TMTask *currentTimingTask = [TMTaskStore sharedStore].currentTimingTask;
+    if (currentTimingTask && currentTimingTask != task) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
+                    message:[NSString stringWithFormat:@"Currently timing %@. Stop timing and start new timer?", currentTimingTask.title]
+                                                       delegate:self
+                                              cancelButtonTitle:@"Cancel"
+                                              otherButtonTitles:@"Start", nil];
+        [alert show];
+    } else {
+        [self startTimer];
+    }
 }
 
 - (IBAction)endTimer:(id)sender
 {
-    [[TMTopLevelViewController getTopLevelViewController] showTopBar:NO];
     if (isTiming == true)
     {
         isTiming = false;
@@ -224,7 +242,9 @@
         [self showHoursPerDay];
         [self showTotalTime];
         [self toggleStart:YES animated:YES];
+        [[TMTimer timer] removeListener:self];
     }
+    [[TMTopLevelViewController getTopLevelViewController] showTopBar:NO];
 }
 
 - (IBAction)toggleEngagement:(id)sender
@@ -249,6 +269,19 @@
 }
 
 #pragma mark - Helper methods
+
+- (void)startTimer
+{
+    isTiming = true;
+    
+    [task beginNewRecord];
+    
+    [self createTimer];
+    
+    [self toggleStart:NO animated:YES];
+    [[TMTopLevelViewController getTopLevelViewController] showTopBar:YES];
+    [[TMTimer timer] addListener:self];
+}
 
 - (void)toggleStart:(BOOL)start animated:(BOOL)animated
 {

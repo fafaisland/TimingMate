@@ -19,5 +19,6 @@
 - (void)stopTimer;
 - (void)addListener:(id)listener;
 - (void)removeListener:(id)listener;
+- (void)sendInterrupt;
 
 @end

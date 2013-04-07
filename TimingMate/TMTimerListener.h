@@ -14,4 +14,7 @@
 
 - (void)receiveEventFromTimer:(TMTimer *)timer;
 
+// Must remove self from timer listeners
+- (void)receiveInterruptFromTimer:(TMTimer *)timer;
+
 @end

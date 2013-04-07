@@ -23,11 +23,13 @@
 
 - (void)startTimerWithTimeInterval:(NSTimeInterval)interval
 {
-    timer = [NSTimer scheduledTimerWithTimeInterval:interval
-                                             target:self
-                                           selector:@selector(fireTimer)
-                                           userInfo:nil
-                                            repeats:YES];
+    if (!timer) {
+        timer = [NSTimer scheduledTimerWithTimeInterval:interval
+                                                 target:self
+                                               selector:@selector(fireTimer)
+                                               userInfo:nil
+                                                repeats:YES];
+    }
 }
 
 - (void)stopTimer
@@ -38,7 +40,8 @@
 
 - (void)addListener:(id)listener
 {
-    [listeners addObject:listener];
+    if (![listeners containsObject:listener])
+        [listeners addObject:listener];
 }
 
 - (void)removeListener:(id)listener
@@ -50,6 +53,14 @@
 {
     for (id listener in listeners)
         [listener receiveEventFromTimer:self];
+}
+
+- (void)sendInterrupt
+{
+    while (listeners.count != 0) {
+        id listener = [listeners objectAtIndex:listeners.count-1];
+        [listener receiveInterruptFromTimer:self];
+    }
 }
 
 + (TMTimer *)timer

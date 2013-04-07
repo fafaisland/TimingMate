@@ -14,11 +14,11 @@
 @class TMRecord;
 @class TMTaskListViewController;
 
-@interface TMTimerViewController : UIViewController <TMTimerListener>
+@interface TMTimerViewController : UIViewController
+    <TMTimerListener, UIAlertViewDelegate>
 {
     //timer
     NSTimer *timer;
-    int elapsedTimeInSeconds;
     BOOL isTiming;
     
     IBOutlet UILabel *timeField;
@@ -41,7 +41,7 @@
 }
 
 - (id)initWithTask:(TMTask *)aTask;
-- (IBAction)startTimer:(id)sender;
+- (IBAction)handleStartButton:(id)sender;
 - (IBAction)endTimer:(id)sender;
 - (IBAction)toggleEngagement:(id)sender;
 - (IBAction)toggleFinished:(id)sender;

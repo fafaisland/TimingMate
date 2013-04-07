@@ -8,6 +8,7 @@
 
 #import "TMTopLevelViewController.h"
 
+#import "TMTimer.h"
 #import "TMTopBarViewController.h"
 
 TMTopLevelViewController *_controller = nil;
@@ -63,6 +64,11 @@ const NSInteger TMTopBarHeight = 20;
 
 - (void)showTopBar:(BOOL)showTopBar
 {
+    // Reset topBar listener position
+    [[TMTimer timer] removeListener:topBarController];
+    if (showTopBar)
+        [[TMTimer timer] addListener:topBarController];
+
     if (showingTopBar == showTopBar)
         return;
 

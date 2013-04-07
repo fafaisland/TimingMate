@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+
 @class TMTask;
 
 @interface TMRecordListViewController : UITableViewController
@@ -15,10 +16,10 @@
     NSArray *recordsArray;
     NSString *day;
 }
+
 - (id)initWithStyle:(UITableViewStyle)style withTask:(TMTask *)aTask withSomeDay:(NSString *)someDay;
+- (void)changetoAddRecordView:(id)sender;
 
-
-- (IBAction)changetoAddRecordView:(id)sender;
 @property (nonatomic, strong) TMTask *task;
 
 @end

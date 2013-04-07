@@ -12,6 +12,7 @@
 #import "TMSeriesStore.h"
 #import "TMTaskListViewController.h"
 #import "TMTaskStore.h"
+#import "TMTimer.h"
 #import "TMTopLevelViewController.h"
 
 @implementation TMAppDelegate
@@ -54,6 +55,7 @@
 {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+    [[TMTimer timer] sendInterrupt];
     [self saveContext];
 }
 

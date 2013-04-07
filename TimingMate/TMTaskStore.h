@@ -19,6 +19,7 @@
 }
 
 @property (nonatomic, strong) NSManagedObjectContext *context;
+@property (nonatomic, strong) TMTask *currentTimingTask;
 
 + (TMTaskStore *)sharedStore;
 

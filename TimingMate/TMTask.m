@@ -110,24 +110,41 @@
     return total;
 }
 
-- (void)receiveEventFromTimer:(TMTimer *)timer
-{
-    elapsedTimeOnRecord += 1;
-}
-
 - (void)beginNewRecord
 {
     recordBeginTime = [[NSDate alloc] init];
     NSLog(@"Begin Time %@",recordBeginTime);
     elapsedTimeOnRecord = 0;
     [[TMTimer timer] addListener:self];
+    [TMTaskStore sharedStore].currentTimingTask = self;
 }
 
 - (void)endNewRecord
 {
+    [[TMTimer timer] removeListener:self];
+    if (elapsedTimeOnRecord == 0)
+        return;
+
     [self createRecordBeginningAt:recordBeginTime
                              withTimeSpent:elapsedTimeOnRecord];
-    [[TMTimer timer] removeListener:self];
+    [TMTaskStore sharedStore].currentTimingTask = nil;
+}
+
+- (int)elapsedTimeOnRecord
+{
+    return elapsedTimeOnRecord;
+}
+
+#pragma mark - Timer methods
+
+- (void)receiveEventFromTimer:(TMTimer *)timer
+{
+    elapsedTimeOnRecord += 1;
+}
+
+- (void)receiveInterruptFromTimer:(TMTimer *)timer
+{
+    [self endNewRecord];
 }
 
 @end

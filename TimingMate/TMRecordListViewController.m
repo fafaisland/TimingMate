@@ -12,6 +12,7 @@
 #import "TMTask.h"
 
 @implementation TMRecordListViewController
+
 @synthesize task;
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -100,7 +101,7 @@ withTask:(TMTask *)aTask withSomeDay:(NSString *)someDay
 }
 
 #pragma mark - button helper
-- (IBAction)changeToAddRecordView:(id)sender
+- (void)changeToAddRecordView:(id)sender
 {
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"yyyy-MM-dd"];
@@ -179,7 +180,6 @@ withTask:(TMTask *)aTask withSomeDay:(NSString *)someDay
 */
 
 #pragma mark - Table view delegate
-
 
 //- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 //{

@@ -44,5 +44,6 @@
 
 - (void)beginNewRecord;
 - (void)endNewRecord;
+- (int)elapsedTimeOnRecord;
 
 @end
