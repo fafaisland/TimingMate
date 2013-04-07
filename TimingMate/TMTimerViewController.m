@@ -110,10 +110,10 @@
     }
 }
 
-- (void)receiveInterruptFromTimer:(TMTimer *)timer
+- (void)receiveInterruptFromTimer:(TMTimer *)aTimer
 {
     // Shouldn't happen
-    [timer removeListener:self];
+    [aTimer removeListener:self];
 }
 
 - (NSString *)stringFromElapsedTime

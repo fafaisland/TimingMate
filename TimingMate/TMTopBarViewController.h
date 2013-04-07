@@ -13,6 +13,7 @@
 @interface TMTopBarViewController : UIViewController <TMTimerListener>
 {
     IBOutlet UILabel *label;
+    UITapGestureRecognizer * tapRecognizer;
 }
 
 @end

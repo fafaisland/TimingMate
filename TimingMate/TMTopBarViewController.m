@@ -23,7 +23,8 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
+        tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)];
+        [self.view addGestureRecognizer:tapRecognizer];
     }
     return self;
 }
@@ -41,12 +42,20 @@
 
 - (void)receiveEventFromTimer:(TMTimer *)timer
 {
-    [label setText:TMTimerStringFromSeconds([TMTaskStore sharedStore].currentTimingTask.elapsedTimeOnRecord)];
+    TMTask *currentTask = [TMTaskStore sharedStore].currentTimingTask;
+    [label setText:[NSString stringWithFormat:@"%@ %@", currentTask.title,
+     TMTimerStringFromSeconds(currentTask.elapsedTimeOnRecord)]];
 }
 
 - (void)receiveInterruptFromTimer:(TMTimer *)timer
 {
     [[TMTopLevelViewController getTopLevelViewController] showTopBar:NO];
+}
+
+- (void)tap:(id)sender
+{
+    [[TMTopLevelViewController getTopLevelViewController]
+        showTimerViewForTask:[TMTaskStore sharedStore].currentTimingTask];
 }
 
 @end

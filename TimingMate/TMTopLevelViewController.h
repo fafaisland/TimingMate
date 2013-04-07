@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@class TMTopBarViewController;
+@class TMTopBarViewController, TMTask;
 
 @interface TMTopLevelViewController : UIViewController
 {
@@ -20,6 +20,7 @@
 + (TMTopLevelViewController *)getTopLevelViewController;
 - (void)addNavigationController:(UINavigationController *)navigationController;
 - (void)showTopBar:(BOOL)showTopBar;
+- (void)showTimerViewForTask:(TMTask *)task;
 
 @end
 

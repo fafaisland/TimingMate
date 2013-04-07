@@ -8,7 +8,9 @@
 
 #import "TMTopLevelViewController.h"
 
+#import "TMTask.h"
 #import "TMTimer.h"
+#import "TMTimerViewController.h"
 #import "TMTopBarViewController.h"
 
 TMTopLevelViewController *_controller = nil;
@@ -84,6 +86,21 @@ const NSInteger TMTopBarHeight = 20;
     navController.view.frame = navFrm;
     
     [UIView commitAnimations];
+    [self.view bringSubviewToFront:topBarController.view];
+}
+
+- (void)showTimerViewForTask:(TMTask *)task
+{
+    TMTimerViewController *tvc = [[TMTimerViewController alloc] initWithTask:task];
+    id topViewController = navController.topViewController;
+    if ([[topViewController class] isSubclassOfClass:NSClassFromString(@"TMTimerViewController")]) {
+        TMTimerViewController *currentTvc = (TMTimerViewController *)topViewController;
+        if (currentTvc.task == task)
+            return;
+    }
+    if ([[topViewController class] isSubclassOfClass:NSClassFromString(@"TMTaskListViewController")])
+        [tvc setTaskListView:topViewController];
+    [navController pushViewController:tvc animated:YES];
 }
 
 + (TMTopLevelViewController *)getTopLevelViewController {
