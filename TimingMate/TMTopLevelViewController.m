@@ -86,7 +86,6 @@ const NSInteger TMTopBarHeight = 20;
     navController.view.frame = navFrm;
     
     [UIView commitAnimations];
-    [self.view bringSubviewToFront:topBarController.view];
 }
 
 - (void)showTimerViewForTask:(TMTask *)task
