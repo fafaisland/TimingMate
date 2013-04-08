@@ -34,15 +34,7 @@ enum { TMAllListIndex = 0,
     self = [super initWithStyle:style];
     if (self) {
         self.navigationItem.title = TMListsTitle;
-        
-        addButton = [[UIBarButtonItem alloc]
-                              initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
-                              target:self action:@selector(toggleAdd)];
-        addDoneButton = [[UIBarButtonItem alloc]
-                      initWithTitle:@"Done"
-                      style:UIBarButtonItemStyleDone
-                      target:self
-                      action:@selector(toggleAdd)];
+
         editButton = [[UIBarButtonItem alloc]
                       initWithTitle:@"Edit"
                       style:UIBarButtonItemStylePlain
@@ -78,9 +70,6 @@ enum { TMAllListIndex = 0,
 {
     [super viewWillAppear:animated];
     
-    isAdding = NO;
-    [self switchButtonToAdd:YES];
-    
     self.navigationItem.leftBarButtonItem = editButton;
     self.editing = NO;
 }
@@ -95,7 +84,7 @@ enum { TMAllListIndex = 0,
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return TMDefaultListEnd + (isAdding ? 1 : 0);
+    return TMDefaultListEnd + 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -116,6 +105,9 @@ enum { TMAllListIndex = 0,
                     dequeueReusableCellWithIdentifier:TMListsViewEditableCellIdentifier];
         [self setupEditableCell:editableCell
                        withText:[self listNameFromIndexPath:indexPath]];
+        [editField performSelector:@selector(becomeFirstResponder)
+                        withObject:nil
+                        afterDelay:0.1f];
         return editableCell;
     }
     
@@ -135,9 +127,27 @@ enum { TMAllListIndex = 0,
     } else {
         TMListsViewEditableCell *editableCell = [tableView
                     dequeueReusableCellWithIdentifier:TMListsViewEditableCellIdentifier];
-        [self setupEditableCell:editableCell withText:@""];
+        addField = editableCell.titleField;
+        addField.text = @"";
+        [addField setPlaceholder:@"Add a new series"];
+        addField.delegate = self;
+        editableCell.selectionStyle = UITableViewCellSelectionStyleNone;
         return editableCell;
     }
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    if (section == TMSeriesListsIndex)
+        return 25.0;
+    return 0.0;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    if (section == TMSeriesListsIndex)
+        return @"Series";
+    return nil;
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
@@ -192,7 +202,7 @@ enum { TMAllListIndex = 0,
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (self.isEditing) {
-        if (indexPath.section < TMSeriesListsIndex)
+        if (indexPath.section < TMSeriesListsIndex || indexPath.section == TMDefaultListEnd)
             return;
 
         [self endCellEdit];
@@ -209,27 +219,6 @@ enum { TMAllListIndex = 0,
 
 #pragma mark - Button handlers
 
-- (void)toggleAdd
-{
-    if (isAdding) {
-        if (editField.text.length != 0) {
-            if ([[TMSeriesStore sharedStore] seriesByTitle:editField.text] == nil) {
-                [self addSeries:editField.text];
-            } else {
-                [self showIdenticalTitleWarning];
-                return;
-            }
-        }
-    } else {
-        if (self.isEditing)
-            [self toggleEdit];
-    }
-
-    isAdding = !isAdding;
-    [self switchButtonToAdd:!isAdding];
-    [self.tableView reloadData];
-}
-
 - (void)toggleEdit
 {
     if (self.isEditing) {
@@ -237,8 +226,6 @@ enum { TMAllListIndex = 0,
         [self setEditing:NO animated:YES];
         [self.navigationItem setLeftBarButtonItem:editButton animated:YES];
     } else {
-        if (isAdding)
-            [self toggleAdd];
         [self setEditing:YES animated:YES];
         [self.navigationItem setLeftBarButtonItem:editDoneButton animated:YES];
     }
@@ -248,21 +235,23 @@ enum { TMAllListIndex = 0,
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-    if ([[TMSeriesStore sharedStore] seriesByTitle:editField.text] != nil) {
-        [self textFieldDidEndEditing:textField];
+    if (textField == addField &&
+        [[TMSeriesStore sharedStore] seriesByTitle:addField.text] != nil) {
+        [self showIdenticalTitleWarning];
         return NO;
     }
-
     [textField resignFirstResponder];
     return YES;
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
-    if (isAdding)
-        [self toggleAdd];
-    else if (self.isEditing) {
-        [self endCellEdit];
+    if (textField == addField) {        
+        [self addSeries:addField.text];
+        [self.tableView reloadData];
+    } else if (textField == editField) {
+        if (self.isEditing)
+            [self endCellEdit];
     }
 }
 
@@ -280,13 +269,8 @@ enum { TMAllListIndex = 0,
 
 - (void)addSeries:(NSString *)title
 {
-    [[TMSeriesStore sharedStore] createAndAddSeriesWithTitle:title];
-}
-
-- (void)switchButtonToAdd:(BOOL)showingAdd
-{
-    [self.navigationItem setRightBarButtonItem:(showingAdd ? addButton : addDoneButton)
-                                      animated:YES];
+    if (![title isEqualToString:@""])
+        [[TMSeriesStore sharedStore] createAndAddSeriesWithTitle:title];
 }
 
 - (NSString *)listNameFromIndexPath:(NSIndexPath *)indexPath
@@ -346,10 +330,7 @@ enum { TMAllListIndex = 0,
     editField = cell.titleField;
     
     editField.text = text;
-    [editField setPlaceholder:@"Series name"];
-    [editField performSelector:@selector(becomeFirstResponder)
-                    withObject:nil
-                    afterDelay:0.1f];
+    [editField setPlaceholder:@""];
     editField.delegate = self;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
 }
@@ -373,8 +354,8 @@ enum { TMAllListIndex = 0,
 
 - (void)showIdenticalTitleWarning
 {
-    editField.text = @"";
-    editField.placeholder = @"Place enter a unique title";
+    addField.text = @"";
+    addField.placeholder = @"Place enter a unique title";
 }
 
 @end

@@ -11,11 +11,9 @@
 @interface TMListsViewController : UITableViewController
     <UITextFieldDelegate, UIAlertViewDelegate>
 {
-    BOOL isAdding;
     __weak UITextField *editField;
-    
-    UIBarButtonItem *addButton;
-    UIBarButtonItem *addDoneButton;
+    __weak UITextField *addField;
+
     UIBarButtonItem *editButton;
     UIBarButtonItem *editDoneButton;
     
