@@ -46,6 +46,7 @@
 - (IBAction)toggleEngagement:(id)sender;
 - (IBAction)toggleFinished:(id)sender;
 - (IBAction)changeToRecordListPerDayView:(id)sender;
+- (void)setLabelFromElapsedTime;
 
 @property (nonatomic, strong) TMTask *task;
 @property (nonatomic, weak) TMTaskListViewController *taskListView;

@@ -16,4 +16,6 @@
     UITapGestureRecognizer * tapRecognizer;
 }
 
+- (void)setLabelFromElapsedTime;
+
 @end

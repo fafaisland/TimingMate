@@ -105,9 +105,7 @@
 
 - (void)receiveEventFromTimer:(TMTimer *)timer
 {
-    if ([TMTaskStore sharedStore].currentTimingTask == task) {
-        [timeField setText:[self stringFromElapsedTime]];
-    }
+    [self setLabelFromElapsedTime];
 }
 
 - (void)receiveInterruptFromTimer:(TMTimer *)aTimer
@@ -116,9 +114,11 @@
     [aTimer removeListener:self];
 }
 
-- (NSString *)stringFromElapsedTime
+- (void)setLabelFromElapsedTime
 {
-    return TMTimerStringFromSeconds(task.elapsedTimeOnRecord);
+    if ([TMTaskStore sharedStore].currentTimingTask == task) {
+        [timeField setText:TMTimerStringFromSeconds(task.elapsedTimeOnRecord)];
+    }
 }
 
 #pragma mark - AlertView delegate

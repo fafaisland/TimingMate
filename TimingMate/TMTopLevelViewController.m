@@ -109,10 +109,12 @@ const NSInteger TMTopBarHeight = 20;
 {
     [[TMTimer timer] startTimerWithTimeInterval:1.0];
     [self showTopBar:YES animated:NO];
+    [topBarController setLabelFromElapsedTime];
     id topViewController = navController.topViewController;
     if ([[topViewController class] isSubclassOfClass:NSClassFromString(@"TMTimerViewController")]) {
         TMTimerViewController *currentTvc = (TMTimerViewController *)topViewController;
         [[TMTimer timer] addListener:currentTvc];
+        [currentTvc setLabelFromElapsedTime];
     }
 }
 

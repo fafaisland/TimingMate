@@ -40,11 +40,16 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)receiveEventFromTimer:(TMTimer *)timer
+- (void)setLabelFromElapsedTime
 {
     TMTask *currentTask = [TMTaskStore sharedStore].currentTimingTask;
     [label setText:[NSString stringWithFormat:@"%@ %@", currentTask.title,
-     TMTimerStringFromSeconds(currentTask.elapsedTimeOnRecord)]];
+                    TMTimerStringFromSeconds(currentTask.elapsedTimeOnRecord)]];
+}
+
+- (void)receiveEventFromTimer:(TMTimer *)timer
+{
+    [self setLabelFromElapsedTime];
 }
 
 - (void)receiveInterruptFromTimer:(TMTimer *)timer

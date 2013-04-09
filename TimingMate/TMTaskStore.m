@@ -134,7 +134,7 @@
     if (rr) {
         TMTask *lastRunningTask = (TMTask *)[context
                                              objectWithID:[psc
-                                                           managedObjectIDForURIRepresentation:rr.taskURL]];
+                                        managedObjectIDForURIRepresentation:rr.taskURL]];
         
         NSError *err = nil;
         [[NSFileManager defaultManager] removeItemAtPath:path error:&err];
