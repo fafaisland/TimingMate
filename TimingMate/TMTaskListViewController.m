@@ -284,8 +284,9 @@
 {
     CGPoint location = [recognizer locationInView:tableView];
     NSIndexPath* indexPath = [tableView indexPathForRowAtPoint:location];
+    UITableViewCell* cell = [tableView cellForRowAtIndexPath:indexPath];
 
-    if (![self swipeIsEnabledForSection:indexPath.section])
+    if (!cell || ![self swipeIsEnabledForSection:indexPath.section])
         return;
     
     TMTask *t = [tasks objectAtIndex:indexPath.row];
