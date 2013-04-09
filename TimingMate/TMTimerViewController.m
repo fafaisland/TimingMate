@@ -244,7 +244,7 @@
         [self toggleStart:YES animated:YES];
         [[TMTimer timer] removeListener:self];
     }
-    [[TMTopLevelViewController getTopLevelViewController] showTopBar:NO];
+    [[TMTopLevelViewController getTopLevelViewController] showTopBar:NO animated:YES];
 }
 
 - (IBAction)toggleEngagement:(id)sender
@@ -279,7 +279,7 @@
     [self createTimer];
     
     [self toggleStart:NO animated:YES];
-    [[TMTopLevelViewController getTopLevelViewController] showTopBar:YES];
+    [[TMTopLevelViewController getTopLevelViewController] showTopBar:YES animated:YES];
     [[TMTimer timer] addListener:self];
 }
 

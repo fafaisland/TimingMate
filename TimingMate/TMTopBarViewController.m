@@ -49,7 +49,7 @@
 
 - (void)receiveInterruptFromTimer:(TMTimer *)timer
 {
-    [[TMTopLevelViewController getTopLevelViewController] showTopBar:NO];
+    [[TMTopLevelViewController getTopLevelViewController] showTopBar:NO animated:YES];
 }
 
 - (void)tap:(id)sender

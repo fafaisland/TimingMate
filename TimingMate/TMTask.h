@@ -11,7 +11,7 @@
 
 #import "TMTimerListener.h"
 
-@class TMRecord, TMSeries,TMTotalTimePerDayRecord;
+@class TMRecord, TMSeries, TMTotalTimePerDayRecord, TMRunningRecord;
 
 @interface TMTask : NSManagedObject <TMTimerListener>
 {
@@ -45,5 +45,8 @@
 - (void)beginNewRecord;
 - (void)endNewRecord;
 - (int)elapsedTimeOnRecord;
+
+- (TMRunningRecord *)getRunningRecord;
+- (void)restartRecordWithTime:(NSDate *)beginTime;
 
 @end

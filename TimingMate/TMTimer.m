@@ -57,6 +57,7 @@
 
 - (void)sendInterrupt
 {
+    [self stopTimer];
     while (listeners.count != 0) {
         id listener = [listeners objectAtIndex:listeners.count-1];
         [listener receiveInterruptFromTimer:self];

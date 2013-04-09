@@ -64,7 +64,7 @@ const NSInteger TMTopBarHeight = 20;
     [self addChildViewController:navController];
 }
 
-- (void)showTopBar:(BOOL)showTopBar
+- (void)showTopBar:(BOOL)showTopBar animated:(BOOL)animated
 {
     // Reset topBar listener position
     [[TMTimer timer] removeListener:topBarController];
@@ -76,16 +76,19 @@ const NSInteger TMTopBarHeight = 20;
 
     showingTopBar = showTopBar;
 
-    [UIView beginAnimations:nil context:nil];
-    [UIView setAnimationDuration:0.4];
-    [UIView setAnimationCurve: UIViewAnimationCurveEaseInOut];
+    if (animated) {
+        [UIView beginAnimations:nil context:nil];
+        [UIView setAnimationDuration:0.4];
+        [UIView setAnimationCurve: UIViewAnimationCurveEaseInOut];
+    }
 
     CGRect navFrm = navController.view.frame;
     navFrm.origin.y -= (showTopBar ? -1 : 1) * TMTopBarHeight;
     navFrm.size.height += (showTopBar ? -1 : 1) * TMTopBarHeight;
     navController.view.frame = navFrm;
     
-    [UIView commitAnimations];
+    if (animated)
+        [UIView commitAnimations];
 }
 
 - (void)showTimerViewForTask:(TMTask *)task
@@ -100,6 +103,17 @@ const NSInteger TMTopBarHeight = 20;
     if ([[topViewController class] isSubclassOfClass:NSClassFromString(@"TMTaskListViewController")])
         [tvc setTaskListView:topViewController];
     [navController pushViewController:tvc animated:YES];
+}
+
+- (void)restartTimerForTask:(TMTask *)task
+{
+    [[TMTimer timer] startTimerWithTimeInterval:1.0];
+    [self showTopBar:YES animated:NO];
+    id topViewController = navController.topViewController;
+    if ([[topViewController class] isSubclassOfClass:NSClassFromString(@"TMTimerViewController")]) {
+        TMTimerViewController *currentTvc = (TMTimerViewController *)topViewController;
+        [[TMTimer timer] addListener:currentTvc];
+    }
 }
 
 + (TMTopLevelViewController *)getTopLevelViewController {

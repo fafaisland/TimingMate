@@ -19,6 +19,7 @@
 }
 
 @property (nonatomic, strong) NSManagedObjectContext *context;
+@property (nonatomic, strong) NSPersistentStoreCoordinator *psc;
 @property (nonatomic, strong) TMTask *currentTimingTask;
 
 + (TMTaskStore *)sharedStore;
@@ -29,5 +30,9 @@
 - (NSArray *)allTasks;
 - (void)fetchAllTasks;
 - (NSArray *)allEngagingTasks;
+
+- (NSString *)itemArchivePath;
+- (BOOL)saveCurrentRunningTask;
+- (void)loadCurrentRunningTask;
 
 @end

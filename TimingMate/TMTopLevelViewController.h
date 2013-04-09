@@ -19,8 +19,9 @@
 
 + (TMTopLevelViewController *)getTopLevelViewController;
 - (void)addNavigationController:(UINavigationController *)navigationController;
-- (void)showTopBar:(BOOL)showTopBar;
+- (void)showTopBar:(BOOL)showTopBar animated:(BOOL)animated;
 - (void)showTimerViewForTask:(TMTask *)task;
+- (void)restartTimerForTask:(TMTask *)task;
 
 @end
 

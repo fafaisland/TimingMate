@@ -8,13 +8,15 @@
 
 #import "TMTaskStore.h"
 
+#import "TMRunningRecord.h"
 #import "TMSeries.h"
 #import "TMTask.h"
 #import "TMTimer.h"
+#import "TMTopLevelViewController.h"
 
 @implementation TMTaskStore
 
-@synthesize context, currentTimingTask;
+@synthesize context, psc, currentTimingTask;
 
 - (id)init
 {
@@ -31,6 +33,7 @@
 {
     if (!allTasks) {
         [self fetchAllTasks];
+        [self loadCurrentRunningTask];
     }
 
     return allTasks;
@@ -103,6 +106,42 @@
 + (id)allocWithZone:(NSZone *)zone
 {
     return [self sharedStore];
+}
+
+#pragma mark - Archiving
+
+- (NSString *)itemArchivePath
+{
+    NSString *documentDirectory =
+    [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)
+     objectAtIndex:0];
+    return [documentDirectory stringByAppendingPathComponent:@"current.archive"];
+}
+
+- (BOOL)saveCurrentRunningTask
+{
+    NSString *path = [self itemArchivePath];
+    
+    return [NSKeyedArchiver
+            archiveRootObject:[currentTimingTask getRunningRecord]
+            toFile:path];
+}
+
+- (void)loadCurrentRunningTask
+{
+    NSString *path = [self itemArchivePath];
+    TMRunningRecord *rr = [NSKeyedUnarchiver unarchiveObjectWithFile:path];
+    if (rr) {
+        TMTask *lastRunningTask = (TMTask *)[context
+                                             objectWithID:[psc
+                                                           managedObjectIDForURIRepresentation:rr.taskURL]];
+        
+        NSError *err = nil;
+        [[NSFileManager defaultManager] removeItemAtPath:path error:&err];
+        [lastRunningTask restartRecordWithTime:rr.recordBeginTime];
+        [[TMTopLevelViewController getTopLevelViewController]
+         restartTimerForTask:lastRunningTask];
+    }
 }
 
 @end

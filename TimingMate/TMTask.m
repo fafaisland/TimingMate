@@ -9,6 +9,7 @@
 #import "TMTask.h"
 
 #import "TMRecord.h"
+#import "TMRunningRecord.h"
 #import "TMSeries.h"
 #import "TMTotalTimePerDayRecord.h"
 #import "TMTaskStore.h"
@@ -144,7 +145,26 @@
 
 - (void)receiveInterruptFromTimer:(TMTimer *)timer
 {
-    [self endNewRecord];
+    [[TMTimer timer] removeListener:self];
+}
+
+#pragma mark - Archiving
+
+- (TMRunningRecord *)getRunningRecord
+{
+    TMRunningRecord *rr = [[TMRunningRecord alloc] init];
+    rr.recordBeginTime = recordBeginTime;
+    rr.taskURL = [[self objectID] URIRepresentation];
+    return rr;
+}
+
+- (void)restartRecordWithTime:(NSDate *)beginTime;
+{
+    NSDate *now = [NSDate date];
+    recordBeginTime = beginTime;
+    elapsedTimeOnRecord = [now timeIntervalSinceDate:beginTime];
+    [[TMTimer timer] addListener:self];
+    [TMTaskStore sharedStore].currentTimingTask = self;
 }
 
 @end

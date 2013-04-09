@@ -73,6 +73,7 @@
 		96D4039516F3B64800214323 /* TMGlobals.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D4039416F3B64800214323 /* TMGlobals.m */; };
 		96F3075316F7A20700B0E2EF /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96F3075216F7A20700B0E2EF /* QuartzCore.framework */; };
 		96F3075616F7ACC400B0E2EF /* TMListsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96F3075516F7ACC400B0E2EF /* TMListsViewController.m */; };
+		96FFF8B71713903700C34F66 /* TMRunningRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 96FFF8B61713903700C34F66 /* TMRunningRecord.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -171,6 +172,8 @@
 		96F3075216F7A20700B0E2EF /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		96F3075416F7ACC400B0E2EF /* TMListsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMListsViewController.h; sourceTree = "<group>"; };
 		96F3075516F7ACC400B0E2EF /* TMListsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMListsViewController.m; sourceTree = "<group>"; };
+		96FFF8B51713903700C34F66 /* TMRunningRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMRunningRecord.h; sourceTree = "<group>"; };
+		96FFF8B61713903700C34F66 /* TMRunningRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMRunningRecord.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -361,6 +364,8 @@
 			children = (
 				0414FE8216FE33E800ADE44B /* TMRecord.h */,
 				0414FE8316FE33F600ADE44B /* TMRecord.m */,
+				96FFF8B51713903700C34F66 /* TMRunningRecord.h */,
+				96FFF8B61713903700C34F66 /* TMRunningRecord.m */,
 				966E516016FE05250039B175 /* TMTask.h */,
 				966E516116FE05250039B175 /* TMTask.m */,
 				962DFC6C16F952B200E5F8C8 /* TMSeries.h */,
@@ -509,6 +514,7 @@
 				96547B22170E45FE00847E6B /* TMTopLevelViewController.m in Sources */,
 				96547B26170E4C6500847E6B /* TMTopBarViewController.m in Sources */,
 				9641F809170E5FA5000FC8FD /* TMTimer.m in Sources */,
+				96FFF8B71713903700C34F66 /* TMRunningRecord.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
