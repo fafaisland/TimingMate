@@ -92,6 +92,13 @@ enum { TMHourComponent = 0,
     [self updateExpectedTimeButtonLabel];
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    [titleField becomeFirstResponder];
+}
+
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];

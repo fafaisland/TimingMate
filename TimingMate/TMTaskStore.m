@@ -141,6 +141,7 @@
         [lastRunningTask restartRecordWithTime:rr.recordBeginTime];
         [[TMTopLevelViewController getTopLevelViewController]
          restartTimerForTask:lastRunningTask];
+        currentTimingTask = lastRunningTask;
     }
 }
 
