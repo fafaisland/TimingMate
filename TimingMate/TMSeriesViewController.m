@@ -74,14 +74,6 @@ NSString * const TMSeriesStatisticsCellIdentifier = @"StatisticsCell";
     // Dispose of any resources that can be recreated.
 }
 
-- (void)addNewTask:(id)sender
-{
-    TMTask *t = [[TMTaskStore sharedStore] createAndAddTask];
-    [series addTasksObject:t];
-    
-    [self presentViewForAddingTask:t];
-}
-
 - (BOOL)viewIncludesTask:(TMTask *)task
 {
     return task.series == series;
@@ -132,7 +124,8 @@ NSString * const TMSeriesStatisticsCellIdentifier = @"StatisticsCell";
 {
     if (indexPath.section == 0)
         return NO;
-    return YES;
+    return [super tableView:aTableView
+        canEditRowAtIndexPath:[self convertToSuperIndexPath:indexPath]];
 }
 
 - (BOOL)swipeIsEnabledForSection:(NSInteger)section
@@ -143,6 +136,13 @@ NSString * const TMSeriesStatisticsCellIdentifier = @"StatisticsCell";
 }
 
 #pragma mark - Helper methods
+
+- (TMTask *)createAndSetupNewTask
+{
+    TMTask *t = [[TMTaskStore sharedStore] createAndAddTask];
+    [series addTasksObject:t];
+    return t;
+}
 
 - (NSIndexPath *)convertToSuperIndexPath:(NSIndexPath *)indexPath
 {

@@ -20,8 +20,6 @@
 NSString * const TMAllListName = @"All";
 NSString * const TMEngagingListName = @"Engaging";
 
-NSString * const TMListsViewEditableCellIdentifier = @"EditableCell";
-
 enum { TMAllListIndex = 0,
        TMEngagingListIndex = 1,
        TMSeriesListsIndex = 2,

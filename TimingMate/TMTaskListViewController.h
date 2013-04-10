@@ -13,11 +13,10 @@
 @class TMTask;
 
 @interface TMTaskListViewController : SideSwipeTableViewController
-    <UITableViewDelegate, UITableViewDataSource>
+    <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate>
 {
     NSMutableArray *tasks;
-    
-    UIBarButtonItem *addButton;
+
     UIBarButtonItem *deleteButton;
     UIBarButtonItem *deleteDoneButton;
     
@@ -28,9 +27,13 @@
     
     UIColor *finishedTaskColor;
     UIColor *unfinishedTaskColor;
+    
+    UITextField *addField;
+    BOOL clickedAccessoryButton;
 }
 
 @property (nonatomic, copy) void (^listGenerationBlock)(NSMutableArray *);
+@property (nonatomic, copy) void (^onLoadBlock)(void);
 
 - (id)initWithTitle:(NSString *)title;
 - (void)refreshTask:(TMTask *)task;

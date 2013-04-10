@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+extern NSString * const TMListsViewEditableCellIdentifier;
+
 @interface TMListsViewEditableCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UITextField *titleField;

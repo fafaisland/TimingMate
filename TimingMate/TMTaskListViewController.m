@@ -12,6 +12,7 @@
 
 #import "TMEditTaskViewController.h"
 #import "TMGlobals.h"
+#import "TMListsViewEditableCell.h"
 #import "TMTask.h"
 #import "TMTaskStore.h"
 #import "TMTimerViewController.h"
@@ -20,6 +21,10 @@
 #define BUTTON_LEFT_MARGIN 10.0
 #define BUTTON_SPACING 25.0
 
+enum { TMEditSectionIndex = 0,
+       TMTaskSectionIndex = 1,
+       TMSectionsEnd = 2 };
+
 @interface TMTaskListViewController (PrivateStuff)
 -(void) setupSideSwipeView;
 -(UIImage*) imageFilledWith:(UIColor*)color using:(UIImage*)startImage;
@@ -27,7 +32,7 @@
 
 @implementation TMTaskListViewController
 
-@synthesize listGenerationBlock;
+@synthesize listGenerationBlock, onLoadBlock;
 
 - (id)init
 {
@@ -42,9 +47,6 @@
                                        action:@selector(showListSelectionView:)];
         self.navigationItem.leftBarButtonItem = listButton;
         
-        addButton = [[UIBarButtonItem alloc]
-                                      initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
-                                      target:self action:@selector(addNewTask:)];
         deleteButton = [[UIBarButtonItem alloc]
                          initWithTitle:@"Delete"
                          style:UIBarButtonItemStyleBordered
@@ -54,10 +56,13 @@
                              initWithBarButtonSystemItem:UIBarButtonSystemItemDone
                             target:self
                             action:@selector(toggleDelete)];
-        self.navigationItem.rightBarButtonItems = @[addButton, deleteButton];
+        self.navigationItem.rightBarButtonItem = deleteButton;
         
         finishedTaskColor = [UIColor grayColor];
         unfinishedTaskColor = [UIColor blackColor];
+        
+        onLoadBlock = nil;
+        clickedAccessoryButton = NO;
     }
     return self;
 }
@@ -94,6 +99,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    UINib *nib = [UINib nibWithNibName:@"TMListsViewEditableCell" bundle:nil];
+    [self.tableView registerNib:nib
+         forCellReuseIdentifier:TMListsViewEditableCellIdentifier];
 
     // Setup the title and image for each button within the side swipe view
     sideSwipeButtonData = [NSArray arrayWithObjects:
@@ -110,6 +119,18 @@
     [self setupSideSwipeView];
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    clickedAccessoryButton = NO;
+    
+    if (onLoadBlock) {
+        onLoadBlock();
+        onLoadBlock = nil;
+    }
+}
+
 #pragma mark - Button handlers
 
 - (void)showListSelectionView:(id)sender
@@ -117,68 +138,100 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (void)addNewTask:(id)sender
-{
-    TMTask *t = [[TMTaskStore sharedStore] createAndAddTask];
-    
-    [self presentViewForAddingTask:t];
-    
-    /*CGRect f = self.navigationController.view.frame;
-     [CATransaction begin];
-     CATransition *tr = [CATransition animation];
-     tr.duration = 0.25;
-     tr.type = kCATransitionMoveIn;
-     tr.subtype = kCATransitionFromLeft;
-     [nc.view.layer addAnimation:tr forKey:nil];
-     nc.view.frame = CGRectMake(f.origin.x, f.origin.y,
-     f.size.width, f.size.height);
-     [self.navigationController.view addSubview:nc.view];
-     [CATransaction commit];*/
-}
+/*CGRect f = self.navigationController.view.frame;
+ [CATransaction begin];
+ CATransition *tr = [CATransition animation];
+ tr.duration = 0.25;
+ tr.type = kCATransitionMoveIn;
+ tr.subtype = kCATransitionFromLeft;
+ [nc.view.layer addAnimation:tr forKey:nil];
+ nc.view.frame = CGRectMake(f.origin.x, f.origin.y,
+ f.size.width, f.size.height);
+ [self.navigationController.view addSubview:nc.view];
+ [CATransaction commit];*/
 
 - (void)toggleDelete
 {
     if (self.tableView.isEditing) {
         [self.tableView setEditing:NO animated:YES];
-        self.navigationItem.rightBarButtonItems = @[addButton, deleteButton];
+        self.navigationItem.rightBarButtonItem = deleteButton;
     } else {
         [self removeSideSwipeView:YES];
         [self.tableView setEditing:YES animated:YES];
-        self.navigationItem.rightBarButtonItems = @[addButton, deleteDoneButton];
+        self.navigationItem.rightBarButtonItem = deleteDoneButton;
     }
+}
+
+#pragma mark - TextField delegate
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    return YES;
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField
+{
+    if (clickedAccessoryButton || [textField.text isEqualToString:@""])
+        return;
+
+    TMTask *newTask = [self createAndSetupNewTask];
+    newTask.title = textField.text;
+    [self reloadWithTask:newTask];
+    addField.text = @"";
 }
 
 #pragma mark - Table methods
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1;
+    return TMSectionsEnd;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)theTableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
-
-    SideSwipeTableViewCell *cell = [theTableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (!cell) {
-        cell = [[SideSwipeTableViewCell alloc]
-                             initWithStyle:UITableViewCellStyleDefault
-                             reuseIdentifier:CellIdentifier];
-    }
-
-    TMTask *t = [tasks objectAtIndex:indexPath.row];
-    cell.textLabel.text = t.title;
     
-    if (t.isFinished) {
-        cell.textLabel.textColor = finishedTaskColor;
+    if (indexPath.section == TMTaskSectionIndex) {
+
+        SideSwipeTableViewCell *cell = [theTableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        if (!cell) {
+            cell = [[SideSwipeTableViewCell alloc]
+                                 initWithStyle:UITableViewCellStyleDefault
+                                 reuseIdentifier:CellIdentifier];
+        }
+
+        TMTask *t = [tasks objectAtIndex:indexPath.row];
+        cell.textLabel.text = t.title;
+        
+        if (t.isFinished) {
+            cell.textLabel.textColor = finishedTaskColor;
+        } else {
+            cell.textLabel.textColor = unfinishedTaskColor;
+        }
+        //cell.supressDeleteButton = ![self gestureRecognizersSupported];
+        cell.supressDeleteButton = NO;
+        
+        return cell;
     } else {
-        cell.textLabel.textColor = unfinishedTaskColor;
+        TMListsViewEditableCell *editableCell = [tableView
+                                                 dequeueReusableCellWithIdentifier:TMListsViewEditableCellIdentifier];
+        addField = editableCell.titleField;
+        addField.text = @"";
+        [addField setPlaceholder:@"Add a new task"];
+        addField.delegate = self;
+        editableCell.selectionStyle = UITableViewCellSelectionStyleNone;
+        editableCell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
+        return editableCell;
     }
-    //cell.supressDeleteButton = ![self gestureRecognizersSupported];
-    cell.supressDeleteButton = NO;
-    
-    return cell;
+}
+         
+- (void)tableView:(UITableView *)tableView
+        accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
+{
+    clickedAccessoryButton = YES;
+    [self addNewTaskWithTitle:addField.text];
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)
@@ -194,8 +247,10 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    TMTask *t = [tasks objectAtIndex:indexPath.row];
-    [self showTimerViewForTask:t];
+    if (indexPath.section == TMTaskSectionIndex) {
+        TMTask *t = [tasks objectAtIndex:indexPath.row];
+        [self showTimerViewForTask:t];
+    }
 }
 
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -207,7 +262,10 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return tasks.count;
+    if (section == TMTaskSectionIndex)
+        return tasks.count;
+    else
+        return 1;
 }
 
 - (void)reloadRowsAtIndexPaths:(NSIndexPath*)indexPath
@@ -216,7 +274,29 @@
     NSArray* rowsToReload = [NSArray arrayWithObjects:rowToReload, nil];
     [self.tableView reloadRowsAtIndexPaths:rowsToReload withRowAnimation:UITableViewRowAnimationNone];
 }
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.section == TMTaskSectionIndex)
+        return YES;
+    return NO;
+}
+
 #pragma mark - Helper methods
+
+- (void)addNewTaskWithTitle:(NSString *)title
+{
+    TMTask *t = [self createAndSetupNewTask];
+    t.title = title;
+    
+    [self presentViewForAddingTask:t];
+}
+
+- (TMTask *)createAndSetupNewTask
+{
+    TMTask *t = [[TMTaskStore sharedStore] createAndAddTask];
+    return t;
+}
 
 - (void)reloadWithTask:(TMTask *)task
 {
@@ -264,14 +344,14 @@
     TMEditTaskViewController *etvc = [[TMEditTaskViewController alloc]
                                       initWithTask:task
                                       asNewTask:YES];
+    [etvc setTaskListView:self];
     [etvc setDismissBlock:^{
         [self reloadWithTask:task];
     }];
     [etvc setCancelBlock:^{
         [self removeTask:task];
     }];
-    UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:etvc];
-    [self presentViewController:nc animated:YES completion:nil];
+    [self.navigationController pushViewController:etvc animated:YES];
 }
 
 - (BOOL)viewIncludesTask:(TMTask *)task
@@ -280,6 +360,7 @@
 }
 
 #pragma mark - SideSwipeView
+
 - (void)swipe:(UISwipeGestureRecognizer *)recognizer direction:(UISwipeGestureRecognizerDirection)direction
 {
     CGPoint location = [recognizer locationInView:tableView];

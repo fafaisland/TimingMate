@@ -41,10 +41,11 @@
 						<array class="NSMutableArray" key="NSSubviews">
 							<object class="IBUITextField" id="766954454">
 								<reference key="NSNextResponder" ref="228437101"/>
-								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{11, 7}, {289, 30}}</string>
+								<int key="NSvFlags">290</int>
+								<string key="NSFrame">{{11, 7}, {271, 30}}</string>
 								<reference key="NSSuperview" ref="228437101"/>
 								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -157,13 +158,24 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">11</int>
+			<int key="maxID">13</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
 				<object class="IBPartialClassDescription">
 					<string key="className">TMListsViewEditableCell</string>
 					<string key="superclassName">UITableViewCell</string>
+					<object class="NSMutableDictionary" key="actions">
+						<string key="NS.key.0">leftArrowClicked:</string>
+						<string key="NS.object.0">id</string>
+					</object>
+					<object class="NSMutableDictionary" key="actionInfosByName">
+						<string key="NS.key.0">leftArrowClicked:</string>
+						<object class="IBActionInfo" key="NS.object.0">
+							<string key="name">leftArrowClicked:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</object>
 					<object class="NSMutableDictionary" key="outlets">
 						<string key="NS.key.0">titleField</string>
 						<string key="NS.object.0">UITextField</string>

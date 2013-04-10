@@ -133,14 +133,14 @@ enum { TMHourComponent = 0,
         titleField.placeholder = @"Please enter a task name";
         return;
     }
-    [[self presentingViewController] dismissViewControllerAnimated:YES
-                                                        completion:dismissBlock];
+    taskListView.onLoadBlock = dismissBlock;
+    [[self navigationController] popViewControllerAnimated:YES];
 }
 
 - (void)cancel:(id)sender
 {
-    [[self presentingViewController] dismissViewControllerAnimated:YES
-                                                        completion:cancelBlock];
+    taskListView.onLoadBlock = cancelBlock;
+    [[self navigationController] popViewControllerAnimated:YES];
 }
 
 - (void)showSeriesPicker:(id)sender

@@ -8,6 +8,8 @@
 
 #import "TMListsViewEditableCell.h"
 
+NSString * const TMListsViewEditableCellIdentifier = @"EditableCell";
+
 @implementation TMListsViewEditableCell
 
 @synthesize titleField;
