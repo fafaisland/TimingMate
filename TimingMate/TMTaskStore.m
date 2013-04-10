@@ -33,7 +33,6 @@
 {
     if (!allTasks) {
         [self fetchAllTasks];
-        [self loadCurrentRunningTask];
     }
 
     return allTasks;
