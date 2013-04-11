@@ -62,7 +62,6 @@ enum { TMEditSectionIndex = 0,
         unfinishedTaskColor = [UIColor blackColor];
         
         onLoadBlock = nil;
-        clickedAccessoryButton = NO;
     }
     return self;
 }
@@ -123,8 +122,6 @@ enum { TMEditSectionIndex = 0,
 {
     [super viewDidAppear:animated];
     
-    clickedAccessoryButton = NO;
-    
     if (onLoadBlock) {
         onLoadBlock();
         onLoadBlock = nil;
@@ -166,19 +163,19 @@ enum { TMEditSectionIndex = 0,
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
+    if (![textField.text isEqualToString:@""]) {
+        TMTask *newTask = [self createAndSetupNewTask];
+        newTask.title = textField.text;
+        [self reloadWithTask:newTask];
+        addField.text = @"";
+    }
+
     [textField resignFirstResponder];
     return YES;
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
-    if (clickedAccessoryButton || [textField.text isEqualToString:@""])
-        return;
-
-    TMTask *newTask = [self createAndSetupNewTask];
-    newTask.title = textField.text;
-    [self reloadWithTask:newTask];
-    addField.text = @"";
 }
 
 #pragma mark - Table methods
@@ -230,7 +227,6 @@ enum { TMEditSectionIndex = 0,
 - (void)tableView:(UITableView *)tableView
         accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
 {
-    clickedAccessoryButton = YES;
     [self addNewTaskWithTitle:addField.text];
 }
 

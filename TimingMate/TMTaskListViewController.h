@@ -29,7 +29,6 @@
     UIColor *unfinishedTaskColor;
     
     UITextField *addField;
-    BOOL clickedAccessoryButton;
 }
 
 @property (nonatomic, copy) void (^listGenerationBlock)(NSMutableArray *);
