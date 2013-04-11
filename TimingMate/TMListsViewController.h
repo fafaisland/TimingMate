@@ -19,6 +19,8 @@
     
     NSIndexPath *indexOfSeriesToBeDeleted;
     NSIndexPath *editingIndexPath;
+    
+    BOOL switchingViews;
 }
 
 - (void)pushDefaultList;

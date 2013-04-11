@@ -70,6 +70,15 @@ enum { TMAllListIndex = 0,
     
     self.navigationItem.leftBarButtonItem = editButton;
     self.editing = NO;
+    [addField setText:@""];
+    [addField resignFirstResponder];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    switchingViews = NO;
 }
 
 - (void)didReceiveMemoryWarning
@@ -201,7 +210,10 @@ enum { TMAllListIndex = 0,
 {
     if (self.isEditing) {
         if (indexPath.section < TMSeriesListsIndex || indexPath.section == TMDefaultListEnd)
+        {
+            [tableView deselectRowAtIndexPath:indexPath animated:NO];
             return;
+        }
 
         [self endCellEdit];
 
@@ -212,6 +224,7 @@ enum { TMAllListIndex = 0,
             return;
 
         [self pushListNamed:[self listNameFromIndexPath:indexPath] animated:YES];
+        switchingViews = YES;
     }
 }
 
@@ -244,7 +257,7 @@ enum { TMAllListIndex = 0,
 
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
-    if (textField == addField) {        
+    if (!switchingViews && textField == addField) {
         [self addSeries:addField.text];
         [self.tableView reloadData];
     } else if (textField == editField) {
