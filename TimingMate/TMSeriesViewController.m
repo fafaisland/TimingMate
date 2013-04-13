@@ -43,6 +43,10 @@ NSString * const TMSeriesStatisticsCellIdentifier = @"StatisticsCell";
             for (TMTask *task in [[TMSeriesStore sharedStore] seriesByTitle:title].tasks) {
                 [list addObject:task];
             };
+            NSSortDescriptor *sd = [[NSSortDescriptor alloc]
+                                    initWithKey:@"creationTime"
+                                    ascending:NO];
+            [list sortUsingDescriptors:@[sd]];
         };
         
         tasks = [NSMutableArray array];
@@ -64,8 +68,6 @@ NSString * const TMSeriesStatisticsCellIdentifier = @"StatisticsCell";
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
-    
 }
 
 - (void)didReceiveMemoryWarning
