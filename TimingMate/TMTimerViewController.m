@@ -58,7 +58,7 @@
     currentEngagementButton = task.isEngaging ? disengageButton : engageButton;
     [seriesLabel setText:task.series.title];
     [seriesLabel setTextColor:[UIColor colorWithRed:30.0f/255.0f green:144.0f/255.0f blue:255.0f/255.0f alpha:1.0f]];
-    UIFont *seriesFont = [UIFont fontWithName:@"TrebuchetMS-Bold" size:40];
+    UIFont *seriesFont = [UIFont fontWithName:@"TrebuchetMS-Bold" size:24];
     [seriesLabel setFont:seriesFont];
     CGPoint center = seriesLabel.center;
     [seriesLabel sizeToFit];
